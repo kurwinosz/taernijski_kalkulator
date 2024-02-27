@@ -8,7 +8,6 @@ const Tiles = document.querySelectorAll(".item");
     Tiles.forEach( $currentTile =>{
         $currentTile.addEventListener("mouseover", () => {
             if($currentTile.hasAttribute("current-item")){
-                console.log("jebana");
                 checkIfItemIsVisible($currentTile.getAttribute("current-item"), $currentTile);
             }
         })
@@ -31,16 +30,16 @@ const Tiles = document.querySelectorAll(".item");
 
 
 let helmIcon = document.querySelector("#helm");
-    helmIcon.style.backgroundImage = `url(img/icons/footer-img.png)`;
+    helmIcon.style.backgroundImage = `url(img/icons/helmIcon.png)`;
     let activeHelmItems = [];
 let zbrojaIcon = document.querySelector("#zbroja");
-    zbrojaIcon.style.backgroundImage = `url(img/icons/footer-img.png)`;
+    zbrojaIcon.style.backgroundImage = `url(img/icons/zbrojaIcon.png)`;
     let activeZbrojaItems = [];
 let naszyjnikIcon = document.querySelector("#naszyjnik");
-    naszyjnikIcon.style.backgroundImage = `url(img/icons/footer-img.png)`;
+    naszyjnikIcon.style.backgroundImage = `url(img/icons/naszyjnikIcon.png)`;
     let activeNaszyjnikItems = [];
 let rekawiceIcon = document.querySelector("#rekawice");
-    rekawiceIcon.style.backgroundImage = `url(img/icons/footer-img.png)`;
+    rekawiceIcon.style.backgroundImage = `url(img/icons/rekawiceIcon.png)`;
     let activeRekawiceItems = [];
 
 
@@ -49,8 +48,8 @@ let removeButton = null;
 let removeButtonCounter = 0;
 /* DIALOG */
 
-function checkRemoveButton(icon, iconName){
-    if(removeButton == null && icon.style.backgroundImage != `url("img/icons/footer-img.png")` && removeButtonCounter === 0){
+function checkRemoveButton(icon, iconName, iconImage){
+    if(removeButton == null && icon.style.backgroundImage != `url("img/icons/${icon}.png")` && removeButtonCounter === 0){
         let removeButton = document.createElement("a");
         
         removeButton.setAttribute("class", `remove-${iconName} remove-button`);
@@ -61,7 +60,7 @@ function checkRemoveButton(icon, iconName){
         console.log(removeButton.className);
         
         removeButton.addEventListener("click", () =>{
-            icon.style.backgroundImage = `url("img/icons/footer-img.png")`;
+            icon.style.backgroundImage = `url("img/icons/${iconImage}.png")`;
             Dialog.close(); 
 
             //e.firstElementChild can be used. 
@@ -110,7 +109,7 @@ class Helm{
                 helmIcon.style.backgroundImage = `url(${this.img})`;
                 console.log(this.img);
                 helmIcon.setAttribute("current-item", this.name);
-                checkRemoveButton(helmIcon, "helm-icon");
+                checkRemoveButton(helmIcon, "helm-icon", "helmIcon");
             }
             if(this.active === false){
                 helmIcon.style.backgroundImage = "none";
@@ -118,7 +117,7 @@ class Helm{
     }
     
     isShown(){
-        checkRemoveButton(helmIcon, "helm-icon");
+        checkRemoveButton(helmIcon, "helm-icon", "helmIcon");
         let newDialogImage = document.createElement("a")
         newDialogImage.style.backgroundImage = `url(${this.img}`;
         newDialogImage.setAttribute("class", `${this.name} dialog-img`);
@@ -167,7 +166,7 @@ class Zbroja{
                 zbrojaIcon.style.backgroundImage = `url(${this.img})`;
                 console.log(this.img);
                 zbrojaIcon.setAttribute("current-item", this.name);
-                checkRemoveButton(zbrojaIcon, "zbroja-icon");
+                checkRemoveButton(zbrojaIcon, "zbroja-icon", "zbrojaIcon");
                 
             }
             if(this.active === false){
@@ -179,7 +178,7 @@ class Zbroja{
         newDialogImage.style.backgroundImage = `url(${this.img}`;
         newDialogImage.setAttribute("class", `${this.name} dialog-img`);
         Dialog_container.appendChild(newDialogImage);
-        checkRemoveButton(zbrojaIcon, "zbroja-icon");    
+        checkRemoveButton(zbrojaIcon, "zbroja-icon", "zbrojaIcon");    
         activeZbrojaItems.push(newDialogImage);
 
         this.shown = true;
@@ -222,7 +221,7 @@ const ZbiorZbroi = {
                 if(this.active === true){
                     naszyjnikIcon.style.backgroundImage = `url(${this.img})`;
                     console.log(this.img);
-                    checkRemoveButton(naszyjnikIcon, "naszyjnik-icon");
+                    checkRemoveButton(naszyjnikIcon, "naszyjnik-icon", "naszyjnikIcon");
                     naszyjnikIcon.setAttribute("current-item", this.name);
                     
                 }
@@ -236,7 +235,7 @@ const ZbiorZbroi = {
             newDialogImage.setAttribute("class", `${this.name} dialog-img`);
             Dialog_container.appendChild(newDialogImage);
             activeNaszyjnikItems.push(newDialogImage);
-            checkRemoveButton(naszyjnikIcon, "naszyjnik-icon");    
+            checkRemoveButton(naszyjnikIcon, "naszyjnik-icon", "naszyjnikIcon");    
             
             this.shown = true;
         }
@@ -279,7 +278,7 @@ const ZbiorZbroi = {
                     if(this.active === true){
                         rekawiceIcon.style.backgroundImage = `url(${this.img})`;
                         console.log(this.img);
-                        checkRemoveButton(rekawiceIcon, "rekawice-icon");
+                        checkRemoveButton(rekawiceIcon, "rekawice-icon", "rekawiceIcon");
                         rekawiceIcon.setAttribute("current-item", this.name);
                         
                     }
@@ -293,7 +292,7 @@ const ZbiorZbroi = {
                 newDialogImage.setAttribute("class", `${this.name} dialog-img`);
                 Dialog_container.appendChild(newDialogImage);
                 activeRekawiceItems.push(newDialogImage);
-                checkRemoveButton(rekawiceIcon, "rekawice-icon");    
+                checkRemoveButton(rekawiceIcon, "rekawice-icon", "rekawiceIcon");    
                 
                 this.shown = true;
             }
