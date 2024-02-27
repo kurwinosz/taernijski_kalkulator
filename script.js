@@ -49,7 +49,7 @@ let removeButtonCounter = 0;
 /* DIALOG */
 
 function checkRemoveButton(icon, iconName, iconImage){
-    if(removeButton == null && icon.style.backgroundImage != `url("img/icons/${icon}.png")` && removeButtonCounter === 0){
+    if(removeButton == null && icon.style.backgroundImage != `url("img/icons/${iconImage}.png")` && removeButtonCounter === 0){
         let removeButton = document.createElement("a");
         
         removeButton.setAttribute("class", `remove-${iconName} remove-button`);
