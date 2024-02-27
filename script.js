@@ -41,6 +41,9 @@ let naszyjnikIcon = document.querySelector("#naszyjnik");
 let rekawiceIcon = document.querySelector("#rekawice");
     rekawiceIcon.style.backgroundImage = `url(img/icons/rekawiceIcon.png)`;
     let activeRekawiceItems = [];
+let pelerynaIcon = document.querySelector("#peleryna");
+    pelerynaIcon.style.backgroundImage = `url(img/icons/pelerynaIcon.png)`;
+    let activePelerynaItems = [];
 
 
 
@@ -73,12 +76,14 @@ function checkRemoveButton(icon, iconName, iconImage){
             activeZbrojaItems = [];
             activeNaszyjnikItems = [];
             activeRekawiceItems = [];
+            activePelerynaItems = [];
             removeButton = null;
             removeButtonCounter = 0;
             helmIcon.removeAttribute("current-item", iconName);
             zbrojaIcon.removeAttribute("current-item", iconName);
             naszyjnikIcon.removeAttribute("current-item", iconName);
             rekawiceIcon.removeAttribute("current-item", iconName);
+            pelerynaIcon.removeAttribute("current-item", iconName);
         })
     }
     }
@@ -319,6 +324,65 @@ const ZbiorZbroi = {
             Fraxy: new Rekawice("Fraxy","img/fraxy.png", false, false),
             
             }
+
+            class Peleryna{
+                constructor(name, img, active, shown){
+                    this.name = name;
+                    this.img = img;
+                    this.active = active;
+                    this.shown = shown;
+                }
+                isActive(activated){
+                    console.log(this.active, this.name)
+                    this.active = activated;
+                    console.log(this.active);
+            
+                        if(this.active === true){
+                            pelerynaIcon.style.backgroundImage = `url(${this.img})`;
+                            console.log(this.img);
+                            checkRemoveButton(pelerynaIcon, "peleryna-icon", "pelerynaIcon");
+                            pelerynaIcon.setAttribute("current-item", this.name);
+                            
+                        }
+                        if(this.active === false){
+                            pelerynaIcon.style.backgroundImage = "none";
+                        }
+                }
+                isShown(){
+                    let newDialogImage = document.createElement("a")
+                    newDialogImage.style.backgroundImage = `url(${this.img})`;
+                    newDialogImage.setAttribute("class", `${this.name} dialog-img peleryna-items`);
+                    Dialog_container.appendChild(newDialogImage);
+                    activePelerynaItems.push(newDialogImage);
+                    checkRemoveButton(pelerynaIcon, "peleryna-icon", "pelerynaIcon");    
+                    
+                    this.shown = true;
+                }
+        
+                isHovered(){
+                    if(this.shown === true){
+                        Dialog_container.querySelector(`.${this.name}`).setAttribute('data-tooltip', `${this.name}`);
+                        console.log(this.name);
+                    }
+                    
+                }
+                isNotHovered(){
+                    if(this.shown === true){
+                    Dialog_container.querySelector(`.${this.name}`).removeAttribute('data-tooltip');
+                }
+            }
+        
+            }
+        const ZbiorPeleryn = {
+            Admiralski_gronostaj: new Peleryna("Admiralski_gronostaj", "img/admiralski_gronostaj.png", false, false),
+            Angvallion: new Peleryna("Angvallion", "img/angvallion.png", false, false),
+            Bryza: new Peleryna("Bryza", "img/bryza.png", false, false),
+            Cien_tarula: new Peleryna("Cien_tarula","img/cien_tarula.png", false, false),
+            Debba: new Peleryna("Debba","img/debba.png", false, false),
+                
+                }
+
+
 
 
     function openDialog($currentTile){
@@ -585,10 +649,83 @@ const ZbiorZbroi = {
                 });
         }
 
-            /* PELERYNA */
+        
+    }
 
-        }else if($currentTile == Tiles[4]){
-    
+      /* PELERYNA */
+
+        else if($currentTile == Tiles[4]){
+            console.log($currentTile);
+            Dialog_container.innerHTML = "<h1>Peleryna: </h1>";
+            ZbiorPeleryn.Admiralski_gronostaj.isShown();
+
+                if(activePelerynaItems[0]){
+                    console.log(activePelerynaItems[0]);
+                    activePelerynaItems[0].addEventListener("click", () => {
+                        ZbiorPeleryn.Admiralski_gronostaj.isActive(true);
+                    })
+                    activePelerynaItems[0].addEventListener("mouseover", () => {
+                        ZbiorPeleryn.Admiralski_gronostaj.isHovered()
+                    });
+                    activePelerynaItems[0].addEventListener("mouseout", () => {
+                        ZbiorPeleryn.Admiralski_gronostaj.isNotHovered()
+                    });
+                    
+                }
+            ZbiorPeleryn.Angvallion.isShown();
+            if(activePelerynaItems[1]){
+                console.log(activePelerynaItems[1]);
+                activePelerynaItems[1].addEventListener("click", () => {
+                    ZbiorPeleryn.Angvallion.isActive(true);
+                })
+                activePelerynaItems[1].addEventListener("mouseover", () => {
+                    ZbiorPeleryn.Angvallion.isHovered()
+                });
+                activePelerynaItems[1].addEventListener("mouseout", () => {
+                    ZbiorPeleryn.Angvallion.isNotHovered()
+                });
+                
+            }
+            ZbiorPeleryn.Bryza.isShown();
+                if(activePelerynaItems[2]){
+                    console.log(activePelerynaItems[2]);
+                    activePelerynaItems[2].addEventListener("click", () => {
+                        ZbiorPeleryn.Bryza.isActive(true);
+                })
+                activePelerynaItems[2].addEventListener("mouseover", () => {
+                    ZbiorPeleryn.Bryza.isHovered()
+                });
+                activePelerynaItems[2].addEventListener("mouseout", () => {
+                    ZbiorPeleryn.Bryza.isNotHovered()
+                });
+            }
+            ZbiorPeleryn.Cien_tarula.isShown();
+                if(activePelerynaItems[3]){
+                    console.log(activePelerynaItems[3]);
+                    activePelerynaItems[3].addEventListener("click", () => {
+                        ZbiorPeleryn.Cien_tarula.isActive(true);
+                })
+                activePelerynaItems[3].addEventListener("mouseover", () => {
+                    ZbiorPeleryn.Cien_tarula.isHovered()
+                });
+                activePelerynaItems[3].addEventListener("mouseout", () => {
+                    ZbiorPeleryn.Cien_tarula.isNotHovered()
+                });
+        }
+            ZbiorPeleryn.Debba.isShown();
+                if(activePelerynaItems[4]){
+                    console.log(activePelerynaItems[4]);
+                    activePelerynaItems[4].addEventListener("click", () => {
+                        ZbiorPeleryn.Debba.isActive(true);
+                })
+                activePelerynaItems[4].addEventListener("mouseover", () => {
+                    ZbiorPeleryn.Debba.isHovered()
+                });
+                activePelerynaItems[4].addEventListener("mouseout", () => {
+                    ZbiorPeleryn.Debba.isNotHovered()
+                });
+        }
+
             /* POSTAĆ */
 
         }else if($currentTile == Tiles[5]){
@@ -648,6 +785,7 @@ const ZbiorZbroi = {
         activeZbrojaItems = [];
         activeNaszyjnikItems = [];
         activeRekawiceItems = [];
+        activePelerynaItems = [];
         removeButton = null;
         removeButtonCounter = 0;
     });
