@@ -15,6 +15,9 @@ let zbrojaIcon = document.querySelector("#zbroja");
 let naszyjnikIcon = document.querySelector("#naszyjnik");
     naszyjnikIcon.style.backgroundImage = `url(img/icons/footer-img.png)`;
     let activeNaszyjnikItems = [];
+let rekawiceIcon = document.querySelector("#rekawice");
+    rekawiceIcon.style.backgroundImage = `url(img/icons/footer-img.png)`;
+    let activeRekawiceItems = [];
 
 
 
@@ -45,21 +48,13 @@ function checkRemoveButton(icon, iconName){
             }
             activeHelmItems = [];
             activeZbrojaItems = [];
+            activeNaszyjnikItems = [];
+            activeRekawiceItems = [];
             removeButton = null;
             removeButtonCounter = 0;
         })
     }
     }
-   
-       
-            
-   
-   
-    
-    
-
-
-
 
 const CloseDialog = document.querySelector(".close-dialog");
 const Dialog = document.querySelector(".dialog");
@@ -237,9 +232,61 @@ const ZbiorZbroi = {
         
         }
 
+        class Rekawice{
+            constructor(name, img, active, shown){
+                this.name = name;
+                this.img = img;
+                this.active = active;
+                this.shown = shown;
+            }
+            isActive(activated){
+                console.log(this.active, this.name)
+                this.active = activated;
+                console.log(this.active);
+        
+                    if(this.active === true){
+                        rekawiceIcon.style.backgroundImage = `url(${this.img})`;
+                        console.log(this.img);
+                        checkRemoveButton(rekawiceIcon, "rekawice-icon");
+                        
+                    }
+                    if(this.active === false){
+                        rekawiceIcon.style.backgroundImage = "none";
+                    }
+            }
+            isShown(){
+                let newDialogImage = document.createElement("a")
+                newDialogImage.style.backgroundImage = `url(${this.img})`;
+                newDialogImage.setAttribute("class", `${this.name} dialog-img`);
+                Dialog_container.appendChild(newDialogImage);
+                activeRekawiceItems.push(newDialogImage);
+                checkRemoveButton(rekawiceIcon, "rekawice-icon");    
+                
+                this.shown = true;
+            }
+    
+            isHovered(){
+                if(this.shown === true){
+                    Dialog_container.querySelector(`.${this.name}`).setAttribute('data-tooltip', `${this.name}`);
+                    console.log(this.name);
+                }
+                
+            }
+            isNotHovered(){
+                if(this.shown === true){
+                Dialog_container.querySelector(`.${this.name}`).removeAttribute('data-tooltip');
+            }
+        }
+    
+        }
 
-
-
+        const ZbiorRekawic = {
+            Aeterus_passio: new Rekawice("Aeterus_passio", "img/aeterus_passio.png", false, false),
+            Biltabandury: new Rekawice("Biltabandury", "img/biltabandury.png", false, false),
+            Brassary: new Rekawice("Brassary", "img/brassary.png", false, false),
+            Fraxy: new Rekawice("Fraxy","img/fraxy.png", false, false),
+            
+            }
 
 
     function openDialog($currentTile){
@@ -391,10 +438,10 @@ const ZbiorZbroi = {
                         ZbiorNaszyjnikow.Caratris.isActive(true);
                     })
                     activeNaszyjnikItems[0].addEventListener("mouseover", () => {
-                        ZbiorZbroi.Caratris.isHovered()
+                        ZbiorNaszyjnikow.Caratris.isHovered()
                     });
                     activeNaszyjnikItems[0].addEventListener("mouseout", () => {
-                        ZbiorZbroi.Caratris.isNotHovered()
+                        ZbiorNaszyjnikow.Caratris.isNotHovered()
                     });
                     
                 }
@@ -404,6 +451,12 @@ const ZbiorZbroi = {
                 activeNaszyjnikItems[1].addEventListener("click", () => {
                     ZbiorNaszyjnikow.Danthum.isActive(true);
                 })
+                activeNaszyjnikItems[1].addEventListener("mouseover", () => {
+                    ZbiorNaszyjnikow.Danthum.isHovered()
+                });
+                activeNaszyjnikItems[1].addEventListener("mouseout", () => {
+                    ZbiorNaszyjnikow.Danthum.isNotHovered()
+                });
                 
             }
             ZbiorNaszyjnikow.Dorbis.isShown();
@@ -412,6 +465,12 @@ const ZbiorZbroi = {
                     activeNaszyjnikItems[2].addEventListener("click", () => {
                         ZbiorNaszyjnikow.Dorbis.isActive(true);
                 })
+                activeNaszyjnikItems[2].addEventListener("mouseover", () => {
+                    ZbiorNaszyjnikow.Dorbis.isHovered()
+                });
+                activeNaszyjnikItems[2].addEventListener("mouseout", () => {
+                    ZbiorNaszyjnikow.Dorbis.isNotHovered()
+                });
             }
             ZbiorNaszyjnikow.Groza_seleny.isShown();
                 if(activeNaszyjnikItems[3]){
@@ -419,12 +478,80 @@ const ZbiorZbroi = {
                     activeNaszyjnikItems[3].addEventListener("click", () => {
                         ZbiorNaszyjnikow.Groza_seleny.isActive(true);
                 })
+                activeNaszyjnikItems[3].addEventListener("mouseover", () => {
+                    ZbiorNaszyjnikow.Groza_seleny.isHovered()
+                });
+                activeNaszyjnikItems[3].addEventListener("mouseout", () => {
+                    ZbiorNaszyjnikow.Groza_seleny.isNotHovered()
+                });
         }
 
-        /* RĘKAWICE */
+        
 
-        }else if($currentTile == Tiles[3]){
+        
     
+    }
+
+        /* RĘKAWICE */
+    
+    else if($currentTile == Tiles[3]){
+            console.log($currentTile);
+            Dialog_container.innerHTML = "<h1>Rękawice: </h1>";
+            ZbiorRekawic.Aeterus_passio.isShown();
+
+                if(activeRekawiceItems[0]){
+                    console.log(activeRekawiceItems[0]);
+                    activeRekawiceItems[0].addEventListener("click", () => {
+                        ZbiorRekawic.Aeterus_passio.isActive(true);
+                    })
+                    activeRekawiceItems[0].addEventListener("mouseover", () => {
+                        ZbiorRekawic.Aeterus_passio.isHovered()
+                    });
+                    activeRekawiceItems[0].addEventListener("mouseout", () => {
+                        ZbiorRekawic.Aeterus_passio.isNotHovered()
+                    });
+                    
+                }
+            ZbiorRekawic.Biltabandury.isShown();
+            if(activeRekawiceItems[1]){
+                console.log(activeRekawiceItems[1]);
+                activeRekawiceItems[1].addEventListener("click", () => {
+                    ZbiorRekawic.Biltabandury.isActive(true);
+                })
+                activeRekawiceItems[1].addEventListener("mouseover", () => {
+                    ZbiorRekawic.Biltabandury.isHovered()
+                });
+                activeRekawiceItems[1].addEventListener("mouseout", () => {
+                    ZbiorRekawic.Biltabandury.isNotHovered()
+                });
+                
+            }
+            ZbiorRekawic.Brassary.isShown();
+                if(activeRekawiceItems[2]){
+                    console.log(activeRekawiceItems[2]);
+                    activeRekawiceItems[2].addEventListener("click", () => {
+                        ZbiorRekawic.Brassary.isActive(true);
+                })
+                activeRekawiceItems[2].addEventListener("mouseover", () => {
+                    ZbiorRekawic.Brassary.isHovered()
+                });
+                activeRekawiceItems[2].addEventListener("mouseout", () => {
+                    ZbiorRekawic.Brassary.isNotHovered()
+                });
+            }
+            ZbiorRekawic.Fraxy.isShown();
+                if(activeRekawiceItems[3]){
+                    console.log(activeRekawiceItems[3]);
+                    activeRekawiceItems[3].addEventListener("click", () => {
+                        ZbiorRekawic.Fraxy.isActive(true);
+                })
+                activeRekawiceItems[3].addEventListener("mouseover", () => {
+                    ZbiorRekawic.Fraxy.isHovered()
+                });
+                activeRekawiceItems[3].addEventListener("mouseout", () => {
+                    ZbiorRekawic.Fraxy.isNotHovered()
+                });
+        }
 
             /* PELERYNA */
 
@@ -488,6 +615,7 @@ const ZbiorZbroi = {
         activeHelmItems = [];
         activeZbrojaItems = [];
         activeNaszyjnikItems = [];
+        activeRekawiceItems = [];
         removeButton = null;
         removeButtonCounter = 0;
     });
