@@ -3,7 +3,31 @@ const Tiles = document.querySelectorAll(".item");
         $currentTile.addEventListener("click", () => {
             openDialog($currentTile);
         })
+        
     });
+    Tiles.forEach( $currentTile =>{
+        $currentTile.addEventListener("mouseover", () => {
+            if($currentTile.hasAttribute("current-item")){
+                console.log("jebana");
+                checkIfItemIsVisible($currentTile.getAttribute("current-item"), $currentTile);
+            }
+        })
+        $currentTile.addEventListener("mouseout", () => {
+            checkIfItemIsNotVisible($currentTile);
+        })
+    })
+    function checkIfItemIsVisible(itemName, itemContainer){
+            itemContainer.setAttribute('data-tooltip', `${itemName}`);
+            console.log(itemName);
+            
+    }
+    function checkIfItemIsNotVisible(itemContainer){
+            itemContainer.removeAttribute('data-tooltip');
+    }
+
+
+    
+    
 
 
 let helmIcon = document.querySelector("#helm");
@@ -52,9 +76,14 @@ function checkRemoveButton(icon, iconName){
             activeRekawiceItems = [];
             removeButton = null;
             removeButtonCounter = 0;
+            helmIcon.removeAttribute("current-item", iconName);
+            zbrojaIcon.removeAttribute("current-item", iconName);
+            naszyjnikIcon.removeAttribute("current-item", iconName);
+            rekawiceIcon.removeAttribute("current-item", iconName);
         })
     }
     }
+
 
 const CloseDialog = document.querySelector(".close-dialog");
 const Dialog = document.querySelector(".dialog");
@@ -80,6 +109,7 @@ class Helm{
             if(this.active === true){
                 helmIcon.style.backgroundImage = `url(${this.img})`;
                 console.log(this.img);
+                helmIcon.setAttribute("current-item", this.name);
                 checkRemoveButton(helmIcon, "helm-icon");
             }
             if(this.active === false){
@@ -136,6 +166,7 @@ class Zbroja{
             if(this.active === true){
                 zbrojaIcon.style.backgroundImage = `url(${this.img})`;
                 console.log(this.img);
+                zbrojaIcon.setAttribute("current-item", this.name);
                 checkRemoveButton(zbrojaIcon, "zbroja-icon");
                 
             }
@@ -192,6 +223,7 @@ const ZbiorZbroi = {
                     naszyjnikIcon.style.backgroundImage = `url(${this.img})`;
                     console.log(this.img);
                     checkRemoveButton(naszyjnikIcon, "naszyjnik-icon");
+                    naszyjnikIcon.setAttribute("current-item", this.name);
                     
                 }
                 if(this.active === false){
@@ -248,6 +280,7 @@ const ZbiorZbroi = {
                         rekawiceIcon.style.backgroundImage = `url(${this.img})`;
                         console.log(this.img);
                         checkRemoveButton(rekawiceIcon, "rekawice-icon");
+                        rekawiceIcon.setAttribute("current-item", this.name);
                         
                     }
                     if(this.active === false){
@@ -625,8 +658,10 @@ const ZbiorZbroi = {
     
     }
 
+    
+    
 
-
+    
 
 
 
