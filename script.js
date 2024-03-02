@@ -44,6 +44,33 @@ let rekawiceIcon = document.querySelector("#rekawice");
 let pelerynaIcon = document.querySelector("#peleryna");
     pelerynaIcon.style.backgroundImage = `url(img/icons/pelerynaIcon.png)`;
     let activePelerynaItems = [];
+let bronIcon = document.querySelector("#bron");
+    bronIcon.style.backgroundImage = `url(img/icons/bronIcon.png)`;
+    let activeBronItems = [];
+let kowadloIcon = document.querySelector("#kowadlo");
+    kowadloIcon.style.backgroundImage = `url(img/icons/kowadloIcon.png)`;
+    let activeKowadloItems = [];
+let karwaszeIcon = document.querySelector("#karwasze");
+    karwaszeIcon.style.backgroundImage = `url(img/icons/karwaszeIcon.png)`;
+    let activeKarwaszeItems = [];
+let spodnieIcon = document.querySelector("#spodnie");
+    spodnieIcon.style.backgroundImage = `url(img/icons/spodnieIcon.png)`;
+    let activeSpodnieItems = [];
+let pasIcon = document.querySelector("#pas");
+    pasIcon.style.backgroundImage = `url(img/icons/pasIcon.png)`;
+    let activePasItems = [];
+let pierscien1Icon = document.querySelector("#pierscien1");
+    pierscien1Icon.style.backgroundImage = `url(img/icons/pierscien1Icon.png)`;
+    let activePierscien1Items = [];
+let pierscien2Icon = document.querySelector("#pierscien2");
+    pierscien2Icon.style.backgroundImage = `url(img/icons/pierscien2Icon.png)`;
+    let activePierscien2Items = [];
+let butyIcon = document.querySelector("#buty");
+    butyIcon.style.backgroundImage = `url(img/icons/butyIcon.png)`;
+    let activeButyItems = [];
+let zdolnosciIcon = document.querySelector("#zdolnosci");
+    zdolnosciIcon.style.backgroundImage = `url(img/icons/zdolnosciIcon.png)`;
+    let activeZdolnosciItems = [];
 
 
 
@@ -152,7 +179,14 @@ Martumal: new Helm("Martumal", "img/martumal.png", false, false, "Moc: +8", "Wie
 Grzebien: new Helm("Grzebien", "img/grzebien.png", false, false, ),
 Ishelm: new Helm("Ishelm", "img/ishelm.png", false, false, ),
 Khalam: new Helm("Khalam","img/khalam.png", false, false, ),
-
+Czacha: new Helm("Czacha", "img/czacha.png", false, false,),
+Gathril: new Helm("Gathril", "img/gathril.png", false, false,),
+Ghaitarog: new Helm("Ghaitarog", "img/ghaitarog.png", false, false,),
+Htagan: new Helm("Htagan", "img/htagan.png", false, false,),
+Milosc_morany: new Helm("Milosc_morany", "img/milosc_morany.png", false, false,),
+Pamiec_morany: new Helm("Pamiec_morany", "img/pamiec_morany.png", false, false,),
+Pysk: new Helm("Pysk", "img/pysk.png", false, false,),
+Sigil: new Helm("Sigil", "img/sigil.png", false, false,)
 }
 
 class Zbroja{
@@ -388,79 +422,9 @@ const ZbiorZbroi = {
     function openDialog($currentTile){
         Dialog.showModal();
         
-        
-
-        /* HEŁM */
-
-        if ($currentTile == Tiles[0]){
-            Dialog_container.innerHTML = "<h1>Hełm: </h1>";
-
-
-            ZbiorHelmow.Martumal.isShown();
-                if(activeHelmItems[0]){
-                    console.log(activeHelmItems[0]);
-                    
-                    activeHelmItems[0].addEventListener("click", () => {
-                        ZbiorHelmow.Martumal.isActive(true);
-    
-                    })
-                    activeHelmItems[0].addEventListener("mouseover", () => {
-                        ZbiorHelmow.Martumal.isHovered()
-                    });
-                    activeHelmItems[0].addEventListener("mouseout", () => {
-                        ZbiorHelmow.Martumal.isNotHovered()
-                    });
-                    
-                }
-            ZbiorHelmow.Grzebien.isShown();
-            if(activeHelmItems[1]){
-                console.log(activeHelmItems[1]);
-                activeHelmItems[1].addEventListener("click", () => {
-                    ZbiorHelmow.Grzebien.isActive(true);
-
-                })
-                activeHelmItems[1].addEventListener("mouseover", () => { 
-                    ZbiorHelmow.Grzebien.isHovered()
-                });
-                activeHelmItems[1].addEventListener("mouseout", () => { 
-                    ZbiorHelmow.Grzebien.isNotHovered()
-                });
-                
-            }
-            ZbiorHelmow.Ishelm.isShown();
-                if(activeHelmItems[2]){
-                    console.log(activeHelmItems[2]);
-                    activeHelmItems[2].addEventListener("click", () => {
-                        ZbiorHelmow.Ishelm.isActive(true);
-    
-                })
-                activeHelmItems[2].addEventListener("mouseover",() => {
-                    ZbiorHelmow.Ishelm.isHovered()
-                });
-                activeHelmItems[2].addEventListener("mouseout",() => {
-                    ZbiorHelmow.Ishelm.isNotHovered()
-                });
-            }
-            ZbiorHelmow.Khalam.isShown();
-                if(activeHelmItems[3]){
-                    console.log(activeHelmItems[3]);
-                    activeHelmItems[3].addEventListener("click", () => {
-                        ZbiorHelmow.Khalam.isActive(true);
-    
-                })
-                activeHelmItems[3].addEventListener("mouseover", () => {
-                    ZbiorHelmow.Khalam.isHovered()
-                } );
-                activeHelmItems[3].addEventListener("mouseout", () => {
-                    ZbiorHelmow.Khalam.isNotHovered()
-                } );
-        }
-
-        
-    }
          /* ZBROJA */ 
         
-        else if($currentTile == Tiles[1]){
+        if($currentTile == Tiles[0]){
             console.log($currentTile);
             Dialog_container.innerHTML = "<h1>Zbroja: </h1>";
             ZbiorZbroi.Bartaur.isShown();
@@ -520,6 +484,187 @@ const ZbiorZbroi = {
                 });
         }
     }
+
+    /* HEŁM */
+
+    else if ($currentTile == Tiles[1]){
+        Dialog_container.innerHTML = "<h1>Hełm: </h1>";
+
+
+        ZbiorHelmow.Martumal.isShown();
+            if(activeHelmItems[0]){
+                console.log(activeHelmItems[0]);
+                
+                activeHelmItems[0].addEventListener("click", () => {
+                    ZbiorHelmow.Martumal.isActive(true);
+
+                })
+                activeHelmItems[0].addEventListener("mouseover", () => {
+                    ZbiorHelmow.Martumal.isHovered()
+                });
+                activeHelmItems[0].addEventListener("mouseout", () => {
+                    ZbiorHelmow.Martumal.isNotHovered()
+                });
+                
+            }
+        ZbiorHelmow.Grzebien.isShown();
+        if(activeHelmItems[1]){
+            console.log(activeHelmItems[1]);
+            activeHelmItems[1].addEventListener("click", () => {
+                ZbiorHelmow.Grzebien.isActive(true);
+
+            })
+            activeHelmItems[1].addEventListener("mouseover", () => { 
+                ZbiorHelmow.Grzebien.isHovered()
+            });
+            activeHelmItems[1].addEventListener("mouseout", () => { 
+                ZbiorHelmow.Grzebien.isNotHovered()
+            });
+            
+        }
+        ZbiorHelmow.Ishelm.isShown();
+            if(activeHelmItems[2]){
+                console.log(activeHelmItems[2]);
+                activeHelmItems[2].addEventListener("click", () => {
+                    ZbiorHelmow.Ishelm.isActive(true);
+
+            })
+            activeHelmItems[2].addEventListener("mouseover",() => {
+                ZbiorHelmow.Ishelm.isHovered()
+            });
+            activeHelmItems[2].addEventListener("mouseout",() => {
+                ZbiorHelmow.Ishelm.isNotHovered()
+            });
+        }
+        ZbiorHelmow.Khalam.isShown();
+            if(activeHelmItems[3]){
+                console.log(activeHelmItems[3]);
+                activeHelmItems[3].addEventListener("click", () => {
+                    ZbiorHelmow.Khalam.isActive(true);
+
+            })
+            activeHelmItems[3].addEventListener("mouseover", () => {
+                ZbiorHelmow.Khalam.isHovered()
+            } );
+            activeHelmItems[3].addEventListener("mouseout", () => {
+                ZbiorHelmow.Khalam.isNotHovered()
+            } );
+    }
+        ZbiorHelmow.Czacha.isShown();
+            if(activeHelmItems[4]){
+                console.log(activeHelmItems[4]);
+                activeHelmItems[4].addEventListener("click", () => {
+                    ZbiorHelmow.Czacha.isActive(true);
+
+            })
+            activeHelmItems[4].addEventListener("mouseover", () => {
+                ZbiorHelmow.Czacha.isHovered()
+            } );
+            activeHelmItems[4].addEventListener("mouseout", () => {
+                ZbiorHelmow.Czacha.isNotHovered()
+            } );
+    }
+        ZbiorHelmow.Gathril.isShown();
+            if(activeHelmItems[5]){
+                console.log(activeHelmItems[5]);
+                activeHelmItems[5].addEventListener("click", () => {
+                    ZbiorHelmow.Gathril.isActive(true);
+
+            })
+            activeHelmItems[5].addEventListener("mouseover", () => {
+                ZbiorHelmow.Gathril.isHovered()
+            } );
+            activeHelmItems[5].addEventListener("mouseout", () => {
+                ZbiorHelmow.Gathril.isNotHovered()
+            } );
+    }
+        ZbiorHelmow.Ghaitarog.isShown();
+            if(activeHelmItems[6]){
+                console.log(activeHelmItems[6]);
+                activeHelmItems[6].addEventListener("click", () => {
+                    ZbiorHelmow.Ghaitarog.isActive(true);
+
+            })
+            activeHelmItems[6].addEventListener("mouseover", () => {
+                ZbiorHelmow.Ghaitarog.isHovered()
+            } );
+            activeHelmItems[6].addEventListener("mouseout", () => {
+                ZbiorHelmow.Ghaitarog.isNotHovered()
+            } );
+    }
+        ZbiorHelmow.Htagan.isShown();
+            if(activeHelmItems[7]){
+                console.log(activeHelmItems[7]);
+                activeHelmItems[7].addEventListener("click", () => {
+                    ZbiorHelmow.Htagan.isActive(true);
+
+            })
+            activeHelmItems[7].addEventListener("mouseover", () => {
+                ZbiorHelmow.Htagan.isHovered()
+            } );
+            activeHelmItems[7].addEventListener("mouseout", () => {
+                ZbiorHelmow.Htagan.isNotHovered()
+            } );
+    }
+        ZbiorHelmow.Milosc_morany.isShown();
+            if(activeHelmItems[8]){
+                console.log(activeHelmItems[8]);
+                activeHelmItems[8].addEventListener("click", () => {
+                    ZbiorHelmow.Milosc_morany.isActive(true);
+
+            })
+            activeHelmItems[8].addEventListener("mouseover", () => {
+                ZbiorHelmow.Milosc_morany.isHovered()
+            } );
+            activeHelmItems[8].addEventListener("mouseout", () => {
+                ZbiorHelmow.Milosc_morany.isNotHovered()
+            } );
+    }
+        ZbiorHelmow.Pamiec_morany.isShown();
+            if(activeHelmItems[9]){
+                console.log(activeHelmItems[9]);
+                activeHelmItems[9].addEventListener("click", () => {
+                    ZbiorHelmow.Pamiec_morany.isActive(true);
+
+            })
+            activeHelmItems[9].addEventListener("mouseover", () => {
+                ZbiorHelmow.Pamiec_morany.isHovered()
+            } );
+            activeHelmItems[9].addEventListener("mouseout", () => {
+                ZbiorHelmow.Pamiec_morany.isNotHovered()
+            } );
+    }
+        ZbiorHelmow.Pysk.isShown();
+            if(activeHelmItems[10]){
+                console.log(activeHelmItems[10]);
+                activeHelmItems[10].addEventListener("click", () => {
+                    ZbiorHelmow.Pysk.isActive(true);
+
+            })
+            activeHelmItems[10].addEventListener("mouseover", () => {
+                ZbiorHelmow.Pysk.isHovered()
+            } );
+            activeHelmItems[10].addEventListener("mouseout", () => {
+                ZbiorHelmow.Pysk.isNotHovered()
+            } );
+    }
+        ZbiorHelmow.Sigil.isShown();
+            if(activeHelmItems[11]){
+                console.log(activeHelmItems[11]);
+                activeHelmItems[11].addEventListener("click", () => {
+                    ZbiorHelmow.Sigil.isActive(true);
+
+            })
+            activeHelmItems[11].addEventListener("mouseover", () => {
+                ZbiorHelmow.Sigil.isHovered()
+            } );
+            activeHelmItems[11].addEventListener("mouseout", () => {
+                ZbiorHelmow.Sigil.isNotHovered()
+            } );
+    }
+
+    
+}
         
         /* NASZYJNIK */
 

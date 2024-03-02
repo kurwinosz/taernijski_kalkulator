@@ -18,7 +18,11 @@
             background-repeat: no-repeat;
             background-size: cover; 
             font-family: Verdana;
-            height: 120vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            box-shadow: inset 0 0 100px 10px black;
         }
         main{
             height: 100vh;
@@ -28,18 +32,20 @@
             align-items: center;
         }
         main .container{
-            height: fit-content;
-            width: fit-content;
             display: grid;
             grid-template-columns: repeat(4, 1fr);;
             grid-template-rows: repeat(5, 1fr);;
             gap: 5px;
+            background-color: rgba(255, 250, 250, 0.075);
+            /* padding: 5px; */
+            border-radius: 5px;
+            box-shadow: 0 0 10px 10px rgba(255, 250, 250, 0.075);
         }
         main .container .item{
             margin: 2px;
             min-height: 100px;
             min-width: 100px;
-            background-color: rgba(24, 17, 10, 0.63);
+            background-color: rgba(24, 17, 10, 0.427);
             border: 3.5px solid black;
             border-radius: 5px;
             background-position: center;
@@ -77,7 +83,7 @@
             background-color: rgba(159, 119, 70, 0.568);
             cursor: pointer;
         }
-        main .container .item a a{
+        main .container .item a{
             width: 100%;
             height: 100%;
         }
@@ -91,7 +97,7 @@
             /* DIALOG */
 
             .dialog{
-            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2));
+            background: linear-gradient(rgba(23, 23, 23, 0.3), rgba(16, 16, 16, 0.4));
             position: fixed;
             padding: 3rem 1rem;
             align-items: center;
@@ -198,7 +204,6 @@
             @media (min-width: 1300px){
                 .dialog{
                     min-width: 50rem;
-                    max-width: 80vw;
                 }
                 .dialog .dialog-container .dialog-img{
                     min-width: 90px;
@@ -207,16 +212,19 @@
                     margin: .45rem;
                 }
                 main{
-                    height: 120vh;
+                    height: 100vh;
                 }
             }   
             @media (max-width: 700px){
                 body{
-                    height: 100vh;
                     background-position: right;
                 }
-            .container{
+            main .container{
                 transform: scale(0.8);
+                background-color: rgba(248, 186, 179, 0.2);
+                /* padding: 5px; */
+                border-radius: 5px;
+                box-shadow: 0 0 10px 10px rgba(248, 186, 179, 0.2);
             }
             .dialog{
                 padding: 2rem .5rem;
@@ -242,10 +250,10 @@
         display: flex;
         justify-content: right;
         align-items:end;
-        height: 15rem;
+        height: 10rem;
         width: 100%;
-        background-color: black;
-        box-shadow:0px 0px 20px 11px rgb(0, 0, 0);
+        background-color: rgba(0, 0, 0, 0.5);
+        box-shadow:0px 0px 40px 20px rgba(0, 0, 0, 0.6);
     }
     footer h1{
         padding: 1rem;
@@ -262,10 +270,10 @@
     </header>
     <main>
         <section class="container">
-            <div class="item" id="helm">
+            <div class="item" id="zbroja" >
                 
             </div>
-            <div class="item" id="zbroja">
+            <div class="item" id="helm">
                 
             </div>
             <div class="item" id="naszyjnik">
@@ -280,31 +288,31 @@
             <div class="item" id="postac">
                 
             </div>
-            <div class="item">
+            <div class="item" id="bron">
                 
             </div>
-            <div class="item">
+            <div class="item" id="kowadlo">
                 
             </div>
-            <div class="item">
+            <div class="item" id="karwasze">
                 
             </div>
-            <div class="item">
+            <div class="item" id="spodnie">
                 
             </div>
-            <div class="item">
+            <div class="item" id="pas">
                 
             </div>
-            <div class="item">
+            <div class="item" id="pierscien1">
                 
             </div>
-            <div class="item">
+            <div class="item" id="pierscien2">
                 
             </div>
-            <div class="item">
+            <div class="item" id="buty">
                 
             </div>
-            <div class="item">
+            <div class="item" id="zdolnosci">
                 
             </div>
         </section>
