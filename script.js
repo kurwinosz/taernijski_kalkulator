@@ -242,7 +242,14 @@ const ZbiorZbroi = {
     Brunnle: new Zbroja("Brunnle", "img/brunnle.png", false,false),
     Diabolo: new Zbroja("Diabolo", "img/diabolo.png", false,false),
     Dmorlung: new Zbroja("Dmorlung","img/dmorlung.png", false,false),
-    
+    Harttraum: new Zbroja("Harttraum", "img/harttraum.png", false, false),
+    Nadzieja_pokolen: new Zbroja("Nadzieja_pokolen", "img/nadzieja_pokolen.png", false, false),
+    Opoka_bogow: new Zbroja("Opoka_bogow", "img/opoka_bogow.png", false, false),
+    Pancerz_komandorski: new Zbroja("Pancerz_komandorski", "img/pancerz_komandorski.png", false, false),
+    Salmurn: new Zbroja("Salmurn", "img/salmurn.png", false, false),
+    Virthil: new Zbroja("Virthil", "img/virthil.png", false, false),
+    Zalla: new Zbroja("Zalla", "img/zalla.png", false, false),
+ 
     }
 
     class Naszyjnik{
@@ -298,7 +305,16 @@ const ZbiorZbroi = {
         Caratris: new Naszyjnik("Caratris", "img/caratris.png", false, false),
         Danthum: new Naszyjnik("Danthum", "img/danthum.png", false, false),
         Dorbis: new Naszyjnik("Dorbis", "img/dorbis.png", false, false),
-        Groza_seleny: new Naszyjnik("Groza_seleny","img/groza_seleny.png", false, false),
+        Maiarot: new Naszyjnik("Maiarot","img/maiarot.png", false, false),
+        Markahn: new Naszyjnik("Markahn","img/markahn.png", false, false),
+        Obroza_wladcy: new Naszyjnik("Obroza_wladcy","img/obroza_wladcy.png", false, false),
+        Ortasis: new Naszyjnik("Ortasis","img/ortasis.png", false, false),
+        Ostolbin: new Naszyjnik("Ostolbin","img/ostolbin.png", false, false),
+        Serce_seleny: new Naszyjnik("Serce_seleny","img/serce_seleny.png", false, false),
+        Sphaera: new Naszyjnik("Sphaera","img/sphaera.png", false, false),
+        Valazan: new Naszyjnik("Valazan","img/valazan.png", false, false),
+        Vogurun: new Naszyjnik("Vogurun","img/vogurun.png", false, false),
+        Zemsta_ivravula: new Naszyjnik("Zemsta_ivravula","img/zemsta_ivravula.png", false, false),
         
         }
 
@@ -356,6 +372,12 @@ const ZbiorZbroi = {
             Biltabandury: new Rekawice("Biltabandury", "img/biltabandury.png", false, false),
             Brassary: new Rekawice("Brassary", "img/brassary.png", false, false),
             Fraxy: new Rekawice("Fraxy","img/fraxy.png", false, false),
+            Gest_wladcy: new Rekawice("Gest_wladcy","img/gest_wladcy.png", false, false),
+            Pazury: new Rekawice("Pazury","img/pazury.png", false, false),
+            Skry_utoru: new Rekawice("Skry_utoru","img/skry_utoru.png", false, false),
+            Szpony_seimhi: new Rekawice("Szpony_seimhi","img/szpony_seimhi.png", false, false),
+            Vaekany: new Rekawice("Vaekany","img/vaekany.png", false, false),
+            Zadry: new Rekawice("Zadry","img/zadry.png", false, false),
             
             }
 
@@ -413,9 +435,93 @@ const ZbiorZbroi = {
             Bryza: new Peleryna("Bryza", "img/bryza.png", false, false),
             Cien_tarula: new Peleryna("Cien_tarula","img/cien_tarula.png", false, false),
             Debba: new Peleryna("Debba","img/debba.png", false, false),
+            Dracorporis: new Peleryna("Dracorporis","img/dracorporis.png", false, false),
+            Hanba_seleny: new Peleryna("Hanba_seleny","img/hanba_seleny.png", false, false),
+            Powrot_ivravula: new Peleryna("Powrot_ivravula","img/powrot_ivravula.png", false, false),
+            Tsunami: new Peleryna("Tsunami","img/tsunami.png", false, false),
+            Xenothor: new Peleryna("Xenothor","img/xenothor.png", false, false),
+            Nurthil: new Peleryna("Nurthil","img/nurthil.png", false, false),
                 
                 }
 
+                class Bron{
+                    constructor(name, img, active, shown){
+                        this.name = name;
+                        this.img = img;
+                        this.active = active;
+                        this.shown = shown;
+                    }
+                    isActive(activated){
+                        console.log(this.active, this.name)
+                        this.active = activated;
+                        console.log(this.active);
+                
+                            if(this.active === true){
+                                bronIcon.style.backgroundImage = `url(${this.img})`;
+                                console.log(this.img);
+                                checkRemoveButton(bronIcon, "bron-icon", "bronIcon");
+                                bronIcon.setAttribute("current-item", this.name);
+                                
+                            }
+                            if(this.active === false){
+                                bronIcon.style.backgroundImage = "none";
+                            }
+                    }
+                    isShown(){
+                        let newDialogImage = document.createElement("a")
+                        newDialogImage.style.backgroundImage = `url(${this.img})`;
+                        newDialogImage.setAttribute("class", `${this.name} dialog-img bron-items`);
+                        Dialog_container.appendChild(newDialogImage);
+                        activeBronItems.push(newDialogImage);
+                        checkRemoveButton(bronIcon, "bron-icon", "bronIcon");    
+                        
+                        this.shown = true;
+                    }
+            
+                    isHovered(){
+                        if(this.shown === true){
+                            Dialog_container.querySelector(`.${this.name}`).setAttribute('data-tooltip', `${this.name}`);
+                            console.log(this.name);
+                        }
+                        
+                    }
+                    isNotHovered(){
+                        if(this.shown === true){
+                        Dialog_container.querySelector(`.${this.name}`).removeAttribute('data-tooltip');
+                    }
+                }
+            
+                }
+        
+                const ZbiorBroni = {
+                    Ayol: new Bron("Ayol", "img/ayol.png", false, false),
+                    Batagur: new Bron("Batagur", "img/batagur.png", false, false),
+                    Bol: new Bron("Bol", "img/bol.png", false, false),
+                    Buoriany: new Bron("Buoriany","img/buoriany.png", false, false),
+                    Ciern: new Bron("Ciern","img/ciern.png", false, false),
+                    Davgretor: new Bron("Davgretor","img/davgretor.png", false, false),
+                    Derengil: new Bron("Derengil","img/derengil.png", false, false),
+                    Geomorph_core: new Bron("Geomorph_core","img/geomorph_core.png", false, false),
+                    Gjolmar: new Bron("Gjolmar","img/gjolmar.png", false, false),
+                    Istav: new Bron("Istav","img/istav.png", false, false),
+                    Isverd: new Bron("Isverd","img/isverd.png", false, false),
+                    Lawina: new Bron("Lawina","img/lawina.png", false, false),
+                    Mallus_selenorum: new Bron("Mallus_selenorum","img/mallus_selenorum.png", false, false),
+                    Ognisty_mlot: new Bron("Ognisty_mlot","img/ognisty_mlot.png", false, false),
+                    Piroklast: new Bron("Piroklast","img/piroklast.png", false, false),
+                    Rolrak: new Bron("Rolrak","img/rolrak.png", false, false),
+                    Sidun: new Bron("Sidun","img/sidun.png", false, false),
+                    Smoczy_gnat: new Bron("Smoczy_gnat","img/smoczy_gnat.png", false, false),
+                    Sturprang: new Bron("Sturprang","img/sturprang.png", false, false),
+                    Taehal: new Bron("Taehal","img/taehal.png", false, false),
+                    Tasak: new Bron("Tasak","img/tasak.png", false, false),
+                    Tezec: new Bron("Tezec","img/tezec.png", false, false),
+                    Trojzab_admiralski: new Bron("Trojzab_admiralski","img/trojzab_admiralski.png", false, false),
+                    Urntsul: new Bron("Urntsul","img/urntsul.png", false, false),
+                    Virral: new Bron("Virral","img/virral.png", false, false),
+                    Wladca_losu: new Bron("Wladca_losu","img/wladca_losu.png", false, false),
+                        
+                        }
 
 
 
@@ -481,6 +587,97 @@ const ZbiorZbroi = {
                 });
                 activeZbrojaItems[3].addEventListener("mouseout", () => {
                     ZbiorZbroi.Dmorlung.isNotHovered()
+                });
+        }
+            ZbiorZbroi.Harttraum.isShown();
+                if(activeZbrojaItems[4]){
+                    console.log(activeZbrojaItems[4]);
+                    activeZbrojaItems[4].addEventListener("click", () => {
+                        ZbiorZbroi.Harttraum.isActive(true);
+                })
+                activeZbrojaItems[4].addEventListener("mouseover", () => {
+                    ZbiorZbroi.Harttraum.isHovered()
+                });
+                activeZbrojaItems[4].addEventListener("mouseout", () => {
+                    ZbiorZbroi.Harttraum.isNotHovered()
+                });
+        }
+            ZbiorZbroi.Nadzieja_pokolen.isShown();
+                if(activeZbrojaItems[5]){
+                    console.log(activeZbrojaItems[5]);
+                    activeZbrojaItems[5].addEventListener("click", () => {
+                        ZbiorZbroi.Nadzieja_pokolen.isActive(true);
+                })
+                activeZbrojaItems[5].addEventListener("mouseover", () => {
+                    ZbiorZbroi.Nadzieja_pokolen.isHovered()
+                });
+                activeZbrojaItems[5].addEventListener("mouseout", () => {
+                    ZbiorZbroi.Nadzieja_pokolen.isNotHovered()
+                });
+        }
+            ZbiorZbroi.Opoka_bogow.isShown();
+                if(activeZbrojaItems[6]){
+                    console.log(activeZbrojaItems[6]);
+                    activeZbrojaItems[6].addEventListener("click", () => {
+                        ZbiorZbroi.Opoka_bogow.isActive(true);
+                })
+                activeZbrojaItems[6].addEventListener("mouseover", () => {
+                    ZbiorZbroi.Opoka_bogow.isHovered()
+                });
+                activeZbrojaItems[6].addEventListener("mouseout", () => {
+                    ZbiorZbroi.Opoka_bogow.isNotHovered()
+                });
+        }
+            ZbiorZbroi.Pancerz_komandorski.isShown();
+                if(activeZbrojaItems[7]){
+                    console.log(activeZbrojaItems[7]);
+                    activeZbrojaItems[7].addEventListener("click", () => {
+                        ZbiorZbroi.Pancerz_komandorski.isActive(true);
+                })
+                activeZbrojaItems[7].addEventListener("mouseover", () => {
+                    ZbiorZbroi.Pancerz_komandorski.isHovered()
+                });
+                activeZbrojaItems[7].addEventListener("mouseout", () => {
+                    ZbiorZbroi.Pancerz_komandorski.isNotHovered()
+                });
+        }
+            ZbiorZbroi.Salmurn.isShown();
+                if(activeZbrojaItems[8]){
+                    console.log(activeZbrojaItems[8]);
+                    activeZbrojaItems[8].addEventListener("click", () => {
+                        ZbiorZbroi.Salmurn.isActive(true);
+                })
+                activeZbrojaItems[8].addEventListener("mouseover", () => {
+                    ZbiorZbroi.Salmurn.isHovered()
+                });
+                activeZbrojaItems[8].addEventListener("mouseout", () => {
+                    ZbiorZbroi.Salmurn.isNotHovered()
+                });
+        }
+            ZbiorZbroi.Virthil.isShown();
+                if(activeZbrojaItems[9]){
+                    console.log(activeZbrojaItems[9]);
+                    activeZbrojaItems[9].addEventListener("click", () => {
+                        ZbiorZbroi.Virthil.isActive(true);
+                })
+                activeZbrojaItems[9].addEventListener("mouseover", () => {
+                    ZbiorZbroi.Virthil.isHovered()
+                });
+                activeZbrojaItems[9].addEventListener("mouseout", () => {
+                    ZbiorZbroi.Virthil.isNotHovered()
+                });
+        }
+            ZbiorZbroi.Zalla.isShown();
+                if(activeZbrojaItems[10]){
+                    console.log(activeZbrojaItems[10]);
+                    activeZbrojaItems[10].addEventListener("click", () => {
+                        ZbiorZbroi.Zalla.isActive(true);
+                })
+                activeZbrojaItems[10].addEventListener("mouseover", () => {
+                    ZbiorZbroi.Zalla.isHovered()
+                });
+                activeZbrojaItems[10].addEventListener("mouseout", () => {
+                    ZbiorZbroi.Zalla.isNotHovered()
                 });
         }
     }
@@ -713,17 +910,134 @@ const ZbiorZbroi = {
                     ZbiorNaszyjnikow.Dorbis.isNotHovered()
                 });
             }
-            ZbiorNaszyjnikow.Groza_seleny.isShown();
+            ZbiorNaszyjnikow.Maiarot.isShown();
                 if(activeNaszyjnikItems[3]){
                     console.log(activeNaszyjnikItems[3]);
                     activeNaszyjnikItems[3].addEventListener("click", () => {
-                        ZbiorNaszyjnikow.Groza_seleny.isActive(true);
+                        ZbiorNaszyjnikow.Maiarot.isActive(true);
                 })
                 activeNaszyjnikItems[3].addEventListener("mouseover", () => {
-                    ZbiorNaszyjnikow.Groza_seleny.isHovered()
+                    ZbiorNaszyjnikow.Maiarot.isHovered()
                 });
                 activeNaszyjnikItems[3].addEventListener("mouseout", () => {
-                    ZbiorNaszyjnikow.Groza_seleny.isNotHovered()
+                    ZbiorNaszyjnikow.Maiarot.isNotHovered()
+                });
+        }
+            ZbiorNaszyjnikow.Markahn.isShown();
+                if(activeNaszyjnikItems[4]){
+                    console.log(activeNaszyjnikItems[4]);
+                    activeNaszyjnikItems[4].addEventListener("click", () => {
+                        ZbiorNaszyjnikow.Markahn.isActive(true);
+                })
+                activeNaszyjnikItems[4].addEventListener("mouseover", () => {
+                    ZbiorNaszyjnikow.Markahn.isHovered()
+                });
+                activeNaszyjnikItems[4].addEventListener("mouseout", () => {
+                    ZbiorNaszyjnikow.Markahn.isNotHovered()
+                });
+        }
+            ZbiorNaszyjnikow.Obroza_wladcy.isShown();
+                if(activeNaszyjnikItems[5]){
+                    console.log(activeNaszyjnikItems[5]);
+                    activeNaszyjnikItems[5].addEventListener("click", () => {
+                        ZbiorNaszyjnikow.Obroza_wladcy.isActive(true);
+                })
+                activeNaszyjnikItems[5].addEventListener("mouseover", () => {
+                    ZbiorNaszyjnikow.Obroza_wladcy.isHovered()
+                });
+                activeNaszyjnikItems[5].addEventListener("mouseout", () => {
+                    ZbiorNaszyjnikow.Obroza_wladcy.isNotHovered()
+                });
+        }
+            ZbiorNaszyjnikow.Ortasis.isShown();
+                if(activeNaszyjnikItems[6]){
+                    console.log(activeNaszyjnikItems[6]);
+                    activeNaszyjnikItems[6].addEventListener("click", () => {
+                        ZbiorNaszyjnikow.Ortasis.isActive(true);
+                })
+                activeNaszyjnikItems[6].addEventListener("mouseover", () => {
+                    ZbiorNaszyjnikow.Ortasis.isHovered()
+                });
+                activeNaszyjnikItems[6].addEventListener("mouseout", () => {
+                    ZbiorNaszyjnikow.Ortasis.isNotHovered()
+                });
+        }
+            ZbiorNaszyjnikow.Ostolbin.isShown();
+                if(activeNaszyjnikItems[7]){
+                    console.log(activeNaszyjnikItems[7]);
+                    activeNaszyjnikItems[7].addEventListener("click", () => {
+                        ZbiorNaszyjnikow.Ostolbin.isActive(true);
+                })
+                activeNaszyjnikItems[7].addEventListener("mouseover", () => {
+                    ZbiorNaszyjnikow.Ostolbin.isHovered()
+                });
+                activeNaszyjnikItems[7].addEventListener("mouseout", () => {
+                    ZbiorNaszyjnikow.Ostolbin.isNotHovered()
+                });
+        }
+            ZbiorNaszyjnikow.Serce_seleny.isShown();
+                if(activeNaszyjnikItems[8]){
+                    console.log(activeNaszyjnikItems[8]);
+                    activeNaszyjnikItems[8].addEventListener("click", () => {
+                        ZbiorNaszyjnikow.Serce_seleny.isActive(true);
+                })
+                activeNaszyjnikItems[8].addEventListener("mouseover", () => {
+                    ZbiorNaszyjnikow.Serce_seleny.isHovered()
+                });
+                activeNaszyjnikItems[8].addEventListener("mouseout", () => {
+                    ZbiorNaszyjnikow.Serce_seleny.isNotHovered()
+                });
+        }
+            ZbiorNaszyjnikow.Sphaera.isShown();
+                if(activeNaszyjnikItems[9]){
+                    console.log(activeNaszyjnikItems[9]);
+                    activeNaszyjnikItems[9].addEventListener("click", () => {
+                        ZbiorNaszyjnikow.Sphaera.isActive(true);
+                })
+                activeNaszyjnikItems[9].addEventListener("mouseover", () => {
+                    ZbiorNaszyjnikow.Sphaera.isHovered()
+                });
+                activeNaszyjnikItems[9].addEventListener("mouseout", () => {
+                    ZbiorNaszyjnikow.Sphaera.isNotHovered()
+                });
+        }
+            ZbiorNaszyjnikow.Valazan.isShown();
+                if(activeNaszyjnikItems[10]){
+                    console.log(activeNaszyjnikItems[10]);
+                    activeNaszyjnikItems[10].addEventListener("click", () => {
+                        ZbiorNaszyjnikow.Valazan.isActive(true);
+                })
+                activeNaszyjnikItems[10].addEventListener("mouseover", () => {
+                    ZbiorNaszyjnikow.Valazan.isHovered()
+                });
+                activeNaszyjnikItems[10].addEventListener("mouseout", () => {
+                    ZbiorNaszyjnikow.Valazan.isNotHovered()
+                });
+        }
+            ZbiorNaszyjnikow.Vogurun.isShown();
+                if(activeNaszyjnikItems[11]){
+                    console.log(activeNaszyjnikItems[11]);
+                    activeNaszyjnikItems[11].addEventListener("click", () => {
+                        ZbiorNaszyjnikow.Vogurun.isActive(true);
+                })
+                activeNaszyjnikItems[11].addEventListener("mouseover", () => {
+                    ZbiorNaszyjnikow.Vogurun.isHovered()
+                });
+                activeNaszyjnikItems[11].addEventListener("mouseout", () => {
+                    ZbiorNaszyjnikow.Vogurun.isNotHovered()
+                });
+        }
+            ZbiorNaszyjnikow.Zemsta_ivravula.isShown();
+                if(activeNaszyjnikItems[12]){
+                    console.log(activeNaszyjnikItems[12]);
+                    activeNaszyjnikItems[12].addEventListener("click", () => {
+                        ZbiorNaszyjnikow.Zemsta_ivravula.isActive(true);
+                })
+                activeNaszyjnikItems[12].addEventListener("mouseover", () => {
+                    ZbiorNaszyjnikow.Zemsta_ivravula.isHovered()
+                });
+                activeNaszyjnikItems[12].addEventListener("mouseout", () => {
+                    ZbiorNaszyjnikow.Zemsta_ivravula.isNotHovered()
                 });
         }
 
@@ -738,6 +1052,7 @@ const ZbiorZbroi = {
     else if($currentTile == Tiles[3]){
             console.log($currentTile);
             Dialog_container.innerHTML = "<h1>Rękawice: </h1>";
+
             ZbiorRekawic.Aeterus_passio.isShown();
 
                 if(activeRekawiceItems[0]){
@@ -753,7 +1068,9 @@ const ZbiorZbroi = {
                     });
                     
                 }
+
             ZbiorRekawic.Biltabandury.isShown();
+
             if(activeRekawiceItems[1]){
                 console.log(activeRekawiceItems[1]);
                 activeRekawiceItems[1].addEventListener("click", () => {
@@ -767,7 +1084,9 @@ const ZbiorZbroi = {
                 });
                 
             }
+
             ZbiorRekawic.Brassary.isShown();
+
                 if(activeRekawiceItems[2]){
                     console.log(activeRekawiceItems[2]);
                     activeRekawiceItems[2].addEventListener("click", () => {
@@ -780,7 +1099,9 @@ const ZbiorZbroi = {
                     ZbiorRekawic.Brassary.isNotHovered()
                 });
             }
+
             ZbiorRekawic.Fraxy.isShown();
+            
                 if(activeRekawiceItems[3]){
                     console.log(activeRekawiceItems[3]);
                     activeRekawiceItems[3].addEventListener("click", () => {
@@ -793,6 +1114,90 @@ const ZbiorZbroi = {
                     ZbiorRekawic.Fraxy.isNotHovered()
                 });
         }
+            ZbiorRekawic.Gest_wladcy.isShown();
+
+                if(activeRekawiceItems[4]){
+                    console.log(activeRekawiceItems[4]);
+                    activeRekawiceItems[4].addEventListener("click", () => {
+                        ZbiorRekawic.Gest_wladcy.isActive(true);
+                })
+                activeRekawiceItems[4].addEventListener("mouseover", () => {
+                    ZbiorRekawic.Gest_wladcy.isHovered()
+                });
+                activeRekawiceItems[4].addEventListener("mouseout", () => {
+                    ZbiorRekawic.Gest_wladcy.isNotHovered()
+                });
+        }
+            ZbiorRekawic.Skry_utoru.isShown();
+
+                if(activeRekawiceItems[5]){
+                    console.log(activeRekawiceItems[5]);
+                    activeRekawiceItems[5].addEventListener("click", () => {
+                        ZbiorRekawic.Skry_utoru.isActive(true);
+                })
+                activeRekawiceItems[5].addEventListener("mouseover", () => {
+                    ZbiorRekawic.Skry_utoru.isHovered()
+                });
+                activeRekawiceItems[5].addEventListener("mouseout", () => {
+                    ZbiorRekawic.Skry_utoru.isNotHovered()
+                });
+        }
+            ZbiorRekawic.Szpony_seimhi.isShown();
+
+                if(activeRekawiceItems[6]){
+                    console.log(activeRekawiceItems[6]);
+                    activeRekawiceItems[6].addEventListener("click", () => {
+                        ZbiorRekawic.Szpony_seimhi.isActive(true);
+                })
+                activeRekawiceItems[6].addEventListener("mouseover", () => {
+                    ZbiorRekawic.Szpony_seimhi.isHovered()
+                });
+                activeRekawiceItems[6].addEventListener("mouseout", () => {
+                    ZbiorRekawic.Szpony_seimhi.isNotHovered()
+                });
+        }
+            ZbiorRekawic.Vaekany.isShown();
+
+                if(activeRekawiceItems[7]){
+                    console.log(activeRekawiceItems[7]);
+                    activeRekawiceItems[7].addEventListener("click", () => {
+                        ZbiorRekawic.Vaekany.isActive(true);
+                })
+                activeRekawiceItems[7].addEventListener("mouseover", () => {
+                    ZbiorRekawic.Vaekany.isHovered()
+                });
+                activeRekawiceItems[7].addEventListener("mouseout", () => {
+                    ZbiorRekawic.Vaekany.isNotHovered()
+                });
+        }
+            ZbiorRekawic.Zadry.isShown();
+
+                if(activeRekawiceItems[8]){
+                    console.log(activeRekawiceItems[8]);
+                    activeRekawiceItems[8].addEventListener("click", () => {
+                        ZbiorRekawic.Zadry.isActive(true);
+                })
+                activeRekawiceItems[8].addEventListener("mouseover", () => {
+                    ZbiorRekawic.Zadry.isHovered()
+                });
+                activeRekawiceItems[8].addEventListener("mouseout", () => {
+                    ZbiorRekawic.Zadry.isNotHovered()
+                });
+        }
+            ZbiorRekawic.Pazury.isShown();
+
+                if(activeRekawiceItems[9]){
+                    console.log(activeRekawiceItems[9]);
+                    activeRekawiceItems[9].addEventListener("click", () => {
+                        ZbiorRekawic.Pazury.isActive(true);
+                })
+                activeRekawiceItems[9].addEventListener("mouseover", () => {
+                    ZbiorRekawic.Pazury.isHovered()
+                });
+                activeRekawiceItems[9].addEventListener("mouseout", () => {
+                    ZbiorRekawic.Pazury.isNotHovered()
+                });
+        }
 
         
     }
@@ -802,6 +1207,7 @@ const ZbiorZbroi = {
         else if($currentTile == Tiles[4]){
             console.log($currentTile);
             Dialog_container.innerHTML = "<h1>Peleryna: </h1>";
+
             ZbiorPeleryn.Admiralski_gronostaj.isShown();
 
                 if(activePelerynaItems[0]){
@@ -817,7 +1223,9 @@ const ZbiorZbroi = {
                     });
                     
                 }
+
             ZbiorPeleryn.Angvallion.isShown();
+            
             if(activePelerynaItems[1]){
                 console.log(activePelerynaItems[1]);
                 activePelerynaItems[1].addEventListener("click", () => {
@@ -831,7 +1239,9 @@ const ZbiorZbroi = {
                 });
                 
             }
+
             ZbiorPeleryn.Bryza.isShown();
+
                 if(activePelerynaItems[2]){
                     console.log(activePelerynaItems[2]);
                     activePelerynaItems[2].addEventListener("click", () => {
@@ -844,7 +1254,9 @@ const ZbiorZbroi = {
                     ZbiorPeleryn.Bryza.isNotHovered()
                 });
             }
+
             ZbiorPeleryn.Cien_tarula.isShown();
+
                 if(activePelerynaItems[3]){
                     console.log(activePelerynaItems[3]);
                     activePelerynaItems[3].addEventListener("click", () => {
@@ -857,7 +1269,9 @@ const ZbiorZbroi = {
                     ZbiorPeleryn.Cien_tarula.isNotHovered()
                 });
         }
+
             ZbiorPeleryn.Debba.isShown();
+            
                 if(activePelerynaItems[4]){
                     console.log(activePelerynaItems[4]);
                     activePelerynaItems[4].addEventListener("click", () => {
@@ -870,16 +1284,238 @@ const ZbiorZbroi = {
                     ZbiorPeleryn.Debba.isNotHovered()
                 });
         }
+            ZbiorPeleryn.Dracorporis.isShown();
+
+                if(activePelerynaItems[5]){
+                    console.log(activePelerynaItems[5]);
+                    activePelerynaItems[5].addEventListener("click", () => {
+                        ZbiorPeleryn.Dracorporis.isActive(true);
+                })
+                activePelerynaItems[5].addEventListener("mouseover", () => {
+                    ZbiorPeleryn.Dracorporis.isHovered()
+                });
+                activePelerynaItems[5].addEventListener("mouseout", () => {
+                    ZbiorPeleryn.Dracorporis.isNotHovered()
+                });
+        }
+            ZbiorPeleryn.Nurthil.isShown();
+
+                if(activePelerynaItems[6]){
+                    console.log(activePelerynaItems[6]);
+                    activePelerynaItems[6].addEventListener("click", () => {
+                        ZbiorPeleryn.Nurthil.isActive(true);
+                })
+                activePelerynaItems[6].addEventListener("mouseover", () => {
+                    ZbiorPeleryn.Nurthil.isHovered()
+                });
+                activePelerynaItems[6].addEventListener("mouseout", () => {
+                    ZbiorPeleryn.Nurthil.isNotHovered()
+                });
+        }
+            ZbiorPeleryn.Hanba_seleny.isShown();
+
+                if(activePelerynaItems[7]){
+                    console.log(activePelerynaItems[7]);
+                    activePelerynaItems[7].addEventListener("click", () => {
+                        ZbiorPeleryn.Hanba_seleny.isActive(true);
+                })
+                activePelerynaItems[7].addEventListener("mouseover", () => {
+                    ZbiorPeleryn.Hanba_seleny.isHovered()
+                });
+                activePelerynaItems[7].addEventListener("mouseout", () => {
+                    ZbiorPeleryn.Hanba_seleny.isNotHovered()
+                });
+        }
+            ZbiorPeleryn.Powrot_ivravula.isShown();
+
+                if(activePelerynaItems[8]){
+                    console.log(activePelerynaItems[8]);
+                    activePelerynaItems[8].addEventListener("click", () => {
+                        ZbiorPeleryn.Powrot_ivravula.isActive(true);
+                })
+                activePelerynaItems[8].addEventListener("mouseover", () => {
+                    ZbiorPeleryn.Powrot_ivravula.isHovered()
+                });
+                activePelerynaItems[8].addEventListener("mouseout", () => {
+                    ZbiorPeleryn.Powrot_ivravula.isNotHovered()
+                });
+        }
+            ZbiorPeleryn.Xenothor.isShown();
+
+                if(activePelerynaItems[9]){
+                    console.log(activePelerynaItems[9]);
+                    activePelerynaItems[9].addEventListener("click", () => {
+                        ZbiorPeleryn.Xenothor.isActive(true);
+                })
+                activePelerynaItems[9].addEventListener("mouseover", () => {
+                    ZbiorPeleryn.Xenothor.isHovered()
+                });
+                activePelerynaItems[9].addEventListener("mouseout", () => {
+                    ZbiorPeleryn.Xenothor.isNotHovered()
+                });
+        }
 
             /* POSTAĆ */
 
         }else if($currentTile == Tiles[5]){
-            Dialog_container[5].innerHTML = "YOUR MOTHER";
+/*             Dialog_container[5].innerHTML = "YOUR MOTHER"; */
 
             /* BROŃ */
 
         }else if($currentTile == Tiles[6]){
     
+            Dialog_container.innerHTML = "<h1>Broń: </h1>";
+
+            ZbiorBroni.Ayol.isShown();
+
+                if(activeBronItems[0]){
+                    console.log(activeBronItems[0]);
+                    activeBronItems[0].addEventListener("click", () => {
+                        ZbiorBroni.Ayol.isActive(true);
+                    })
+                    activeBronItems[0].addEventListener("mouseover", () => {
+                        ZbiorBroni.Ayol.isHovered()
+                    });
+                    activeBronItems[0].addEventListener("mouseout", () => {
+                        ZbiorBroni.Ayol.isNotHovered()
+                    });
+                    
+                }
+
+            ZbiorBroni.Batagur.isShown();
+            
+            if(activeBronItems[1]){
+                console.log(activeBronItems[1]);
+                activeBronItems[1].addEventListener("click", () => {
+                    ZbiorBroni.Batagur.isActive(true);
+                })
+                activeBronItems[1].addEventListener("mouseover", () => {
+                    ZbiorBroni.Batagur.isHovered()
+                });
+                activeBronItems[1].addEventListener("mouseout", () => {
+                    ZbiorBroni.Batagur.isNotHovered()
+                });
+                
+            }
+
+            ZbiorBroni.Bol.isShown();
+
+                if(activeBronItems[2]){
+                    console.log(activeBronItems[2]);
+                    activeBronItems[2].addEventListener("click", () => {
+                        ZbiorBroni.Bol.isActive(true);
+                })
+                activeBronItems[2].addEventListener("mouseover", () => {
+                    ZbiorBroni.Bol.isHovered()
+                });
+                activeBronItems[2].addEventListener("mouseout", () => {
+                    ZbiorBroni.Bol.isNotHovered()
+                });
+            }
+
+            ZbiorBroni.Buoriany.isShown();
+
+                if(activeBronItems[3]){
+                    console.log(activeBronItems[3]);
+                    activeBronItems[3].addEventListener("click", () => {
+                        ZbiorBroni.Buoriany.isActive(true);
+                })
+                activeBronItems[3].addEventListener("mouseover", () => {
+                    ZbiorBroni.Buoriany.isHovered()
+                });
+                activeBronItems[3].addEventListener("mouseout", () => {
+                    ZbiorBroni.Buoriany.isNotHovered()
+                });
+        }
+
+            ZbiorBroni.Ciern.isShown();
+            
+                if(activeBronItems[4]){
+                    console.log(activeBronItems[4]);
+                    activeBronItems[4].addEventListener("click", () => {
+                        ZbiorBroni.Ciern.isActive(true);
+                })
+                activeBronItems[4].addEventListener("mouseover", () => {
+                    ZbiorBroni.Ciern.isHovered()
+                });
+                activeBronItems[4].addEventListener("mouseout", () => {
+                    ZbiorBroni.Ciern.isNotHovered()
+                });
+        }
+            ZbiorBroni.Davgretor.isShown();
+
+                if(activeBronItems[5]){
+                    console.log(activeBronItems[5]);
+                    activeBronItems[5].addEventListener("click", () => {
+                        ZbiorBroni.Davgretor.isActive(true);
+                })
+                activeBronItems[5].addEventListener("mouseover", () => {
+                    ZbiorBroni.Davgretor.isHovered()
+                });
+                activeBronItems[5].addEventListener("mouseout", () => {
+                    ZbiorBroni.Davgretor.isNotHovered()
+                });
+        }
+            ZbiorBroni.Derengil.isShown();
+
+                if(activeBronItems[6]){
+                    console.log(activeBronItems[6]);
+                    activeBronItems[6].addEventListener("click", () => {
+                        ZbiorBroni.Derengil.isActive(true);
+                })
+                activeBronItems[6].addEventListener("mouseover", () => {
+                    ZbiorBroni.Derengil.isHovered()
+                });
+                activeBronItems[6].addEventListener("mouseout", () => {
+                    ZbiorBroni.Derengil.isNotHovered()
+                });
+        }
+            ZbiorBroni.Geomorph_core.isShown();
+
+                if(activeBronItems[7]){
+                    console.log(activeBronItems[7]);
+                    activeBronItems[7].addEventListener("click", () => {
+                        ZbiorBroni.Geomorph_core.isActive(true);
+                })
+                activeBronItems[7].addEventListener("mouseover", () => {
+                    ZbiorBroni.Geomorph_core.isHovered()
+                });
+                activeBronItems[7].addEventListener("mouseout", () => {
+                    ZbiorBroni.Geomorph_core.isNotHovered()
+                });
+        }
+            ZbiorBroni.Gjolmar.isShown();
+
+                if(activeBronItems[8]){
+                    console.log(activeBronItems[8]);
+                    activeBronItems[8].addEventListener("click", () => {
+                        ZbiorBroni.Gjolmar.isActive(true);
+                })
+                activeBronItems[8].addEventListener("mouseover", () => {
+                    ZbiorBroni.Gjolmar.isHovered()
+                });
+                activeBronItems[8].addEventListener("mouseout", () => {
+                    ZbiorBroni.Gjolmar.isNotHovered()
+                });
+        }
+            ZbiorBroni.Istav.isShown();
+
+                if(activeBronItems[9]){
+                    console.log(activeBronItems[9]);
+                    activeBronItems[9].addEventListener("click", () => {
+                        ZbiorBroni.Istav.isActive(true);
+                })
+                activeBronItems[9].addEventListener("mouseover", () => {
+                    ZbiorBroni.Istav.isHovered()
+                });
+                activeBronItems[9].addEventListener("mouseout", () => {
+                    ZbiorBroni.Istav.isNotHovered()
+                });
+        }
+
+
+
+
             /* DODATKOWY PRZEDMIOT */
 
         }else if($currentTile == Tiles[7]){
