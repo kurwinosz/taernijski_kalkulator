@@ -213,7 +213,13 @@
     color: white;
     background-color: red;
     padding: .5rem;
+    max-width: 40rem;
+    min-width: 25rem;
+    line-height: .5rem;
 }
+    .statistics h1{
+        margin-block: 1rem;
+    }
 
 
         @media (min-width: 900px){

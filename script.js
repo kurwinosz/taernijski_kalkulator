@@ -102,9 +102,13 @@ let zdolnosciIcon = document.querySelector("#zdolnosci");
 
 let removeButton = null;
 let removeButtonCounter = 0;
+let tmpItemName = "";
+let tmpItem = "";
+let rmBtnTmp = "";
+let tmpIcon = "";
 /* DIALOG */
 
-function checkRemoveButton(icon, iconName, iconImage){
+function checkRemoveButton(icon, iconName, iconImage, item){
     if(removeButton == null && icon.style.backgroundImage != `url("img/icons/${iconImage}.png")` && removeButtonCounter === 0){
         let removeButton = document.createElement("a");
         
@@ -118,13 +122,43 @@ function checkRemoveButton(icon, iconName, iconImage){
         removeButton.addEventListener("click", () =>{
             icon.style.backgroundImage = `url("img/icons/${iconImage}.png")`;
 
+if(removeButton.classList.contains("remove-helm-icon")){
+    rmBtnTmp = "helm";
+    tmpIcon = helmIcon.getAttribute("current-item");
+}
+if(removeButton.classList.contains("remove-zbroja-icon")){
+    rmBtnTmp = "zbroja";
+    tmpIcon = zbrojaIcon.getAttribute("current-item");
+}
+console.log(rmBtnTmp, tmpIcon);
+
+
+            if(tmpItem != rmBtnTmp){
+                tmpItem = rmBtnTmp;
+            }
+            if(tmpItemName != tmpIcon){
+                tmpItemName = tmpIcon;
+            }
+
+            switch (tmpItem){
+                case "helm":
+                    tmpItem = "helm";
+                    tmpItemName = helmIcon.getAttribute("current-item");
+                    console.log(tmpItemName);
+                    ZbiorHelmow[tmpItemName].isNotActive(true);
+                    break;
+                case "zbroja":
+                    tmpItem = "zbroja";
+                    tmpItemName = zbrojaIcon.getAttribute("current-item");
+                    ZbiorZbroi[tmpItemName].isNotActive(true);
+                    break;
+            }          
+
+
             Dialog.close()
-/* 
-            switch (iconName){
-                case "helmIcon":
-                    ZbiorHelmow.
-            }   
- */
+
+    
+
 
 
 
@@ -150,20 +184,6 @@ function checkRemoveButton(icon, iconName, iconImage){
             activeZdolnosciItems = [];
             removeButton = null;
             removeButtonCounter = 0;
-            helmIcon.removeAttribute("current-item", iconName);
-            zbrojaIcon.removeAttribute("current-item", iconName);
-            naszyjnikIcon.removeAttribute("current-item", iconName);
-            rekawiceIcon.removeAttribute("current-item", iconName);
-            pelerynaIcon.removeAttribute("current-item", iconName);
-            bronIcon.removeAttribute("current-item", iconName);
-            spodnieIcon.removeAttribute("current-item", iconName);
-            karwaszeIcon.removeAttribute("current-item", iconName);
-            kowadloIcon.removeAttribute("current-item", iconName);
-            pasIcon.removeAttribute("current-item", iconName);
-            pierscien1Icon.removeAttribute("current-item", iconName);
-            pierscien2Icon.removeAttribute("current-item", iconName);
-            butyIcon.removeAttribute("current-item", iconName);
-            zdolnosciIcon.removeAttribute("current-item", iconName);
         })
     }
     }
@@ -189,19 +209,34 @@ class Helm{
         this.hp = hp;
         this.stamina = stamina;
         this.mana = mana;
+        this.stamp = 0;
     }
     isActive(activated){
         console.log(this.active, this.name)
         this.active = activated;
         console.log(this.active);
         
+        if(this.diff === null){
+            this.diff = this.name;
+        }
+        
+       
 
+
+        console.log(this.stamp);
+        if(this.stamp >= 1){
+            this.isNotActive(true);
+
+        }
             if(this.active === true){
+                this.stamp++;
                 helmIcon.style.backgroundImage = `url(${this.img})`;
                 console.log(this.img);
                 helmIcon.setAttribute("current-item", this.name);
-                checkRemoveButton(helmIcon, "helm-icon", "helmIcon","ZbiorHelmow", this.name);
+                checkRemoveButton(helmIcon, "helm-icon", "helmIcon", "helm");
     
+                console.log("MANA" + currentMana)
+                if(this.stamp <= 1){
                     currentPower += this.power;
                     currentKnowledge += this.knowledge;
                     currentStrength += this.strength;
@@ -210,12 +245,14 @@ class Helm{
                     currentStamina += this.stamina;
                     currentMana += this.mana;
                     checkStatistics();
+                }
+                   
             }
     }
     isNotActive(notActivated){
         this.notActive = notActivated;
             if(this.notActive === true){
-                
+                    this.stamp = 0;
     
                     currentPower -= this.power;
                     currentKnowledge -= this.knowledge;
@@ -256,7 +293,7 @@ class Helm{
 
 const ZbiorHelmow = {
 Martumal: new Helm("Martumal", "img/martumal.png", false, false, false, 8, 7, 0, 0 , 0, 0, 40),
-Grzebien: new Helm("Grzebien", "img/grzebien.png", false, false, ),
+Grzebien: new Helm("Grzebien", "img/grzebien.png", false, false, false, 0, 0, 4, 4, 30, 70, 0),
 Ishelm: new Helm("Ishelm", "img/ishelm.png", false, false, ),
 Khalam: new Helm("Khalam","img/khalam.png", false, false, ),
 Czacha: new Helm("Czacha", "img/czacha.png", false, false,),
@@ -270,11 +307,19 @@ Sigil: new Helm("Sigil", "img/sigil.png", false, false,)
 }
 
 class Zbroja{
-    constructor(name, img, active, shown){
+    constructor(name, img, active, notActive, shown, power, knowledge, strength, agility, hp, stamina, mana){
         this.name = name;
         this.img = img;
         this.active = active;
+        this.notActive = notActive;
         this.shown = shown;
+        this.power = power;
+        this.knowledge = knowledge;
+        this.strength = strength;
+        this.agility = agility;
+        this.hp = hp;
+        this.stamina = stamina;
+        this.mana = mana;
     }
     isActive(activated){
         console.log(this.active, this.name)
@@ -285,11 +330,32 @@ class Zbroja{
                 zbrojaIcon.style.backgroundImage = `url(${this.img})`;
                 console.log(this.img);
                 zbrojaIcon.setAttribute("current-item", this.name);
-                checkRemoveButton(zbrojaIcon, "zbroja-icon", "zbrojaIcon");
+                checkRemoveButton(zbrojaIcon, "zbroja-icon", "zbrojaIcon", "zbroja");
                 
+                    currentPower += this.power;
+                    currentKnowledge += this.knowledge;
+                    currentStrength += this.strength;
+                    currentAgility += this.agility;
+                    currentHp += this.hp;
+                    currentStamina += this.stamina;
+                    currentMana += this.mana;
+                    checkStatistics();
             }
-            if(this.active === false){
-                zbrojaIcon.style.backgroundImage = "none";
+           
+    }
+    isNotActive(notActivated){
+        this.notActive = notActivated;
+            if(this.notActive === true){
+                
+    
+                    currentPower -= this.power;
+                    currentKnowledge -= this.knowledge;
+                    currentStrength -= this.strength;
+                    currentAgility -= this.agility;
+                    currentHp -= this.hp;
+                    currentStamina -= this.stamina;
+                    currentMana -= this.mana;
+                    checkStatistics();
             }
     }
     isShown(){
@@ -318,7 +384,7 @@ class Zbroja{
 }
 
 const ZbiorZbroi = {
-    Bartaur: new Zbroja("Bartaur", "img/bartaur.png", false,false),
+    Bartaur: new Zbroja("Bartaur", "img/bartaur.png", false,false, false, 0, 0, 9, 8, 0, 50, 0),
     Brunnle: new Zbroja("Brunnle", "img/brunnle.png", false,false),
     Diabolo: new Zbroja("Diabolo", "img/diabolo.png", false,false),
     Dmorlung: new Zbroja("Dmorlung","img/dmorlung.png", false,false),
@@ -2998,6 +3064,10 @@ const ZbiorZbroi = {
 
     
     }
+
+
+
+    document.addEventListener("DOMContentLoaded", checkStatistics)
 
     
     
