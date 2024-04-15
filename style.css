@@ -16,6 +16,7 @@
         justify-content: center;
         align-items: center;
         box-shadow: inset 0 0 100px 10px black;
+        overflow-x: hidden;
     }
     main{
         height: 100vh;
@@ -23,6 +24,7 @@
         flex-wrap: wrap;
         justify-content: center;
         align-items: center;
+        gap: 10rem;
     }
     main .container{
         display: grid;
@@ -46,6 +48,9 @@
         background-size: 60%; 
     }
     main .container #peleryna{
+        background-size: contain;
+    }
+    main .container #spodnie{
         background-size: contain;
     }
         .item[data-tooltip]{
@@ -197,7 +202,21 @@
             } 
 
 
-        @media (min-width: 1300px){
+/* STATTSTYKI */
+
+.statistics{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: .75rem;
+    font-size: 90%;
+    color: white;
+    background-color: red;
+    padding: .5rem;
+}
+
+
+        @media (min-width: 900px){
             .dialog{
                 min-width: 50rem;
             }
@@ -211,9 +230,12 @@
                 height: 100vh;
             }
         }   
-        @media (max-width: 700px){
+        @media (max-width: 900px){
             body{
                 background-position: right;
+            }
+            main{
+                gap: 0;
             }
         main .container{
             transform: scale(0.8);
@@ -233,6 +255,43 @@
             font-size: 1.75rem;
         }
         .dialog .dialog-container .dialog-img{
+            transform: scale(.7);
+            
+        }
+        .dialog .dialog-container .remove-button{
+            bottom: 1rem;
+            left: 40%;
+        }
+
+        }
+        @media (max-width: 500px){
+            body{
+                background-position: right;
+            }
+        main{
+                gap: 0;
+        }
+        .statistics{
+            transform:translatey(-3.5rem)
+        }
+        main .container{
+            transform: scale(0.6);
+            background-color: rgba(248, 186, 179, 0.2);
+            /* padding: 5px; */
+            border-radius: 5px;
+            box-shadow: 0 0 10px 10px rgba(248, 186, 179, 0.2);
+        }
+        .dialog{
+            padding: 2rem .5rem;
+            min-width: 20rem;
+            max-width: 85vw;
+            min-height: 40rem;
+            max-height: 99vh;
+        }
+        .dialog h1{
+            font-size: 1.75rem;
+        }
+        .dialog .dialog-container .dialog-img{
             transform: scale(.8);
             
         }
@@ -247,7 +306,7 @@ footer{
     justify-content: right;
     align-items:end;
     height: 10rem;
-    width: 100%;
+    width: 100vw;
     background-color: rgba(0, 0, 0, 0.5);
     box-shadow:0px 0px 40px 20px rgba(0, 0, 0, 0.6);
 }

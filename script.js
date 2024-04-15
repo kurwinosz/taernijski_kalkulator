@@ -24,9 +24,35 @@ const Tiles = document.querySelectorAll(".item");
             itemContainer.removeAttribute('data-tooltip');
     }
 
+let currentPower = 0;
+let currentKnowledge = 0;
+let currentStrength = 0;
+let currentAgility = 0;
+let currentHp = 0;
+let currentStamina = 0;
+let currentMana = 0;
+let basePower = 10;
+let baseKnowledge = 10;
+let baseStrength = 10;
+let baseAgility = 10;
+let baseHp = 200;
+let baseStamina = 200;
+let baseMana = 200;
 
-    
-    
+function checkStatistics(){
+    document.querySelector(".power").innerHTML = `Moc: ${currentPower + basePower}`;
+    document.querySelector(".knowledge").innerHTML = `Wiedza: ${currentKnowledge + baseKnowledge}`;
+    document.querySelector(".strength").innerHTML = `Siła: ${currentStrength + baseStrength}`;
+    document.querySelector(".agility").innerHTML = `Zręczność: ${currentAgility + baseAgility}`;
+    document.querySelector(".hp").innerHTML = `Hp: ${currentHp + baseHp}`;
+    document.querySelector(".stamina").innerHTML = `Kondycja: ${currentStamina + baseStamina}`;
+    document.querySelector(".mana").innerHTML = `Mana: ${currentMana + baseMana}`;
+    console.log(currentPower);
+}
+
+
+
+
 
 
 let helmIcon = document.querySelector("#helm");
@@ -91,7 +117,16 @@ function checkRemoveButton(icon, iconName, iconImage){
         
         removeButton.addEventListener("click", () =>{
             icon.style.backgroundImage = `url("img/icons/${iconImage}.png")`;
-            Dialog.close(); 
+
+            Dialog.close()
+/* 
+            switch (iconName){
+                case "helmIcon":
+                    ZbiorHelmow.
+            }   
+ */
+
+
 
             //e.firstElementChild can be used. 
             let child = Dialog_container.firstElementChild;
@@ -104,6 +139,15 @@ function checkRemoveButton(icon, iconName, iconImage){
             activeNaszyjnikItems = [];
             activeRekawiceItems = [];
             activePelerynaItems = [];
+            activeBronItems = [];
+            activeSpodnieItems = [];
+            activeKarwaszeItems = [];
+            activeKowadloItems = [];
+            activePasItems = [];
+            activePierscien1Items = [];
+            activePierscien2Items = [];
+            activeButyItems = [];
+            activeZdolnosciItems = [];
             removeButton = null;
             removeButtonCounter = 0;
             helmIcon.removeAttribute("current-item", iconName);
@@ -111,6 +155,15 @@ function checkRemoveButton(icon, iconName, iconImage){
             naszyjnikIcon.removeAttribute("current-item", iconName);
             rekawiceIcon.removeAttribute("current-item", iconName);
             pelerynaIcon.removeAttribute("current-item", iconName);
+            bronIcon.removeAttribute("current-item", iconName);
+            spodnieIcon.removeAttribute("current-item", iconName);
+            karwaszeIcon.removeAttribute("current-item", iconName);
+            kowadloIcon.removeAttribute("current-item", iconName);
+            pasIcon.removeAttribute("current-item", iconName);
+            pierscien1Icon.removeAttribute("current-item", iconName);
+            pierscien2Icon.removeAttribute("current-item", iconName);
+            butyIcon.removeAttribute("current-item", iconName);
+            zdolnosciIcon.removeAttribute("current-item", iconName);
         })
     }
     }
@@ -123,13 +176,19 @@ const Dialog_container = document.querySelector(".dialog-container");
 /* OGROMNE ALERT */
 
 class Helm{
-    constructor(name, img, active, shown, moc, wiedza){
+    constructor(name, img, active, notActive, shown, power, knowledge, strength, agility, hp, stamina, mana){
         this.name = name;
         this.img = img;
         this.active = active;
+        this.notActive = notActive;
         this.shown = shown;
-        this.moc = moc;
-        this.wiedza = wiedza;
+        this.power = power;
+        this.knowledge = knowledge;
+        this.strength = strength;
+        this.agility = agility;
+        this.hp = hp;
+        this.stamina = stamina;
+        this.mana = mana;
     }
     isActive(activated){
         console.log(this.active, this.name)
@@ -141,10 +200,31 @@ class Helm{
                 helmIcon.style.backgroundImage = `url(${this.img})`;
                 console.log(this.img);
                 helmIcon.setAttribute("current-item", this.name);
-                checkRemoveButton(helmIcon, "helm-icon", "helmIcon");
+                checkRemoveButton(helmIcon, "helm-icon", "helmIcon","ZbiorHelmow", this.name);
+    
+                    currentPower += this.power;
+                    currentKnowledge += this.knowledge;
+                    currentStrength += this.strength;
+                    currentAgility += this.agility;
+                    currentHp += this.hp;
+                    currentStamina += this.stamina;
+                    currentMana += this.mana;
+                    checkStatistics();
             }
-            if(this.active === false){
-                helmIcon.style.backgroundImage = "none";
+    }
+    isNotActive(notActivated){
+        this.notActive = notActivated;
+            if(this.notActive === true){
+                
+    
+                    currentPower -= this.power;
+                    currentKnowledge -= this.knowledge;
+                    currentStrength -= this.strength;
+                    currentAgility -= this.agility;
+                    currentHp -= this.hp;
+                    currentStamina -= this.stamina;
+                    currentMana -= this.mana;
+                    checkStatistics();
             }
     }
     
@@ -175,7 +255,7 @@ class Helm{
 
 
 const ZbiorHelmow = {
-Martumal: new Helm("Martumal", "img/martumal.png", false, false, "Moc: +8", "Wiedza: +7"),
+Martumal: new Helm("Martumal", "img/martumal.png", false, false, false, 8, 7, 0, 0 , 0, 0, 40),
 Grzebien: new Helm("Grzebien", "img/grzebien.png", false, false, ),
 Ishelm: new Helm("Ishelm", "img/ishelm.png", false, false, ),
 Khalam: new Helm("Khalam","img/khalam.png", false, false, ),
@@ -522,6 +602,382 @@ const ZbiorZbroi = {
                     Wladca_losu: new Bron("Wladca_losu","img/wladca_losu.png", false, false),
                         
                         }
+                class Karwasze{
+                    constructor(name, img, active, shown){
+                        this.name = name;
+                        this.img = img;
+                        this.active = active;
+                        this.shown = shown;
+                    }
+                    isActive(activated){
+                        console.log(this.active, this.name)
+                        this.active = activated;
+                        console.log(this.active);
+                
+                            if(this.active === true){
+                                karwaszeIcon.style.backgroundImage = `url(${this.img})`;
+                                console.log(this.img);
+                                checkRemoveButton(karwaszeIcon, "karwasze-icon", "karwaszeIcon");
+                                karwaszeIcon.setAttribute("current-item", this.name);
+                                
+                            }
+                            if(this.active === false){
+                                karwaszeIcon.style.backgroundImage = "none";
+                            }
+                    }
+                    isShown(){
+                        let newDialogImage = document.createElement("a")
+                        newDialogImage.style.backgroundImage = `url(${this.img})`;
+                        newDialogImage.setAttribute("class", `${this.name} dialog-img karwasze-items`);
+                        Dialog_container.appendChild(newDialogImage);
+                        activeKarwaszeItems.push(newDialogImage);
+                        checkRemoveButton(karwaszeIcon, "karwasze-icon", "karwaszeIcon");    
+                        
+                        this.shown = true;
+                    }
+            
+                    isHovered(){
+                        if(this.shown === true){
+                            Dialog_container.querySelector(`.${this.name}`).setAttribute('data-tooltip', `${this.name}`);
+                            console.log(this.name);
+                        }
+                        
+                    }
+                    isNotHovered(){
+                        if(this.shown === true){
+                        Dialog_container.querySelector(`.${this.name}`).removeAttribute('data-tooltip');
+                    }
+                }
+            
+                }
+        
+                const ZbiorKarwaszy = {
+                    Ariachy: new Karwasze("Ariachy", "img/ariachy.png", false, false),
+                    Berglisy: new Karwasze("Berglisy", "img/berglisy.png", false, false),
+                    Geury: new Karwasze("Geury", "img/geury.png", false, false),
+                    Inavoxy: new Karwasze("Inavoxy","img/inavoxy.png", false, false),
+                        }
+
+                        class Spodnie{
+                            constructor(name, img, active, shown){
+                                this.name = name;
+                                this.img = img;
+                                this.active = active;
+                                this.shown = shown;
+                            }
+                            isActive(activated){
+                                console.log(this.active, this.name)
+                                this.active = activated;
+                                console.log(this.active);
+                        
+                                    if(this.active === true){
+                                        spodnieIcon.style.backgroundImage = `url(${this.img})`;
+                                        console.log(this.img);
+                                        checkRemoveButton(spodnieIcon, "spodnie-icon", "spodnieIcon");
+                                        spodnieIcon.setAttribute("current-item", this.name);
+                                        
+                                    }
+                                    if(this.active === false){
+                                        spodnieIcon.style.backgroundImage = "none";
+                                    }
+                            }
+                            isShown(){
+                                let newDialogImage = document.createElement("a")
+                                newDialogImage.style.backgroundImage = `url(${this.img})`;
+                                newDialogImage.setAttribute("class", `${this.name} dialog-img spodnie-items`);
+                                Dialog_container.appendChild(newDialogImage);
+                                activeSpodnieItems.push(newDialogImage);
+                                checkRemoveButton(spodnieIcon, "spodnie-icon", "spodnieIcon");    
+                                
+                                this.shown = true;
+                            }
+                    
+                            isHovered(){
+                                if(this.shown === true){
+                                    Dialog_container.querySelector(`.${this.name}`).setAttribute('data-tooltip', `${this.name}`);
+                                    console.log(this.name);
+                                }
+                                
+                            }
+                            isNotHovered(){
+                                if(this.shown === true){
+                                Dialog_container.querySelector(`.${this.name}`).removeAttribute('data-tooltip');
+                            }
+                        }
+                    
+                        }
+                
+                        const ZbiorSpodni = {
+                            Aquariusy: new Spodnie("Aquariusy", "img/aquariusy.png", false, false),
+                            Erbaile: new Spodnie("Erbaile", "img/erbaile.png", false, false),
+                            Obdartusy: new Spodnie("Obdartusy", "img/obdartusy.png", false, false),
+                            Skiilfy: new Spodnie("Skiilfy","img/skiilfy.png", false, false),
+                            Temary: new Spodnie("Temary","img/temary.png", false, false),
+                            Tirhel: new Spodnie("Tirhel","img/tirhel.png", false, false),
+                            Udreki: new Spodnie("Udreki","img/udreki.png", false, false),
+                            Varrvy: new Spodnie("Varrvy","img/varrvy.png", false, false),
+                            Wzorek: new Spodnie("Wzorek","img/wzorek.png", false, false),
+                            Ziraki: new Spodnie("Ziraki","img/ziraki.png", false, false),
+                                }
+                        class Pas{
+                            constructor(name, img, active, shown){
+                                this.name = name;
+                                this.img = img;
+                                this.active = active;
+                                this.shown = shown;
+                            }
+                            isActive(activated){
+                                console.log(this.active, this.name)
+                                this.active = activated;
+                                console.log(this.active);
+                        
+                                    if(this.active === true){
+                                        pasIcon.style.backgroundImage = `url(${this.img})`;
+                                        console.log(this.img);
+                                        checkRemoveButton(pasIcon, "pas-icon", "pasIcon");
+                                        pasIcon.setAttribute("current-item", this.name);
+                                        
+                                    }
+                                    if(this.active === false){
+                                        pasIcon.style.backgroundImage = "none";
+                                    }
+                            }
+                            isShown(){
+                                let newDialogImage = document.createElement("a")
+                                newDialogImage.style.backgroundImage = `url(${this.img})`;
+                                newDialogImage.setAttribute("class", `${this.name} dialog-img pas-items`);
+                                Dialog_container.appendChild(newDialogImage);
+                                activePasItems.push(newDialogImage);
+                                checkRemoveButton(pasIcon, "pas-icon", "pasIcon");    
+                                
+                                this.shown = true;
+                            }
+                    
+                            isHovered(){
+                                if(this.shown === true){
+                                    Dialog_container.querySelector(`.${this.name}`).setAttribute('data-tooltip', `${this.name}`);
+                                    console.log(this.name);
+                                }
+                                
+                            }
+                            isNotHovered(){
+                                if(this.shown === true){
+                                Dialog_container.querySelector(`.${this.name}`).removeAttribute('data-tooltip');
+                            }
+                        }
+                    
+                        }
+                
+                        const ZbiorPasow = {
+                            Anabolik: new Pas("Anabolik", "img/anabolik.png", false, false),
+                            Dagorilm: new Pas("Dagorilm", "img/dagorilm.png", false, false),
+                            Exuvium: new Pas("Exuvium", "img/exuvium.png", false, false),
+                            Groza_seleny: new Pas("Groza_seleny","img/groza_seleny.png", false, false),
+                            Koriatula: new Pas("Koriatula","img/koriatula.png", false, false),
+                            Nienawisc_draugula: new Pas("Nienawisc_draugula","img/nienawisc_draugula.png", false, false),
+                            Nurt: new Pas("Nurt","img/nurt.png", false, false),
+                            Promuris: new Pas("Promuris","img/promuris.png", false, false),
+                            Radius_electricum: new Pas("Radius_electricum","img/radius_electricum.png", false, false),
+                            Sentrion: new Pas("Sentrion","img/sentrion.png", false, false),
+                                }
+                        class Pierscien1{
+                            constructor(name, img, active, shown){
+                                this.name = name;
+                                this.img = img;
+                                this.active = active;
+                                this.shown = shown;
+                            }
+                            isActive(activated){
+                                console.log(this.active, this.name)
+                                this.active = activated;
+                                console.log(this.active);
+                        
+                                    if(this.active === true){
+                                        pierscien1Icon.style.backgroundImage = `url(${this.img})`;
+                                        console.log(this.img);
+                                        checkRemoveButton(pierscien1Icon, "pierscien1-icon", "pierscien1Icon");
+                                        pierscien1Icon.setAttribute("current-item", this.name);
+                                        
+                                    }
+                                    if(this.active === false){
+                                        pierscien1Icon.style.backgroundImage = "none";
+                                    }
+                            }
+                            isShown(){
+                                let newDialogImage = document.createElement("a")
+                                newDialogImage.style.backgroundImage = `url(${this.img})`;
+                                newDialogImage.setAttribute("class", `${this.name} dialog-img pierscien1-items`);
+                                Dialog_container.appendChild(newDialogImage);
+                                activePierscien1Items.push(newDialogImage);
+                                checkRemoveButton(pierscien1Icon, "pierscien1-icon", "pierscien1Icon");    
+                                
+                                this.shown = true;
+                            }
+                    
+                            isHovered(){
+                                if(this.shown === true){
+                                    Dialog_container.querySelector(`.${this.name}`).setAttribute('data-tooltip', `${this.name}`);
+                                    console.log(this.name);
+                                }
+                                
+                            }
+                            isNotHovered(){
+                                if(this.shown === true){
+                                Dialog_container.querySelector(`.${this.name}`).removeAttribute('data-tooltip');
+                            }
+                        }
+                    
+                        }
+                
+                        const ZbiorPierscieni1 = {
+                            Arcanscape: new Pierscien1("Arcanscape", "img/arcanscape.png", false, false),
+                            Balast: new Pierscien1("Balast", "img/balast.png", false, false),
+                            Basileus: new Pierscien1("Basileus", "img/basileus.png", false, false),
+                            Fiskorl: new Pierscien1("Fiskorl","img/fiskorl.png", false, false),
+                            Fulgur: new Pierscien1("Fulgur","img/fulgur.png", false, false),
+                            Griv: new Pierscien1("Griv","img/griv.png", false, false),
+                            Karlder: new Pierscien1("Karlder","img/karlder.png", false, false),
+                            Mauremys: new Pierscien1("Mauremys","img/Mauremys.png", false, false),
+                            Navigon: new Pierscien1("Navigon","img/Navigon.png", false, false),
+                            Nit: new Pierscien1("Nit","img/Nit.png", false, false),
+                            Przysiega_draugula: new Pierscien1("Przysiega_draugula","img/przysiega_draugula.png", false, false),
+                            Skogan: new Pierscien1("Skogan","img/skogan.png", false, false),
+                            Uguns: new Pierscien1("Uguns","img/uguns.png", false, false),
+                            Zaglada_ludow: new Pierscien1("Zaglada_ludow","img/zaglada_ludow.png", false, false),
+                                }
+                        class Pierscien2{
+                            constructor(name, img, active, shown){
+                                this.name = name;
+                                this.img = img;
+                                this.active = active;
+                                this.shown = shown;
+                            }
+                            isActive(activated){
+                                console.log(this.active, this.name)
+                                this.active = activated;
+                                console.log(this.active);
+                        
+                                    if(this.active === true){
+                                        pierscien2Icon.style.backgroundImage = `url(${this.img})`;
+                                        console.log(this.img);
+                                        checkRemoveButton(pierscien2Icon, "pierscien2-icon", "pierscien2Icon");
+                                        pierscien2Icon.setAttribute("current-item", this.name);
+                                        
+                                    }
+                                    if(this.active === false){
+                                        pierscien2Icon.style.backgroundImage = "none";
+                                    }
+                            }
+                            isShown(){
+                                let newDialogImage = document.createElement("a")
+                                newDialogImage.style.backgroundImage = `url(${this.img})`;
+                                newDialogImage.setAttribute("class", `${this.name} dialog-img pierscien2-items`);
+                                Dialog_container.appendChild(newDialogImage);
+                                activePierscien2Items.push(newDialogImage);
+                                checkRemoveButton(pierscien2Icon, "pierscien2-icon", "pierscien2Icon");    
+                                
+                                this.shown = true;
+                            }
+                    
+                            isHovered(){
+                                if(this.shown === true){
+                                    Dialog_container.querySelector(`.${this.name}`).setAttribute('data-tooltip', `${this.name}`);
+                                    console.log(this.name);
+                                }
+                                
+                            }
+                            isNotHovered(){
+                                if(this.shown === true){
+                                Dialog_container.querySelector(`.${this.name}`).removeAttribute('data-tooltip');
+                            }
+                        }
+                    
+                        }
+                
+                        const ZbiorPierscieni2 = {
+                            Arcanscape: new Pierscien2("Arcanscape", "img/arcanscape.png", false, false),
+                            Balast: new Pierscien2("Balast", "img/balast.png", false, false),
+                            Basileus: new Pierscien2("Basileus", "img/basileus.png", false, false),
+                            Fiskorl: new Pierscien2("Fiskorl","img/fiskorl.png", false, false),
+                            Fulgur: new Pierscien2("Fulgur","img/fulgur.png", false, false),
+                            Griv: new Pierscien2("Griv","img/griv.png", false, false),
+                            Karlder: new Pierscien2("Karlder","img/karlder.png", false, false),
+                            Mauremys: new Pierscien2("Mauremys","img/Mauremys.png", false, false),
+                            Navigon: new Pierscien2("Navigon","img/Navigon.png", false, false),
+                            Nit: new Pierscien2("Nit","img/Nit.png", false, false),
+                            Przysiega_draugula: new Pierscien2("Przysiega_draugula","img/przysiega_draugula.png", false, false),
+                            Skogan: new Pierscien2("Skogan","img/skogan.png", false, false),
+                            Uguns: new Pierscien2("Uguns","img/uguns.png", false, false),
+                            Zaglada_ludow: new Pierscien2("Zaglada_ludow","img/zaglada_ludow.png", false, false),
+                                }
+                        class Buty{
+                            constructor(name, img, active, shown){
+                                this.name = name;
+                                this.img = img;
+                                this.active = active;
+                                this.shown = shown;
+                            }
+                            isActive(activated){
+                                console.log(this.active, this.name)
+                                this.active = activated;
+                                console.log(this.active);
+                        
+                                    if(this.active === true){
+                                        butyIcon.style.backgroundImage = `url(${this.img})`;
+                                        console.log(this.img);
+                                        checkRemoveButton(butyIcon, "buty-icon", "butyIcon");
+                                        butyIcon.setAttribute("current-item", this.name);
+                                        
+                                    }
+                                    if(this.active === false){
+                                        butyIcon.style.backgroundImage = "none";
+                                    }
+                            }
+                            isShown(){
+                                let newDialogImage = document.createElement("a")
+                                newDialogImage.style.backgroundImage = `url(${this.img})`;
+                                newDialogImage.setAttribute("class", `${this.name} dialog-img buty-items`);
+                                Dialog_container.appendChild(newDialogImage);
+                                activeButyItems.push(newDialogImage);
+                                checkRemoveButton(butyIcon, "buty-icon", "butyIcon");    
+                                
+                                this.shown = true;
+                            }
+                    
+                            isHovered(){
+                                if(this.shown === true){
+                                    Dialog_container.querySelector(`.${this.name}`).setAttribute('data-tooltip', `${this.name}`);
+                                    console.log(this.name);
+                                }
+                                
+                            }
+                            isNotHovered(){
+                                if(this.shown === true){
+                                Dialog_container.querySelector(`.${this.name}`).removeAttribute('data-tooltip');
+                            }
+                        }
+                    
+                        }
+                
+                        const ZbiorButow = {
+                            Alendry: new Buty("Alendry", "img/alendry.png", false, false),
+                            Aqueniry: new Buty("Aqueniry", "img/aqueniry.png", false, false),
+                            Arhauty: new Buty("Arhauty", "img/arhauty.png", false, false),
+                            Cierpietniki: new Buty("Cierpietniki","img/cierpietniki.png", false, false),
+                            Czengsvesy: new Buty("Czengsvesy","img/czengsvesy.png", false, false),
+                            Envile: new Buty("Envile","img/envile.png", false, false),
+                            Jeroszki: new Buty("Jeroszki","img/jeroszki.png", false, false),
+                            Lysmary: new Buty("Lysmary","img/Lysmary.png", false, false),
+                            Moczary: new Buty("Moczary","img/moczary.png", false, false),
+                            Tangnary: new Buty("Tangnary","img/tangnary.png", false, false),
+                            Virveny: new Buty("Virveny","img/virveny.png", false, false),
+                            Thorimmy: new Buty("Thorimmy","img/thorimmy.png", false, false),
+                                }
+
+
+
+
+
 
 
 
@@ -1520,33 +1976,991 @@ const ZbiorZbroi = {
 
         }else if($currentTile == Tiles[7]){
     
-            /* KARWASZE */
+            
 
-        }else if($currentTile == Tiles[8]){
+        }
+
+        /* KARWASZE */
+        
+        else if($currentTile == Tiles[8]){
     
-            /* SPODNIE */
+           
+                Dialog_container.innerHTML = "<h1>Karwasze: </h1>";
+        
+        
+                ZbiorKarwaszy.Ariachy.isShown();
+                    if(activeKarwaszeItems[0]){
+                        console.log(activeKarwaszeItems[0]);
+                        
+                        activeKarwaszeItems[0].addEventListener("click", () => {
+                            ZbiorKarwaszy.Ariachy.isActive(true);
+        
+                        })
+                        activeKarwaszeItems[0].addEventListener("mouseover", () => {
+                            ZbiorKarwaszy.Ariachy.isHovered()
+                        });
+                        activeKarwaszeItems[0].addEventListener("mouseout", () => {
+                            ZbiorKarwaszy.Ariachy.isNotHovered()
+                        });
+                        
+                    }
+                ZbiorKarwaszy.Berglisy.isShown();
+                if(activeKarwaszeItems[1]){
+                    console.log(activeKarwaszeItems[1]);
+                    activeKarwaszeItems[1].addEventListener("click", () => {
+                        ZbiorKarwaszy.Berglisy.isActive(true);
+        
+                    })
+                    activeKarwaszeItems[1].addEventListener("mouseover", () => { 
+                        ZbiorKarwaszy.Berglisy.isHovered()
+                    });
+                    activeKarwaszeItems[1].addEventListener("mouseout", () => { 
+                        ZbiorKarwaszy.Berglisy.isNotHovered()
+                    });
+                    
+                }
+                ZbiorKarwaszy.Geury.isShown();
+                    if(activeKarwaszeItems[2]){
+                        console.log(activeKarwaszeItems[2]);
+                        activeKarwaszeItems[2].addEventListener("click", () => {
+                            ZbiorKarwaszy.Geury.isActive(true);
+        
+                    })
+                    activeKarwaszeItems[2].addEventListener("mouseover",() => {
+                        ZbiorKarwaszy.Geury.isHovered()
+                    });
+                    activeKarwaszeItems[2].addEventListener("mouseout",() => {
+                        ZbiorKarwaszy.Geury.isNotHovered()
+                    });
+                }
+                ZbiorKarwaszy.Inavoxy.isShown();
+                    if(activeKarwaszeItems[3]){
+                        console.log(activeKarwaszeItems[3]);
+                        activeKarwaszeItems[3].addEventListener("click", () => {
+                            ZbiorKarwaszy.Inavoxy.isActive(true);
+        
+                    })
+                    activeKarwaszeItems[3].addEventListener("mouseover", () => {
+                        ZbiorKarwaszy.Inavoxy.isHovered()
+                    } );
+                    activeKarwaszeItems[3].addEventListener("mouseout", () => {
+                        ZbiorKarwaszy.Inavoxy.isNotHovered()
+                    } );
+            }
 
-        }else if($currentTile == Tiles[9]){
+
+
+
+            
+
+        }
+        
+        /* SPODNIE */
+
+        else if($currentTile == Tiles[9]){
     
-            /* PAS */
-
-        }else if($currentTile == Tiles[10]){
+           
+            Dialog_container.innerHTML = "<h1>Spodnie: </h1>";
         
-            /* PIERŚCIEŃ 1 */
-
-        }else if($currentTile == Tiles[11]){
         
-            /* PIERŚCIEŃ 2 */
+            ZbiorSpodni.Aquariusy.isShown();
+                if(activeSpodnieItems[0]){
+                    console.log(activeSpodnieItems[0]);
+                    
+                    activeSpodnieItems[0].addEventListener("click", () => {
+                        ZbiorSpodni.Aquariusy.isActive(true);
+    
+                    })
+                    activeSpodnieItems[0].addEventListener("mouseover", () => {
+                        ZbiorSpodni.Aquariusy.isHovered()
+                    });
+                    activeSpodnieItems[0].addEventListener("mouseout", () => {
+                        ZbiorSpodni.Aquariusy.isNotHovered()
+                    });
+                    
+                }
+            ZbiorSpodni.Erbaile.isShown();
+            if(activeSpodnieItems[1]){
+                console.log(activeSpodnieItems[1]);
+                activeSpodnieItems[1].addEventListener("click", () => {
+                    ZbiorSpodni.Erbaile.isActive(true);
+    
+                })
+                activeSpodnieItems[1].addEventListener("mouseover", () => { 
+                    ZbiorSpodni.Erbaile.isHovered()
+                });
+                activeSpodnieItems[1].addEventListener("mouseout", () => { 
+                    ZbiorSpodni.Erbaile.isNotHovered()
+                });
+                
+            }
+            ZbiorSpodni.Obdartusy.isShown();
+                if(activeSpodnieItems[2]){
+                    console.log(activeSpodnieItems[2]);
+                    activeSpodnieItems[2].addEventListener("click", () => {
+                        ZbiorSpodni.Obdartusy.isActive(true);
+    
+                })
+                activeSpodnieItems[2].addEventListener("mouseover",() => {
+                    ZbiorSpodni.Obdartusy.isHovered()
+                });
+                activeSpodnieItems[2].addEventListener("mouseout",() => {
+                    ZbiorSpodni.Obdartusy.isNotHovered()
+                });
+            }
+            ZbiorSpodni.Skiilfy.isShown();
+                if(activeSpodnieItems[3]){
+                    console.log(activeSpodnieItems[3]);
+                    activeSpodnieItems[3].addEventListener("click", () => {
+                        ZbiorSpodni.Skiilfy.isActive(true);
+    
+                })
+                activeSpodnieItems[3].addEventListener("mouseover", () => {
+                    ZbiorSpodni.Skiilfy.isHovered()
+                } );
+                activeSpodnieItems[3].addEventListener("mouseout", () => {
+                    ZbiorSpodni.Skiilfy.isNotHovered()
+                } );
+        }
+            ZbiorSpodni.Temary.isShown();
+                if(activeSpodnieItems[4]){
+                    console.log(activeSpodnieItems[4]);
+                    activeSpodnieItems[4].addEventListener("click", () => {
+                        ZbiorSpodni.Temary.isActive(true);
+    
+                })
+                activeSpodnieItems[4].addEventListener("mouseover", () => {
+                    ZbiorSpodni.Temary.isHovered()
+                } );
+                activeSpodnieItems[4].addEventListener("mouseout", () => {
+                    ZbiorSpodni.Temary.isNotHovered()
+                } );
+        }
+            ZbiorSpodni.Tirhel.isShown();
+                if(activeSpodnieItems[5]){
+                    console.log(activeSpodnieItems[5]);
+                    activeSpodnieItems[5].addEventListener("click", () => {
+                        ZbiorSpodni.Tirhel.isActive(true);
+    
+                })
+                activeSpodnieItems[5].addEventListener("mouseover", () => {
+                    ZbiorSpodni.Tirhel.isHovered()
+                } );
+                activeSpodnieItems[5].addEventListener("mouseout", () => {
+                    ZbiorSpodni.Tirhel.isNotHovered()
+                } );
+        }
+            ZbiorSpodni.Udreki.isShown();
+                if(activeSpodnieItems[6]){
+                    console.log(activeSpodnieItems[6]);
+                    activeSpodnieItems[6].addEventListener("click", () => {
+                        ZbiorSpodni.Udreki.isActive(true);
+    
+                })
+                activeSpodnieItems[6].addEventListener("mouseover", () => {
+                    ZbiorSpodni.Udreki.isHovered()
+                } );
+                activeSpodnieItems[6].addEventListener("mouseout", () => {
+                    ZbiorSpodni.Udreki.isNotHovered()
+                } );
+        }
+            ZbiorSpodni.Varrvy.isShown();
+                if(activeSpodnieItems[7]){
+                    console.log(activeSpodnieItems[7]);
+                    activeSpodnieItems[7].addEventListener("click", () => {
+                        ZbiorSpodni.Varrvy.isActive(true);
+    
+                })
+                activeSpodnieItems[7].addEventListener("mouseover", () => {
+                    ZbiorSpodni.Varrvy.isHovered()
+                } );
+                activeSpodnieItems[7].addEventListener("mouseout", () => {
+                    ZbiorSpodni.Varrvy.isNotHovered()
+                } );
+        }
+            ZbiorSpodni.Wzorek.isShown();
+                if(activeSpodnieItems[8]){
+                    console.log(activeSpodnieItems[8]);
+                    activeSpodnieItems[8].addEventListener("click", () => {
+                        ZbiorSpodni.Wzorek.isActive(true);
+    
+                })
+                activeSpodnieItems[8].addEventListener("mouseover", () => {
+                    ZbiorSpodni.Wzorek.isHovered()
+                } );
+                activeSpodnieItems[8].addEventListener("mouseout", () => {
+                    ZbiorSpodni.Wzorek.isNotHovered()
+                } );
+        }
+            ZbiorSpodni.Ziraki.isShown();
+                if(activeSpodnieItems[9]){
+                    console.log(activeSpodnieItems[9]);
+                    activeSpodnieItems[9].addEventListener("click", () => {
+                        ZbiorSpodni.Ziraki.isActive(true);
+    
+                })
+                activeSpodnieItems[9].addEventListener("mouseover", () => {
+                    ZbiorSpodni.Ziraki.isHovered()
+                } );
+                activeSpodnieItems[9].addEventListener("mouseout", () => {
+                    ZbiorSpodni.Ziraki.isNotHovered()
+                } );
+        }
 
-        }else if($currentTile == Tiles[12]){
+
+
+
+
+
+
+            
+
+        }
         
-            /* BUTY */
-
-        }else if($currentTile == Tiles[13]){
+        /* PAS */
         
-            /* DODATKOWE ZDOLNOŚCI PANCERZA */
+        else if($currentTile == Tiles[10]){
+            Dialog_container.innerHTML = "<h1>Pas: </h1>";
+        
+        
+            ZbiorPasow.Anabolik.isShown();
+                if(activePasItems[0]){
+                    console.log(activePasItems[0]);
+                    
+                    activePasItems[0].addEventListener("click", () => {
+                        ZbiorPasow.Anabolik.isActive(true);
+    
+                    })
+                    activePasItems[0].addEventListener("mouseover", () => {
+                        ZbiorPasow.Anabolik.isHovered()
+                    });
+                    activePasItems[0].addEventListener("mouseout", () => {
+                        ZbiorPasow.Anabolik.isNotHovered()
+                    });
+                    
+                }
+            ZbiorPasow.Dagorilm.isShown();
+            if(activePasItems[1]){
+                console.log(activePasItems[1]);
+                activePasItems[1].addEventListener("click", () => {
+                    ZbiorPasow.Dagorilm.isActive(true);
+    
+                })
+                activePasItems[1].addEventListener("mouseover", () => { 
+                    ZbiorPasow.Dagorilm.isHovered()
+                });
+                activePasItems[1].addEventListener("mouseout", () => { 
+                    ZbiorPasow.Dagorilm.isNotHovered()
+                });
+                
+            }
+            ZbiorPasow.Exuvium.isShown();
+                if(activePasItems[2]){
+                    console.log(activePasItems[2]);
+                    activePasItems[2].addEventListener("click", () => {
+                        ZbiorPasow.Exuvium.isActive(true);
+    
+                })
+                activePasItems[2].addEventListener("mouseover",() => {
+                    ZbiorPasow.Exuvium.isHovered()
+                });
+                activePasItems[2].addEventListener("mouseout",() => {
+                    ZbiorPasow.Exuvium.isNotHovered()
+                });
+            }
+            ZbiorPasow.Koriatula.isShown();
+                if(activePasItems[3]){
+                    console.log(activePasItems[3]);
+                    activePasItems[3].addEventListener("click", () => {
+                        ZbiorPasow.Koriatula.isActive(true);
+    
+                })
+                activePasItems[3].addEventListener("mouseover", () => {
+                    ZbiorPasow.Koriatula.isHovered()
+                } );
+                activePasItems[3].addEventListener("mouseout", () => {
+                    ZbiorPasow.Koriatula.isNotHovered()
+                } );
+        }
+            ZbiorPasow.Nienawisc_draugula.isShown();
+                if(activePasItems[4]){
+                    console.log(activePasItems[4]);
+                    activePasItems[4].addEventListener("click", () => {
+                        ZbiorPasow.Nienawisc_draugula.isActive(true);
+    
+                })
+                activePasItems[4].addEventListener("mouseover", () => {
+                    ZbiorPasow.Nienawisc_draugula.isHovered()
+                } );
+                activePasItems[4].addEventListener("mouseout", () => {
+                    ZbiorPasow.Nienawisc_draugula.isNotHovered()
+                } );
+        }
+            ZbiorPasow.Nurt.isShown();
+                if(activePasItems[5]){
+                    console.log(activePasItems[5]);
+                    activePasItems[5].addEventListener("click", () => {
+                        ZbiorPasow.Nurt.isActive(true);
+    
+                })
+                activePasItems[5].addEventListener("mouseover", () => {
+                    ZbiorPasow.Nurt.isHovered()
+                } );
+                activePasItems[5].addEventListener("mouseout", () => {
+                    ZbiorPasow.Nurt.isNotHovered()
+                } );
+        }
+            ZbiorPasow.Promuris.isShown();
+                if(activePasItems[6]){
+                    console.log(activePasItems[6]);
+                    activePasItems[6].addEventListener("click", () => {
+                        ZbiorPasow.Promuris.isActive(true);
+    
+                })
+                activePasItems[6].addEventListener("mouseover", () => {
+                    ZbiorPasow.Promuris.isHovered()
+                } );
+                activePasItems[6].addEventListener("mouseout", () => {
+                    ZbiorPasow.Promuris.isNotHovered()
+                } );
+        }
+            ZbiorPasow.Radius_electricum.isShown();
+                if(activePasItems[7]){
+                    console.log(activePasItems[7]);
+                    activePasItems[7].addEventListener("click", () => {
+                        ZbiorPasow.Radius_electricum.isActive(true);
+    
+                })
+                activePasItems[7].addEventListener("mouseover", () => {
+                    ZbiorPasow.Radius_electricum.isHovered()
+                } );
+                activePasItems[7].addEventListener("mouseout", () => {
+                    ZbiorPasow.Radius_electricum.isNotHovered()
+                } );
+        }
+            ZbiorPasow.Sentrion.isShown();
+                if(activePasItems[8]){
+                    console.log(activePasItems[8]);
+                    activePasItems[8].addEventListener("click", () => {
+                        ZbiorPasow.Sentrion.isActive(true);
+    
+                })
+                activePasItems[8].addEventListener("mouseover", () => {
+                    ZbiorPasow.Sentrion.isHovered()
+                } );
+                activePasItems[8].addEventListener("mouseout", () => {
+                    ZbiorPasow.Sentrion.isNotHovered()
+                } );
+        }
+        }
+        
+        /* PIERŚCIEŃ 1 */
+        
+        else if($currentTile == Tiles[11]){
+        
+            
 
-        }else if($currentTile == Tiles[14]){
+            Dialog_container.innerHTML = "<h1>Pierścień 1: </h1>";
+        
+        
+            ZbiorPierscieni1.Arcanscape.isShown();
+                if(activePierscien1Items[0]){
+                    console.log(activePierscien1Items[0]);
+                    
+                    activePierscien1Items[0].addEventListener("click", () => {
+                        ZbiorPierscieni1.Arcanscape.isActive(true);
+    
+                    })
+                    activePierscien1Items[0].addEventListener("mouseover", () => {
+                        ZbiorPierscieni1.Arcanscape.isHovered()
+                    });
+                    activePierscien1Items[0].addEventListener("mouseout", () => {
+                        ZbiorPierscieni1.Arcanscape.isNotHovered()
+                    });
+                    
+                }
+            ZbiorPierscieni1.Balast.isShown();
+            if(activePierscien1Items[1]){
+                console.log(activePierscien1Items[1]);
+                activePierscien1Items[1].addEventListener("click", () => {
+                    ZbiorPierscieni1.Balast.isActive(true);
+    
+                })
+                activePierscien1Items[1].addEventListener("mouseover", () => { 
+                    ZbiorPierscieni1.Balast.isHovered()
+                });
+                activePierscien1Items[1].addEventListener("mouseout", () => { 
+                    ZbiorPierscieni1.Balast.isNotHovered()
+                });
+                
+            }
+            ZbiorPierscieni1.Basileus.isShown();
+                if(activePierscien1Items[2]){
+                    console.log(activePierscien1Items[2]);
+                    activePierscien1Items[2].addEventListener("click", () => {
+                        ZbiorPierscieni1.Basileus.isActive(true);
+    
+                })
+                activePierscien1Items[2].addEventListener("mouseover",() => {
+                    ZbiorPierscieni1.Basileus.isHovered()
+                });
+                activePierscien1Items[2].addEventListener("mouseout",() => {
+                    ZbiorPierscieni1.Basileus.isNotHovered()
+                });
+            }
+            ZbiorPierscieni1.Fiskorl.isShown();
+                if(activePierscien1Items[3]){
+                    console.log(activePierscien1Items[3]);
+                    activePierscien1Items[3].addEventListener("click", () => {
+                        ZbiorPierscieni1.Fiskorl.isActive(true);
+    
+                })
+                activePierscien1Items[3].addEventListener("mouseover", () => {
+                    ZbiorPierscieni1.Fiskorl.isHovered()
+                } );
+                activePierscien1Items[3].addEventListener("mouseout", () => {
+                    ZbiorPierscieni1.Fiskorl.isNotHovered()
+                } );
+        }
+            ZbiorPierscieni1.Fulgur.isShown();
+                if(activePierscien1Items[4]){
+                    console.log(activePierscien1Items[4]);
+                    activePierscien1Items[4].addEventListener("click", () => {
+                        ZbiorPierscieni1.Fulgur.isActive(true);
+    
+                })
+                activePierscien1Items[4].addEventListener("mouseover", () => {
+                    ZbiorPierscieni1.Fulgur.isHovered()
+                } );
+                activePierscien1Items[4].addEventListener("mouseout", () => {
+                    ZbiorPierscieni1.Fulgur.isNotHovered()
+                } );
+        }
+            ZbiorPierscieni1.Griv.isShown();
+                if(activePierscien1Items[5]){
+                    console.log(activePierscien1Items[5]);
+                    activePierscien1Items[5].addEventListener("click", () => {
+                        ZbiorPierscieni1.Griv.isActive(true);
+    
+                })
+                activePierscien1Items[5].addEventListener("mouseover", () => {
+                    ZbiorPierscieni1.Griv.isHovered()
+                } );
+                activePierscien1Items[5].addEventListener("mouseout", () => {
+                    ZbiorPierscieni1.Griv.isNotHovered()
+                } );
+        }
+            ZbiorPierscieni1.Karlder.isShown();
+                if(activePierscien1Items[6]){
+                    console.log(activePierscien1Items[6]);
+                    activePierscien1Items[6].addEventListener("click", () => {
+                        ZbiorPierscieni1.Karlder.isActive(true);
+    
+                })
+                activePierscien1Items[6].addEventListener("mouseover", () => {
+                    ZbiorPierscieni1.Karlder.isHovered()
+                } );
+                activePierscien1Items[6].addEventListener("mouseout", () => {
+                    ZbiorPierscieni1.Karlder.isNotHovered()
+                } );
+        }
+            ZbiorPierscieni1.Mauremys.isShown();
+                if(activePierscien1Items[7]){
+                    console.log(activePierscien1Items[7]);
+                    activePierscien1Items[7].addEventListener("click", () => {
+                        ZbiorPierscieni1.Mauremys.isActive(true);
+    
+                })
+                activePierscien1Items[7].addEventListener("mouseover", () => {
+                    ZbiorPierscieni1.Mauremys.isHovered()
+                } );
+                activePierscien1Items[7].addEventListener("mouseout", () => {
+                    ZbiorPierscieni1.Mauremys.isNotHovered()
+                } );
+        }
+            ZbiorPierscieni1.Navigon.isShown();
+                if(activePierscien1Items[8]){
+                    console.log(activePierscien1Items[8]);
+                    activePierscien1Items[8].addEventListener("click", () => {
+                        ZbiorPierscieni1.Navigon.isActive(true);
+    
+                })
+                activePierscien1Items[8].addEventListener("mouseover", () => {
+                    ZbiorPierscieni1.Navigon.isHovered()
+                } );
+                activePierscien1Items[8].addEventListener("mouseout", () => {
+                    ZbiorPierscieni1.Navigon.isNotHovered()
+                } );
+        }
+            ZbiorPierscieni1.Nit.isShown();
+                if(activePierscien1Items[9]){
+                    console.log(activePierscien1Items[9]);
+                    activePierscien1Items[9].addEventListener("click", () => {
+                        ZbiorPierscieni1.Nit.isActive(true);
+    
+                })
+                activePierscien1Items[9].addEventListener("mouseover", () => {
+                    ZbiorPierscieni1.Nit.isHovered()
+                } );
+                activePierscien1Items[9].addEventListener("mouseout", () => {
+                    ZbiorPierscieni1.Nit.isNotHovered()
+                } );
+        }
+            ZbiorPierscieni1.Przysiega_draugula.isShown();
+                if(activePierscien1Items[10]){
+                    console.log(activePierscien1Items[10]);
+                    activePierscien1Items[10].addEventListener("click", () => {
+                        ZbiorPierscieni1.Przysiega_draugula.isActive(true);
+    
+                })
+                activePierscien1Items[10].addEventListener("mouseover", () => {
+                    ZbiorPierscieni1.Przysiega_draugula.isHovered()
+                } );
+                activePierscien1Items[10].addEventListener("mouseout", () => {
+                    ZbiorPierscieni1.Przysiega_draugula.isNotHovered()
+                } );
+        }
+            ZbiorPierscieni1.Skogan.isShown();
+                if(activePierscien1Items[11]){
+                    console.log(activePierscien1Items[11]);
+                    activePierscien1Items[11].addEventListener("click", () => {
+                        ZbiorPierscieni1.Skogan.isActive(true);
+    
+                })
+                activePierscien1Items[11].addEventListener("mouseover", () => {
+                    ZbiorPierscieni1.Skogan.isHovered()
+                } );
+                activePierscien1Items[11].addEventListener("mouseout", () => {
+                    ZbiorPierscieni1.Skogan.isNotHovered()
+                } );
+        }
+            ZbiorPierscieni1.Uguns.isShown();
+                if(activePierscien1Items[12]){
+                    console.log(activePierscien1Items[12]);
+                    activePierscien1Items[12].addEventListener("click", () => {
+                        ZbiorPierscieni1.Uguns.isActive(true);
+    
+                })
+                activePierscien1Items[12].addEventListener("mouseover", () => {
+                    ZbiorPierscieni1.Uguns.isHovered()
+                } );
+                activePierscien1Items[12].addEventListener("mouseout", () => {
+                    ZbiorPierscieni1.Uguns.isNotHovered()
+                } );
+        }
+            ZbiorPierscieni1.Zaglada_ludow.isShown();
+                if(activePierscien1Items[13]){
+                    console.log(activePierscien1Items[13]);
+                    activePierscien1Items[13].addEventListener("click", () => {
+                        ZbiorPierscieni1.Zaglada_ludow.isActive(true);
+    
+                })
+                activePierscien1Items[13].addEventListener("mouseover", () => {
+                    ZbiorPierscieni1.Zaglada_ludow.isHovered()
+                } );
+                activePierscien1Items[13].addEventListener("mouseout", () => {
+                    ZbiorPierscieni1.Zaglada_ludow.isNotHovered()
+                } );
+        }
+
+        }
+        
+        /* PIERŚCIEŃ 2 */
+        
+        else if($currentTile == Tiles[12]){
+
+            Dialog_container.innerHTML = "<h1>Pierścień 2: </h1>";
+        
+        
+            ZbiorPierscieni2.Arcanscape.isShown();
+                if(activePierscien2Items[0]){
+                    console.log(activePierscien2Items[0]);
+                    
+                    activePierscien2Items[0].addEventListener("click", () => {
+                        ZbiorPierscieni2.Arcanscape.isActive(true);
+    
+                    })
+                    activePierscien2Items[0].addEventListener("mouseover", () => {
+                        ZbiorPierscieni2.Arcanscape.isHovered()
+                    });
+                    activePierscien2Items[0].addEventListener("mouseout", () => {
+                        ZbiorPierscieni2.Arcanscape.isNotHovered()
+                    });
+                    
+                }
+            ZbiorPierscieni2.Balast.isShown();
+            if(activePierscien2Items[1]){
+                console.log(activePierscien2Items[1]);
+                activePierscien2Items[1].addEventListener("click", () => {
+                    ZbiorPierscieni2.Balast.isActive(true);
+    
+                })
+                activePierscien2Items[1].addEventListener("mouseover", () => { 
+                    ZbiorPierscieni2.Balast.isHovered()
+                });
+                activePierscien2Items[1].addEventListener("mouseout", () => { 
+                    ZbiorPierscieni2.Balast.isNotHovered()
+                });
+                
+            }
+            ZbiorPierscieni2.Basileus.isShown();
+                if(activePierscien2Items[2]){
+                    console.log(activePierscien2Items[2]);
+                    activePierscien2Items[2].addEventListener("click", () => {
+                        ZbiorPierscieni2.Basileus.isActive(true);
+    
+                })
+                activePierscien2Items[2].addEventListener("mouseover",() => {
+                    ZbiorPierscieni2.Basileus.isHovered()
+                });
+                activePierscien2Items[2].addEventListener("mouseout",() => {
+                    ZbiorPierscieni2.Basileus.isNotHovered()
+                });
+            }
+            ZbiorPierscieni2.Fiskorl.isShown();
+                if(activePierscien2Items[3]){
+                    console.log(activePierscien2Items[3]);
+                    activePierscien2Items[3].addEventListener("click", () => {
+                        ZbiorPierscieni2.Fiskorl.isActive(true);
+    
+                })
+                activePierscien2Items[3].addEventListener("mouseover", () => {
+                    ZbiorPierscieni2.Fiskorl.isHovered()
+                } );
+                activePierscien2Items[3].addEventListener("mouseout", () => {
+                    ZbiorPierscieni2.Fiskorl.isNotHovered()
+                } );
+        }
+            ZbiorPierscieni2.Fulgur.isShown();
+                if(activePierscien2Items[4]){
+                    console.log(activePierscien2Items[4]);
+                    activePierscien2Items[4].addEventListener("click", () => {
+                        ZbiorPierscieni2.Fulgur.isActive(true);
+    
+                })
+                activePierscien2Items[4].addEventListener("mouseover", () => {
+                    ZbiorPierscieni2.Fulgur.isHovered()
+                } );
+                activePierscien2Items[4].addEventListener("mouseout", () => {
+                    ZbiorPierscieni2.Fulgur.isNotHovered()
+                } );
+        }
+            ZbiorPierscieni2.Griv.isShown();
+                if(activePierscien2Items[5]){
+                    console.log(activePierscien2Items[5]);
+                    activePierscien2Items[5].addEventListener("click", () => {
+                        ZbiorPierscieni2.Griv.isActive(true);
+    
+                })
+                activePierscien2Items[5].addEventListener("mouseover", () => {
+                    ZbiorPierscieni2.Griv.isHovered()
+                } );
+                activePierscien2Items[5].addEventListener("mouseout", () => {
+                    ZbiorPierscieni2.Griv.isNotHovered()
+                } );
+        }
+            ZbiorPierscieni2.Karlder.isShown();
+                if(activePierscien2Items[6]){
+                    console.log(activePierscien2Items[6]);
+                    activePierscien2Items[6].addEventListener("click", () => {
+                        ZbiorPierscieni2.Karlder.isActive(true);
+    
+                })
+                activePierscien2Items[6].addEventListener("mouseover", () => {
+                    ZbiorPierscieni2.Karlder.isHovered()
+                } );
+                activePierscien2Items[6].addEventListener("mouseout", () => {
+                    ZbiorPierscieni2.Karlder.isNotHovered()
+                } );
+        }
+            ZbiorPierscieni2.Mauremys.isShown();
+                if(activePierscien2Items[7]){
+                    console.log(activePierscien2Items[7]);
+                    activePierscien2Items[7].addEventListener("click", () => {
+                        ZbiorPierscieni2.Mauremys.isActive(true);
+    
+                })
+                activePierscien2Items[7].addEventListener("mouseover", () => {
+                    ZbiorPierscieni2.Mauremys.isHovered()
+                } );
+                activePierscien2Items[7].addEventListener("mouseout", () => {
+                    ZbiorPierscieni2.Mauremys.isNotHovered()
+                } );
+        }
+            ZbiorPierscieni2.Navigon.isShown();
+                if(activePierscien2Items[8]){
+                    console.log(activePierscien2Items[8]);
+                    activePierscien2Items[8].addEventListener("click", () => {
+                        ZbiorPierscieni2.Navigon.isActive(true);
+    
+                })
+                activePierscien2Items[8].addEventListener("mouseover", () => {
+                    ZbiorPierscieni2.Navigon.isHovered()
+                } );
+                activePierscien2Items[8].addEventListener("mouseout", () => {
+                    ZbiorPierscieni2.Navigon.isNotHovered()
+                } );
+        }
+            ZbiorPierscieni2.Nit.isShown();
+                if(activePierscien2Items[9]){
+                    console.log(activePierscien2Items[9]);
+                    activePierscien2Items[9].addEventListener("click", () => {
+                        ZbiorPierscieni2.Nit.isActive(true);
+    
+                })
+                activePierscien2Items[9].addEventListener("mouseover", () => {
+                    ZbiorPierscieni2.Nit.isHovered()
+                } );
+                activePierscien2Items[9].addEventListener("mouseout", () => {
+                    ZbiorPierscieni2.Nit.isNotHovered()
+                } );
+        }
+            ZbiorPierscieni2.Przysiega_draugula.isShown();
+                if(activePierscien2Items[10]){
+                    console.log(activePierscien2Items[10]);
+                    activePierscien2Items[10].addEventListener("click", () => {
+                        ZbiorPierscieni2.Przysiega_draugula.isActive(true);
+    
+                })
+                activePierscien2Items[10].addEventListener("mouseover", () => {
+                    ZbiorPierscieni2.Przysiega_draugula.isHovered()
+                } );
+                activePierscien2Items[10].addEventListener("mouseout", () => {
+                    ZbiorPierscieni2.Przysiega_draugula.isNotHovered()
+                } );
+        }
+            ZbiorPierscieni2.Skogan.isShown();
+                if(activePierscien2Items[11]){
+                    console.log(activePierscien2Items[11]);
+                    activePierscien2Items[11].addEventListener("click", () => {
+                        ZbiorPierscieni2.Skogan.isActive(true);
+    
+                })
+                activePierscien2Items[11].addEventListener("mouseover", () => {
+                    ZbiorPierscieni2.Skogan.isHovered()
+                } );
+                activePierscien2Items[11].addEventListener("mouseout", () => {
+                    ZbiorPierscieni2.Skogan.isNotHovered()
+                } );
+        }
+            ZbiorPierscieni2.Uguns.isShown();
+                if(activePierscien2Items[12]){
+                    console.log(activePierscien2Items[12]);
+                    activePierscien2Items[12].addEventListener("click", () => {
+                        ZbiorPierscieni2.Uguns.isActive(true);
+    
+                })
+                activePierscien2Items[12].addEventListener("mouseover", () => {
+                    ZbiorPierscieni2.Uguns.isHovered()
+                } );
+                activePierscien2Items[12].addEventListener("mouseout", () => {
+                    ZbiorPierscieni2.Uguns.isNotHovered()
+                } );
+        }
+            ZbiorPierscieni2.Zaglada_ludow.isShown();
+                if(activePierscien2Items[13]){
+                    console.log(activePierscien2Items[13]);
+                    activePierscien2Items[13].addEventListener("click", () => {
+                        ZbiorPierscieni2.Zaglada_ludow.isActive(true);
+    
+                })
+                activePierscien2Items[13].addEventListener("mouseover", () => {
+                    ZbiorPierscieni2.Zaglada_ludow.isHovered()
+                } );
+                activePierscien2Items[13].addEventListener("mouseout", () => {
+                    ZbiorPierscieni2.Zaglada_ludow.isNotHovered()
+                } );
+        }
+
+        
+            
+
+        }
+        
+        /* BUTY */
+        
+        else if($currentTile == Tiles[13]){
+        
+             Dialog_container.innerHTML = "<h1>Buty: </h1>";
+        
+        
+            ZbiorButow.Alendry.isShown();
+                if(activeButyItems[0]){
+                    console.log(activeButyItems[0]);
+                    
+                    activeButyItems[0].addEventListener("click", () => {
+                        ZbiorButow.Alendry.isActive(true);
+    
+                    })
+                    activeButyItems[0].addEventListener("mouseover", () => {
+                        ZbiorButow.Alendry.isHovered()
+                    });
+                    activeButyItems[0].addEventListener("mouseout", () => {
+                        ZbiorButow.Alendry.isNotHovered()
+                    });
+                    
+                }
+            ZbiorButow.Aqueniry.isShown();
+            if(activeButyItems[1]){
+                console.log(activeButyItems[1]);
+                activeButyItems[1].addEventListener("click", () => {
+                    ZbiorButow.Aqueniry.isActive(true);
+    
+                })
+                activeButyItems[1].addEventListener("mouseover", () => { 
+                    ZbiorButow.Aqueniry.isHovered()
+                });
+                activeButyItems[1].addEventListener("mouseout", () => { 
+                    ZbiorButow.Aqueniry.isNotHovered()
+                });
+                
+            }
+            ZbiorButow.Arhauty.isShown();
+                if(activeButyItems[2]){
+                    console.log(activeButyItems[2]);
+                    activeButyItems[2].addEventListener("click", () => {
+                        ZbiorButow.Arhauty.isActive(true);
+    
+                })
+                activeButyItems[2].addEventListener("mouseover",() => {
+                    ZbiorButow.Arhauty.isHovered()
+                });
+                activeButyItems[2].addEventListener("mouseout",() => {
+                    ZbiorButow.Arhauty.isNotHovered()
+                });
+            }
+            ZbiorButow.Cierpietniki.isShown();
+                if(activeButyItems[3]){
+                    console.log(activeButyItems[3]);
+                    activeButyItems[3].addEventListener("click", () => {
+                        ZbiorButow.Cierpietniki.isActive(true);
+    
+                })
+                activeButyItems[3].addEventListener("mouseover", () => {
+                    ZbiorButow.Cierpietniki.isHovered()
+                } );
+                activeButyItems[3].addEventListener("mouseout", () => {
+                    ZbiorButow.Cierpietniki.isNotHovered()
+                } );
+        }
+            ZbiorButow.Czengsvesy.isShown();
+                if(activeButyItems[4]){
+                    console.log(activeButyItems[4]);
+                    activeButyItems[4].addEventListener("click", () => {
+                        ZbiorButow.Czengsvesy.isActive(true);
+    
+                })
+                activeButyItems[4].addEventListener("mouseover", () => {
+                    ZbiorButow.Czengsvesy.isHovered()
+                } );
+                activeButyItems[4].addEventListener("mouseout", () => {
+                    ZbiorButow.Czengsvesy.isNotHovered()
+                } );
+        }
+            ZbiorButow.Jeroszki.isShown();
+                if(activeButyItems[5]){
+                    console.log(activeButyItems[5]);
+                    activeButyItems[5].addEventListener("click", () => {
+                        ZbiorButow.Jeroszki.isActive(true);
+    
+                })
+                activeButyItems[5].addEventListener("mouseover", () => {
+                    ZbiorButow.Jeroszki.isHovered()
+                } );
+                activeButyItems[5].addEventListener("mouseout", () => {
+                    ZbiorButow.Jeroszki.isNotHovered()
+                } );
+        }
+            ZbiorButow.Envile.isShown();
+                if(activeButyItems[6]){
+                    console.log(activeButyItems[6]);
+                    activeButyItems[6].addEventListener("click", () => {
+                        ZbiorButow.Envile.isActive(true);
+    
+                })
+                activeButyItems[6].addEventListener("mouseover", () => {
+                    ZbiorButow.Envile.isHovered()
+                } );
+                activeButyItems[6].addEventListener("mouseout", () => {
+                    ZbiorButow.Envile.isNotHovered()
+                } );
+        }
+            ZbiorButow.Lysmary.isShown();
+                if(activeButyItems[7]){
+                    console.log(activeButyItems[7]);
+                    activeButyItems[7].addEventListener("click", () => {
+                        ZbiorButow.Lysmary.isActive(true);
+    
+                })
+                activeButyItems[7].addEventListener("mouseover", () => {
+                    ZbiorButow.Lysmary.isHovered()
+                } );
+                activeButyItems[7].addEventListener("mouseout", () => {
+                    ZbiorButow.Lysmary.isNotHovered()
+                } );
+        }
+            ZbiorButow.Moczary.isShown();
+                if(activeButyItems[8]){
+                    console.log(activeButyItems[8]);
+                    activeButyItems[8].addEventListener("click", () => {
+                        ZbiorButow.Moczary.isActive(true);
+    
+                })
+                activeButyItems[8].addEventListener("mouseover", () => {
+                    ZbiorButow.Moczary.isHovered()
+                } );
+                activeButyItems[8].addEventListener("mouseout", () => {
+                    ZbiorButow.Moczary.isNotHovered()
+                } );
+        }
+            ZbiorButow.Tangnary.isShown();
+                if(activeButyItems[9]){
+                    console.log(activeButyItems[9]);
+                    activeButyItems[9].addEventListener("click", () => {
+                        ZbiorButow.Tangnary.isActive(true);
+    
+                })
+                activeButyItems[9].addEventListener("mouseover", () => {
+                    ZbiorButow.Tangnary.isHovered()
+                } );
+                activeButyItems[9].addEventListener("mouseout", () => {
+                    ZbiorButow.Tangnary.isNotHovered()
+                } );
+        }
+            ZbiorButow.Thorimmy.isShown();
+                if(activeButyItems[10]){
+                    console.log(activeButyItems[10]);
+                    activeButyItems[10].addEventListener("click", () => {
+                        ZbiorButow.Thorimmy.isActive(true);
+    
+                })
+                activeButyItems[10].addEventListener("mouseover", () => {
+                    ZbiorButow.Thorimmy.isHovered()
+                } );
+                activeButyItems[10].addEventListener("mouseout", () => {
+                    ZbiorButow.Thorimmy.isNotHovered()
+                } );
+        }
+            ZbiorButow.Virveny.isShown();
+                if(activeButyItems[11]){
+                    console.log(activeButyItems[11]);
+                    activeButyItems[11].addEventListener("click", () => {
+                        ZbiorButow.Virveny.isActive(true);
+    
+                })
+                activeButyItems[11].addEventListener("mouseover", () => {
+                    ZbiorButow.Virveny.isHovered()
+                } );
+                activeButyItems[11].addEventListener("mouseout", () => {
+                    ZbiorButow.Virveny.isNotHovered()
+                } );
+        }
+
+        }
+        
+        /* DODATKOWE ZDOLNOŚCI PANCERZA */
+        
+        else if($currentTile == Tiles[14]){
         
 
         }
@@ -1567,6 +2981,15 @@ const ZbiorZbroi = {
         activeNaszyjnikItems = [];
         activeRekawiceItems = [];
         activePelerynaItems = [];
+        activeBronItems = [];
+        activeSpodnieItems = [];
+        activeKarwaszeItems = [];
+        activeKowadloItems = [];
+        activePasItems = [];
+        activePierscien1Items = [];
+        activePierscien2Items = [];
+        activeButyItems = [];
+        activeZdolnosciItems = [];
         removeButton = null;
         removeButtonCounter = 0;
     });
