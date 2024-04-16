@@ -40,13 +40,13 @@ let baseStamina = 200;
 let baseMana = 200;
 
 function checkStatistics(){
-    document.querySelector(".power").innerHTML = `Moc: ${currentPower + basePower}`;
-    document.querySelector(".knowledge").innerHTML = `Wiedza: ${currentKnowledge + baseKnowledge}`;
-    document.querySelector(".strength").innerHTML = `Siła: ${currentStrength + baseStrength}`;
-    document.querySelector(".agility").innerHTML = `Zręczność: ${currentAgility + baseAgility}`;
-    document.querySelector(".hp").innerHTML = `Hp: ${currentHp + baseHp}`;
-    document.querySelector(".stamina").innerHTML = `Kondycja: ${currentStamina + baseStamina}`;
-    document.querySelector(".mana").innerHTML = `Mana: ${currentMana + baseMana}`;
+    document.querySelector(".power").innerHTML = `Moc: ${basePower} | ${currentPower + basePower}`;
+    document.querySelector(".knowledge").innerHTML = `Wiedza: ${baseKnowledge} | ${currentKnowledge + baseKnowledge}`;
+    document.querySelector(".strength").innerHTML = `Siła: ${baseStrength} | ${currentStrength + baseStrength}`;
+    document.querySelector(".agility").innerHTML = `Zręczność: ${baseAgility} | ${currentAgility + baseAgility}`;
+    document.querySelector(".hp").innerHTML = `Hp: ${baseHp} | ${currentHp + baseHp}`;
+    document.querySelector(".stamina").innerHTML = `Kondycja: ${baseStamina} | ${currentStamina + baseStamina}`;
+    document.querySelector(".mana").innerHTML = `Mana: ${baseMana} | ${currentMana + baseMana}`;
     console.log(currentPower);
 }
 
@@ -119,40 +119,48 @@ function checkRemoveButton(icon, iconName, iconImage, item){
         console.log(removeButtonCounter);
         console.log(removeButton.className);
         
+        if(removeButton.classList.contains("remove-helm-icon")){
+            rmBtnTmp = "helm";
+            tmpIcon = helmIcon.getAttribute("current-item");
+        }
+        if(removeButton.classList.contains("remove-zbroja-icon")){
+            rmBtnTmp = "zbroja";
+            tmpIcon = zbrojaIcon.getAttribute("current-item");
+        }
         removeButton.addEventListener("click", () =>{
             icon.style.backgroundImage = `url("img/icons/${iconImage}.png")`;
 
-if(removeButton.classList.contains("remove-helm-icon")){
-    rmBtnTmp = "helm";
-    tmpIcon = helmIcon.getAttribute("current-item");
-}
-if(removeButton.classList.contains("remove-zbroja-icon")){
-    rmBtnTmp = "zbroja";
-    tmpIcon = zbrojaIcon.getAttribute("current-item");
-}
+
+
 console.log(rmBtnTmp, tmpIcon);
 
 
-            if(tmpItem != rmBtnTmp){
-                tmpItem = rmBtnTmp;
-            }
-            if(tmpItemName != tmpIcon){
-                tmpItemName = tmpIcon;
-            }
+if(tmpItem != rmBtnTmp && tmpItemName == tmpIcon){
+    tmpItem = rmBtnTmp;
+}
+if(tmpItem != rmBtnTmp && tmpItemName != tmpIcon){
 
-            switch (tmpItem){
-                case "helm":
-                    tmpItem = "helm";
-                    tmpItemName = helmIcon.getAttribute("current-item");
-                    console.log(tmpItemName);
-                    ZbiorHelmow[tmpItemName].isNotActive(true);
-                    break;
-                case "zbroja":
-                    tmpItem = "zbroja";
-                    tmpItemName = zbrojaIcon.getAttribute("current-item");
-                    ZbiorZbroi[tmpItemName].isNotActive(true);
-                    break;
-            }          
+    tmpItem = rmBtnTmp;
+    tmpItemName = tmpIcon;
+}
+if(tmpItemName != tmpIcon  && tmpItem == rmBtnTmp ){
+    tmpItemName = tmpIcon;
+
+}
+
+switch (tmpItem){
+    case "helm":
+        tmpItem = "helm";
+        tmpItemName = helmIcon.getAttribute("current-item");
+        console.log(tmpItemName);
+        ZbiorHelmow[tmpItemName].isNotActive(true);
+        break;
+    case "zbroja":
+        tmpItem = "zbroja";
+        tmpItemName = zbrojaIcon.getAttribute("current-item");
+        ZbiorZbroi[tmpItemName].isNotActive(true);
+        break;
+}                     
 
 
             Dialog.close()
@@ -215,13 +223,17 @@ class Helm{
         console.log(this.active, this.name)
         this.active = activated;
         console.log(this.active);
-        
-        if(this.diff === null){
-            this.diff = this.name;
+        tmpIcon = helmIcon.getAttribute("current-item");
+        if(tmpIcon !== null){
+            if(tmpItemName != tmpIcon){
+                tmpItemName = tmpIcon;
+                console.log(tmpItemName);
+                ZbiorHelmow[tmpItemName].isNotActive(true);
+                }    
         }
-        
-       
 
+
+          
 
         console.log(this.stamp);
         if(this.stamp >= 1){
@@ -294,16 +306,16 @@ class Helm{
 const ZbiorHelmow = {
 Martumal: new Helm("Martumal", "img/martumal.png", false, false, false, 8, 7, 0, 0 , 0, 0, 40),
 Grzebien: new Helm("Grzebien", "img/grzebien.png", false, false, false, 0, 0, 4, 4, 30, 70, 0),
-Ishelm: new Helm("Ishelm", "img/ishelm.png", false, false, ),
-Khalam: new Helm("Khalam","img/khalam.png", false, false, ),
-Czacha: new Helm("Czacha", "img/czacha.png", false, false,),
-Gathril: new Helm("Gathril", "img/gathril.png", false, false,),
-Ghaitarog: new Helm("Ghaitarog", "img/ghaitarog.png", false, false,),
-Htagan: new Helm("Htagan", "img/htagan.png", false, false,),
-Milosc_morany: new Helm("Milosc_morany", "img/milosc_morany.png", false, false,),
-Pamiec_morany: new Helm("Pamiec_morany", "img/pamiec_morany.png", false, false,),
-Pysk: new Helm("Pysk", "img/pysk.png", false, false,),
-Sigil: new Helm("Sigil", "img/sigil.png", false, false,)
+Ishelm: new Helm("Ishelm", "img/ishelm.png", false, false, false, 0, 0, 6, 10, 80, 0, 0),
+Khalam: new Helm("Khalam","img/khalam.png", false, false, false, 8, 8, 0, 0, 0, 0, 60),
+Czacha: new Helm("Czacha", "img/czacha.png", false, false, false, 12, 12, 0, 0, 100, 0, 0),
+Gathril: new Helm("Gathril", "img/gathril.png", false, false, false, 0, 0, 0, 0, 190, 0, 0),
+Ghaitarog: new Helm("Ghaitarog", "img/ghaitarog.png", false, false, false, 0, 0, 7, 9, 100, 100 ,0),
+Htagan: new Helm("Htagan", "img/htagan.png", false, false, false, 20, 15, 0, 0, 250, 0, 50),
+Milosc_morany: new Helm("Milosc_morany", "img/milosc_morany.png", false, false, false, 23, 28, 0, 0, 310, 0, 130),
+Pamiec_morany: new Helm("Pamiec_morany", "img/pamiec_morany.png", false, false, false, 0, 0, 23, 33, 270, 100, 20),
+Pysk: new Helm("Pysk", "img/pysk.png", false, false, false, 0, 0, 11, 11, 180, 100, 50),
+Sigil: new Helm("Sigil", "img/sigil.png", false, false, false, 10, 10, 0, 0, 160, 0, 50)
 }
 
 class Zbroja{
@@ -320,18 +332,31 @@ class Zbroja{
         this.hp = hp;
         this.stamina = stamina;
         this.mana = mana;
+        this.stamp = 0;
     }
     isActive(activated){
         console.log(this.active, this.name)
         this.active = activated;
         console.log(this.active);
+        tmpIcon = zbrojaIcon.getAttribute("current-item");
+        if(tmpIcon !== null){
+            if(tmpItemName != tmpIcon){
+                tmpItemName = tmpIcon;
+                console.log(tmpItemName);
+                ZbiorZbroi[tmpItemName].isNotActive(true);
+                }    
+        }
+        if(this.stamp >= 1){
+            this.isNotActive(true);
 
+        }
             if(this.active === true){
+                this.stamp++;
                 zbrojaIcon.style.backgroundImage = `url(${this.img})`;
                 console.log(this.img);
                 zbrojaIcon.setAttribute("current-item", this.name);
                 checkRemoveButton(zbrojaIcon, "zbroja-icon", "zbrojaIcon", "zbroja");
-                
+                if(this.stamp <= 1){
                     currentPower += this.power;
                     currentKnowledge += this.knowledge;
                     currentStrength += this.strength;
@@ -340,13 +365,14 @@ class Zbroja{
                     currentStamina += this.stamina;
                     currentMana += this.mana;
                     checkStatistics();
+                }
             }
            
     }
     isNotActive(notActivated){
         this.notActive = notActivated;
             if(this.notActive === true){
-                
+                this.stamp = 0;
     
                     currentPower -= this.power;
                     currentKnowledge -= this.knowledge;
@@ -385,40 +411,90 @@ class Zbroja{
 
 const ZbiorZbroi = {
     Bartaur: new Zbroja("Bartaur", "img/bartaur.png", false,false, false, 0, 0, 9, 8, 0, 50, 0),
-    Brunnle: new Zbroja("Brunnle", "img/brunnle.png", false,false),
-    Diabolo: new Zbroja("Diabolo", "img/diabolo.png", false,false),
-    Dmorlung: new Zbroja("Dmorlung","img/dmorlung.png", false,false),
-    Harttraum: new Zbroja("Harttraum", "img/harttraum.png", false, false),
-    Nadzieja_pokolen: new Zbroja("Nadzieja_pokolen", "img/nadzieja_pokolen.png", false, false),
-    Opoka_bogow: new Zbroja("Opoka_bogow", "img/opoka_bogow.png", false, false),
-    Pancerz_komandorski: new Zbroja("Pancerz_komandorski", "img/pancerz_komandorski.png", false, false),
-    Salmurn: new Zbroja("Salmurn", "img/salmurn.png", false, false),
-    Virthil: new Zbroja("Virthil", "img/virthil.png", false, false),
-    Zalla: new Zbroja("Zalla", "img/zalla.png", false, false),
+    Brunnle: new Zbroja("Brunnle", "img/brunnle.png", false,false, false, 0, 0, 6, 6, 60, 80, 0),
+    Diabolo: new Zbroja("Diabolo", "img/diabolo.png", false,false, false, 9, -5, 0, 0, 150, 0, 50),
+    Dmorlung: new Zbroja("Dmorlung","img/dmorlung.png", false,false, false, 0, 0, 18, 18, 250, 120, 20),
+    Harttraum: new Zbroja("Harttraum", "img/harttraum.png", false, false, false, 0, 0, 16, 21, 120, 30, 0),
+    Nadzieja_pokolen: new Zbroja("Nadzieja_pokolen", "img/nadzieja_pokolen.png", false, false, false, 13, 20, 0, 0, 120, 0, 60),
+    Opoka_bogow: new Zbroja("Opoka_bogow", "img/opoka_bogow.png", false, false, false, 0, 0, 8, 8, 80, 0, 0),
+    Pancerz_komandorski: new Zbroja("Pancerz_komandorski", "img/pancerz_komandorski.png", false, false, false, 8, 10, 0, 0, 60, 0, 40),
+    Salmurn: new Zbroja("Salmurn", "img/salmurn.png", false, false, false, 0, 0, 25, 34, 230, 100, 80),
+    Virthil: new Zbroja("Virthil", "img/virthil.png", false, false, false, 0, 0, 0, 10, 100, 70, 0),
+    Zalla: new Zbroja("Zalla", "img/zalla.png", false, false, false, 22, 37, 0, 0, 280, 30, 100),
  
     }
 
     class Naszyjnik{
-        constructor(name, img, active, shown){
+        constructor(name, img, active, notActive, shown, power, knowledge, strength, agility, hp, stamina, mana){
             this.name = name;
             this.img = img;
             this.active = active;
+            this.notActive = notActive;
             this.shown = shown;
+            this.power = power;
+            this.knowledge = knowledge;
+            this.strength = strength;
+            this.agility = agility;
+            this.hp = hp;
+            this.stamina = stamina;
+            this.mana = mana;
+            this.stamp = 0;
         }
         isActive(activated){
             console.log(this.active, this.name)
             this.active = activated;
             console.log(this.active);
+            tmpIcon =naszyjnikIcon.getAttribute("current-item");
+            if(tmpIcon !== null){
+                if(tmpItemName != tmpIcon){
+                    tmpItemName = tmpIcon;
+                    console.log(tmpItemName);
+                    ZbiorNaszyjnikow[tmpItemName].isNotActive(true);
+                    }    
+            }
     
+    
+              
+    
+            console.log(this.stamp);
+            if(this.stamp >= 1){
+                this.isNotActive(true);
+    
+            }
                 if(this.active === true){
+                    this.stamp++;
                     naszyjnikIcon.style.backgroundImage = `url(${this.img})`;
                     console.log(this.img);
-                    checkRemoveButton(naszyjnikIcon, "naszyjnik-icon", "naszyjnikIcon");
                     naszyjnikIcon.setAttribute("current-item", this.name);
-                    
+                    checkRemoveButton(naszyjnikIcon, "naszyjnik-icon", "naszyjnikIcon", "naszyjnik");
+        
+                    console.log("MANA" + currentMana)
+                    if(this.stamp <= 1){
+                        currentPower += this.power;
+                        currentKnowledge += this.knowledge;
+                        currentStrength += this.strength;
+                        currentAgility += this.agility;
+                        currentHp += this.hp;
+                        currentStamina += this.stamina;
+                        currentMana += this.mana;
+                        checkStatistics();
+                    }
+                       
                 }
-                if(this.active === false){
-                    naszyjnikIcon.style.backgroundImage = "none";
+        }
+        isNotActive(notActivated){
+            this.notActive = notActivated;
+                if(this.notActive === true){
+                        this.stamp = 0;
+        
+                        currentPower -= this.power;
+                        currentKnowledge -= this.knowledge;
+                        currentStrength -= this.strength;
+                        currentAgility -= this.agility;
+                        currentHp -= this.hp;
+                        currentStamina -= this.stamina;
+                        currentMana -= this.mana;
+                        checkStatistics();
                 }
         }
         isShown(){
@@ -448,43 +524,94 @@ const ZbiorZbroi = {
     }
 
     const ZbiorNaszyjnikow = {
-        Caratris: new Naszyjnik("Caratris", "img/caratris.png", false, false),
-        Danthum: new Naszyjnik("Danthum", "img/danthum.png", false, false),
-        Dorbis: new Naszyjnik("Dorbis", "img/dorbis.png", false, false),
-        Maiarot: new Naszyjnik("Maiarot","img/maiarot.png", false, false),
-        Markahn: new Naszyjnik("Markahn","img/markahn.png", false, false),
-        Obroza_wladcy: new Naszyjnik("Obroza_wladcy","img/obroza_wladcy.png", false, false),
-        Ortasis: new Naszyjnik("Ortasis","img/ortasis.png", false, false),
-        Ostolbin: new Naszyjnik("Ostolbin","img/ostolbin.png", false, false),
-        Serce_seleny: new Naszyjnik("Serce_seleny","img/serce_seleny.png", false, false),
-        Sphaera: new Naszyjnik("Sphaera","img/sphaera.png", false, false),
-        Valazan: new Naszyjnik("Valazan","img/valazan.png", false, false),
-        Vogurun: new Naszyjnik("Vogurun","img/vogurun.png", false, false),
-        Zemsta_ivravula: new Naszyjnik("Zemsta_ivravula","img/zemsta_ivravula.png", false, false),
+        Caratris: new Naszyjnik("Caratris", "img/caratris.png", false, false, false, 0, 0,0, 0, 40, 0, 0),
+        Danthum: new Naszyjnik("Danthum", "img/danthum.png", false, false , false, 0, 0, 9, 9, 50, 40, 0),
+        Dorbis: new Naszyjnik("Dorbis", "img/dorbis.png", false, false , false, 0, 0, 20, 20, 100, 70, 30),
+        Maiarot: new Naszyjnik("Maiarot","img/maiarot.png", false, false, false, 0, 0, 0, 0, 100, 0, 0),
+        Markahn: new Naszyjnik("Markahn","img/markahn.png", false, false, false, 0, 3, 0, 3, 100, 0, 0),
+        Obroza_wladcy: new Naszyjnik("Obroza_wladcy","img/obroza_wladcy.png", false, false, false, 7, 0, 0, 0, 80, 0, 0),
+        /* DALEJ DOKONCZYC */
+        Ortasis: new Naszyjnik("Ortasis","img/ortasis.png", false, false, false, 0, 0, 8, 8, 80, 0, 0),
+        Ostolbin: new Naszyjnik("Ostolbin","img/ostolbin.png", false, false, false, 0, 0, 8, 8, 80, 0, 0),
+        Serce_seleny: new Naszyjnik("Serce_seleny","img/serce_seleny.png", false, false, false, 0, 0, 8, 8, 80, 0, 0),
+        Sphaera: new Naszyjnik("Sphaera","img/sphaera.png", false, false, false, 0, 0, 8, 8, 80, 0, 0),
+        Valazan: new Naszyjnik("Valazan","img/valazan.png", false, false, false, 0, 0, 8, 8, 80, 0, 0),
+        Vogurun: new Naszyjnik("Vogurun","img/vogurun.png", false, false, false, 0, 0, 8, 8, 80, 0, 0),
+        Zemsta_ivravula: new Naszyjnik("Zemsta_ivravula","img/zemsta_ivravula.png", false, false, false, 0, 0, 8, 8, 80, 0, 0),
         
         }
 
         class Rekawice{
-            constructor(name, img, active, shown){
+            constructor(name, img, active, notActive, shown, power, knowledge, strength, agility, hp, stamina, mana){
                 this.name = name;
                 this.img = img;
                 this.active = active;
+                this.notActive = notActive;
                 this.shown = shown;
+                this.power = power;
+                this.knowledge = knowledge;
+                this.strength = strength;
+                this.agility = agility;
+                this.hp = hp;
+                this.stamina = stamina;
+                this.mana = mana;
+                this.stamp = 0;
             }
             isActive(activated){
                 console.log(this.active, this.name)
                 this.active = activated;
                 console.log(this.active);
+                tmpIcon = rekawiceIcon.getAttribute("current-item");
+                if(tmpIcon !== null){
+                    if(tmpItemName != tmpIcon){
+                        tmpItemName = tmpIcon;
+                        console.log(tmpItemName);
+                        ZbiorRekawic[tmpItemName].isNotActive(true);
+                        }    
+                }
         
+        
+                  
+        
+                console.log(this.stamp);
+                if(this.stamp >= 1){
+                    this.isNotActive(true);
+        
+                }
                     if(this.active === true){
+                        this.stamp++;
                         rekawiceIcon.style.backgroundImage = `url(${this.img})`;
                         console.log(this.img);
-                        checkRemoveButton(rekawiceIcon, "rekawice-icon", "rekawiceIcon");
                         rekawiceIcon.setAttribute("current-item", this.name);
-                        
+                        checkRemoveButton(rekawiceIcon, "rekawice-icon", "rekawiceIcon", "rekawice");
+            
+                        console.log("MANA" + currentMana)
+                        if(this.stamp <= 1){
+                            currentPower += this.power;
+                            currentKnowledge += this.knowledge;
+                            currentStrength += this.strength;
+                            currentAgility += this.agility;
+                            currentHp += this.hp;
+                            currentStamina += this.stamina;
+                            currentMana += this.mana;
+                            checkStatistics();
+                        }
+                           
                     }
-                    if(this.active === false){
-                        rekawiceIcon.style.backgroundImage = "none";
+            }
+            isNotActive(notActivated){
+                this.notActive = notActivated;
+                    if(this.notActive === true){
+                            this.stamp = 0;
+            
+                            currentPower -= this.power;
+                            currentKnowledge -= this.knowledge;
+                            currentStrength -= this.strength;
+                            currentAgility -= this.agility;
+                            currentHp -= this.hp;
+                            currentStamina -= this.stamina;
+                            currentMana -= this.mana;
+                            checkStatistics();
                     }
             }
             isShown(){
@@ -528,26 +655,76 @@ const ZbiorZbroi = {
             }
 
             class Peleryna{
-                constructor(name, img, active, shown){
+                constructor(name, img, active, notActive, shown, power, knowledge, strength, agility, hp, stamina, mana){
                     this.name = name;
                     this.img = img;
                     this.active = active;
+                    this.notActive = notActive;
                     this.shown = shown;
+                    this.power = power;
+                    this.knowledge = knowledge;
+                    this.strength = strength;
+                    this.agility = agility;
+                    this.hp = hp;
+                    this.stamina = stamina;
+                    this.mana = mana;
+                    this.stamp = 0;
                 }
                 isActive(activated){
                     console.log(this.active, this.name)
                     this.active = activated;
                     console.log(this.active);
+                    tmpIcon = pelerynaIcon.getAttribute("current-item");
+                    if(tmpIcon !== null){
+                        if(tmpItemName != tmpIcon){
+                            tmpItemName = tmpIcon;
+                            console.log(tmpItemName);
+                            ZbiorPeleryn[tmpItemName].isNotActive(true);
+                            }    
+                    }
             
+            
+                      
+            
+                    console.log(this.stamp);
+                    if(this.stamp >= 1){
+                        this.isNotActive(true);
+            
+                    }
                         if(this.active === true){
+                            this.stamp++;
                             pelerynaIcon.style.backgroundImage = `url(${this.img})`;
                             console.log(this.img);
-                            checkRemoveButton(pelerynaIcon, "peleryna-icon", "pelerynaIcon");
                             pelerynaIcon.setAttribute("current-item", this.name);
-                            
+                            checkRemoveButton(pelerynaIcon, "peleryna-icon", "pelerynaIcon", "peleryna");
+                
+                            console.log("MANA" + currentMana)
+                            if(this.stamp <= 1){
+                                currentPower += this.power;
+                                currentKnowledge += this.knowledge;
+                                currentStrength += this.strength;
+                                currentAgility += this.agility;
+                                currentHp += this.hp;
+                                currentStamina += this.stamina;
+                                currentMana += this.mana;
+                                checkStatistics();
+                            }
+                               
                         }
-                        if(this.active === false){
-                            pelerynaIcon.style.backgroundImage = "none";
+                }
+                isNotActive(notActivated){
+                    this.notActive = notActivated;
+                        if(this.notActive === true){
+                                this.stamp = 0;
+                
+                                currentPower -= this.power;
+                                currentKnowledge -= this.knowledge;
+                                currentStrength -= this.strength;
+                                currentAgility -= this.agility;
+                                currentHp -= this.hp;
+                                currentStamina -= this.stamina;
+                                currentMana -= this.mana;
+                                checkStatistics();
                         }
                 }
                 isShown(){
@@ -591,26 +768,76 @@ const ZbiorZbroi = {
                 }
 
                 class Bron{
-                    constructor(name, img, active, shown){
+                    constructor(name, img, active, notActive, shown, power, knowledge, strength, agility, hp, stamina, mana){
                         this.name = name;
                         this.img = img;
                         this.active = active;
+                        this.notActive = notActive;
                         this.shown = shown;
+                        this.power = power;
+                        this.knowledge = knowledge;
+                        this.strength = strength;
+                        this.agility = agility;
+                        this.hp = hp;
+                        this.stamina = stamina;
+                        this.mana = mana;
+                        this.stamp = 0;
                     }
                     isActive(activated){
                         console.log(this.active, this.name)
                         this.active = activated;
                         console.log(this.active);
+                        tmpIcon = bronIcon.getAttribute("current-item");
+                        if(tmpIcon !== null){
+                            if(tmpItemName != tmpIcon){
+                                tmpItemName = tmpIcon;
+                                console.log(tmpItemName);
+                                ZbiorBroni[tmpItemName].isNotActive(true);
+                                }    
+                        }
                 
+                
+                          
+                
+                        console.log(this.stamp);
+                        if(this.stamp >= 1){
+                            this.isNotActive(true);
+                
+                        }
                             if(this.active === true){
+                                this.stamp++;
                                 bronIcon.style.backgroundImage = `url(${this.img})`;
                                 console.log(this.img);
-                                checkRemoveButton(bronIcon, "bron-icon", "bronIcon");
                                 bronIcon.setAttribute("current-item", this.name);
-                                
+                                checkRemoveButton(bronIcon, "bron-icon", "bronIcon", "bron");
+                    
+                                console.log("MANA" + currentMana)
+                                if(this.stamp <= 1){
+                                    currentPower += this.power;
+                                    currentKnowledge += this.knowledge;
+                                    currentStrength += this.strength;
+                                    currentAgility += this.agility;
+                                    currentHp += this.hp;
+                                    currentStamina += this.stamina;
+                                    currentMana += this.mana;
+                                    checkStatistics();
+                                }
+                                   
                             }
-                            if(this.active === false){
-                                bronIcon.style.backgroundImage = "none";
+                    }
+                    isNotActive(notActivated){
+                        this.notActive = notActivated;
+                            if(this.notActive === true){
+                                    this.stamp = 0;
+                    
+                                    currentPower -= this.power;
+                                    currentKnowledge -= this.knowledge;
+                                    currentStrength -= this.strength;
+                                    currentAgility -= this.agility;
+                                    currentHp -= this.hp;
+                                    currentStamina -= this.stamina;
+                                    currentMana -= this.mana;
+                                    checkStatistics();
                             }
                     }
                     isShown(){
@@ -669,26 +896,76 @@ const ZbiorZbroi = {
                         
                         }
                 class Karwasze{
-                    constructor(name, img, active, shown){
+                    constructor(name, img, active, notActive, shown, power, knowledge, strength, agility, hp, stamina, mana){
                         this.name = name;
                         this.img = img;
                         this.active = active;
+                        this.notActive = notActive;
                         this.shown = shown;
+                        this.power = power;
+                        this.knowledge = knowledge;
+                        this.strength = strength;
+                        this.agility = agility;
+                        this.hp = hp;
+                        this.stamina = stamina;
+                        this.mana = mana;
+                        this.stamp = 0;
                     }
                     isActive(activated){
                         console.log(this.active, this.name)
                         this.active = activated;
                         console.log(this.active);
+                        tmpIcon = karwaszeIcon.getAttribute("current-item");
+                        if(tmpIcon !== null){
+                            if(tmpItemName != tmpIcon){
+                                tmpItemName = tmpIcon;
+                                console.log(tmpItemName);
+                                ZbiorKarwaszy[tmpItemName].isNotActive(true);
+                                }    
+                        }
                 
+                
+                          
+                
+                        console.log(this.stamp);
+                        if(this.stamp >= 1){
+                            this.isNotActive(true);
+                
+                        }
                             if(this.active === true){
+                                this.stamp++;
                                 karwaszeIcon.style.backgroundImage = `url(${this.img})`;
                                 console.log(this.img);
-                                checkRemoveButton(karwaszeIcon, "karwasze-icon", "karwaszeIcon");
                                 karwaszeIcon.setAttribute("current-item", this.name);
-                                
+                                checkRemoveButton(karwaszeIcon, "karwasze-icon", "karwaszeIcon", "karwasze");
+                    
+                                console.log("MANA" + currentMana)
+                                if(this.stamp <= 1){
+                                    currentPower += this.power;
+                                    currentKnowledge += this.knowledge;
+                                    currentStrength += this.strength;
+                                    currentAgility += this.agility;
+                                    currentHp += this.hp;
+                                    currentStamina += this.stamina;
+                                    currentMana += this.mana;
+                                    checkStatistics();
+                                }
+                                   
                             }
-                            if(this.active === false){
-                                karwaszeIcon.style.backgroundImage = "none";
+                    }
+                    isNotActive(notActivated){
+                        this.notActive = notActivated;
+                            if(this.notActive === true){
+                                    this.stamp = 0;
+                    
+                                    currentPower -= this.power;
+                                    currentKnowledge -= this.knowledge;
+                                    currentStrength -= this.strength;
+                                    currentAgility -= this.agility;
+                                    currentHp -= this.hp;
+                                    currentStamina -= this.stamina;
+                                    currentMana -= this.mana;
+                                    checkStatistics();
                             }
                     }
                     isShown(){
@@ -725,26 +1002,76 @@ const ZbiorZbroi = {
                         }
 
                         class Spodnie{
-                            constructor(name, img, active, shown){
+                            constructor(name, img, active, notActive, shown, power, knowledge, strength, agility, hp, stamina, mana){
                                 this.name = name;
                                 this.img = img;
                                 this.active = active;
+                                this.notActive = notActive;
                                 this.shown = shown;
+                                this.power = power;
+                                this.knowledge = knowledge;
+                                this.strength = strength;
+                                this.agility = agility;
+                                this.hp = hp;
+                                this.stamina = stamina;
+                                this.mana = mana;
+                                this.stamp = 0;
                             }
                             isActive(activated){
                                 console.log(this.active, this.name)
                                 this.active = activated;
                                 console.log(this.active);
+                                tmpIcon = helmIcon.getAttribute("current-item");
+                                if(tmpIcon !== null){
+                                    if(tmpItemName != tmpIcon){
+                                        tmpItemName = tmpIcon;
+                                        console.log(tmpItemName);
+                                        ZbiorSpodni[tmpItemName].isNotActive(true);
+                                        }    
+                                }
                         
+                        
+                                  
+                        
+                                console.log(this.stamp);
+                                if(this.stamp >= 1){
+                                    this.isNotActive(true);
+                        
+                                }
                                     if(this.active === true){
+                                        this.stamp++;
                                         spodnieIcon.style.backgroundImage = `url(${this.img})`;
                                         console.log(this.img);
-                                        checkRemoveButton(spodnieIcon, "spodnie-icon", "spodnieIcon");
                                         spodnieIcon.setAttribute("current-item", this.name);
-                                        
+                                        checkRemoveButton(spodnieIcon, "spodnie-icon", "spodnieIcon", "spodnie");
+                            
+                                        console.log("MANA" + currentMana)
+                                        if(this.stamp <= 1){
+                                            currentPower += this.power;
+                                            currentKnowledge += this.knowledge;
+                                            currentStrength += this.strength;
+                                            currentAgility += this.agility;
+                                            currentHp += this.hp;
+                                            currentStamina += this.stamina;
+                                            currentMana += this.mana;
+                                            checkStatistics();
+                                        }
+                                           
                                     }
-                                    if(this.active === false){
-                                        spodnieIcon.style.backgroundImage = "none";
+                            }
+                            isNotActive(notActivated){
+                                this.notActive = notActivated;
+                                    if(this.notActive === true){
+                                            this.stamp = 0;
+                            
+                                            currentPower -= this.power;
+                                            currentKnowledge -= this.knowledge;
+                                            currentStrength -= this.strength;
+                                            currentAgility -= this.agility;
+                                            currentHp -= this.hp;
+                                            currentStamina -= this.stamina;
+                                            currentMana -= this.mana;
+                                            checkStatistics();
                                     }
                             }
                             isShown(){
@@ -786,26 +1113,76 @@ const ZbiorZbroi = {
                             Ziraki: new Spodnie("Ziraki","img/ziraki.png", false, false),
                                 }
                         class Pas{
-                            constructor(name, img, active, shown){
+                            constructor(name, img, active, notActive, shown, power, knowledge, strength, agility, hp, stamina, mana){
                                 this.name = name;
                                 this.img = img;
                                 this.active = active;
+                                this.notActive = notActive;
                                 this.shown = shown;
+                                this.power = power;
+                                this.knowledge = knowledge;
+                                this.strength = strength;
+                                this.agility = agility;
+                                this.hp = hp;
+                                this.stamina = stamina;
+                                this.mana = mana;
+                                this.stamp = 0;
                             }
                             isActive(activated){
                                 console.log(this.active, this.name)
                                 this.active = activated;
                                 console.log(this.active);
+                                tmpIcon = pasIcon.getAttribute("current-item");
+                                if(tmpIcon !== null){
+                                    if(tmpItemName != tmpIcon){
+                                        tmpItemName = tmpIcon;
+                                        console.log(tmpItemName);
+                                        ZbiorPasow[tmpItemName].isNotActive(true);
+                                        }    
+                                }
                         
+                        
+                                  
+                        
+                                console.log(this.stamp);
+                                if(this.stamp >= 1){
+                                    this.isNotActive(true);
+                        
+                                }
                                     if(this.active === true){
+                                        this.stamp++;
                                         pasIcon.style.backgroundImage = `url(${this.img})`;
                                         console.log(this.img);
-                                        checkRemoveButton(pasIcon, "pas-icon", "pasIcon");
                                         pasIcon.setAttribute("current-item", this.name);
-                                        
+                                        checkRemoveButton(pasIcon, "pas-icon", "pasIcon", "pas");
+                            
+                                        console.log("MANA" + currentMana)
+                                        if(this.stamp <= 1){
+                                            currentPower += this.power;
+                                            currentKnowledge += this.knowledge;
+                                            currentStrength += this.strength;
+                                            currentAgility += this.agility;
+                                            currentHp += this.hp;
+                                            currentStamina += this.stamina;
+                                            currentMana += this.mana;
+                                            checkStatistics();
+                                        }
+                                           
                                     }
-                                    if(this.active === false){
-                                        pasIcon.style.backgroundImage = "none";
+                            }
+                            isNotActive(notActivated){
+                                this.notActive = notActivated;
+                                    if(this.notActive === true){
+                                            this.stamp = 0;
+                            
+                                            currentPower -= this.power;
+                                            currentKnowledge -= this.knowledge;
+                                            currentStrength -= this.strength;
+                                            currentAgility -= this.agility;
+                                            currentHp -= this.hp;
+                                            currentStamina -= this.stamina;
+                                            currentMana -= this.mana;
+                                            checkStatistics();
                                     }
                             }
                             isShown(){
@@ -847,26 +1224,76 @@ const ZbiorZbroi = {
                             Sentrion: new Pas("Sentrion","img/sentrion.png", false, false),
                                 }
                         class Pierscien1{
-                            constructor(name, img, active, shown){
+                            constructor(name, img, active, notActive, shown, power, knowledge, strength, agility, hp, stamina, mana){
                                 this.name = name;
                                 this.img = img;
                                 this.active = active;
+                                this.notActive = notActive;
                                 this.shown = shown;
+                                this.power = power;
+                                this.knowledge = knowledge;
+                                this.strength = strength;
+                                this.agility = agility;
+                                this.hp = hp;
+                                this.stamina = stamina;
+                                this.mana = mana;
+                                this.stamp = 0;
                             }
                             isActive(activated){
                                 console.log(this.active, this.name)
                                 this.active = activated;
                                 console.log(this.active);
+                                tmpIcon = pierscien1Icon.getAttribute("current-item");
+                                if(tmpIcon !== null){
+                                    if(tmpItemName != tmpIcon){
+                                        tmpItemName = tmpIcon;
+                                        console.log(tmpItemName);
+                                        ZbiorPierscieni1[tmpItemName].isNotActive(true);
+                                        }    
+                                }
                         
+                        
+                                  
+                        
+                                console.log(this.stamp);
+                                if(this.stamp >= 1){
+                                    this.isNotActive(true);
+                        
+                                }
                                     if(this.active === true){
+                                        this.stamp++;
                                         pierscien1Icon.style.backgroundImage = `url(${this.img})`;
                                         console.log(this.img);
-                                        checkRemoveButton(pierscien1Icon, "pierscien1-icon", "pierscien1Icon");
                                         pierscien1Icon.setAttribute("current-item", this.name);
-                                        
+                                        checkRemoveButton(pierscien1Icon, "pierscien1-icon", "pierscien1Icon", "pierscien1");
+                            
+                                        console.log("MANA" + currentMana)
+                                        if(this.stamp <= 1){
+                                            currentPower += this.power;
+                                            currentKnowledge += this.knowledge;
+                                            currentStrength += this.strength;
+                                            currentAgility += this.agility;
+                                            currentHp += this.hp;
+                                            currentStamina += this.stamina;
+                                            currentMana += this.mana;
+                                            checkStatistics();
+                                        }
+                                           
                                     }
-                                    if(this.active === false){
-                                        pierscien1Icon.style.backgroundImage = "none";
+                            }
+                            isNotActive(notActivated){
+                                this.notActive = notActivated;
+                                    if(this.notActive === true){
+                                            this.stamp = 0;
+                            
+                                            currentPower -= this.power;
+                                            currentKnowledge -= this.knowledge;
+                                            currentStrength -= this.strength;
+                                            currentAgility -= this.agility;
+                                            currentHp -= this.hp;
+                                            currentStamina -= this.stamina;
+                                            currentMana -= this.mana;
+                                            checkStatistics();
                                     }
                             }
                             isShown(){
@@ -912,26 +1339,76 @@ const ZbiorZbroi = {
                             Zaglada_ludow: new Pierscien1("Zaglada_ludow","img/zaglada_ludow.png", false, false),
                                 }
                         class Pierscien2{
-                            constructor(name, img, active, shown){
+                            constructor(name, img, active, notActive, shown, power, knowledge, strength, agility, hp, stamina, mana){
                                 this.name = name;
                                 this.img = img;
                                 this.active = active;
+                                this.notActive = notActive;
                                 this.shown = shown;
+                                this.power = power;
+                                this.knowledge = knowledge;
+                                this.strength = strength;
+                                this.agility = agility;
+                                this.hp = hp;
+                                this.stamina = stamina;
+                                this.mana = mana;
+                                this.stamp = 0;
                             }
                             isActive(activated){
                                 console.log(this.active, this.name)
                                 this.active = activated;
                                 console.log(this.active);
+                                tmpIcon = pierscien2Icon.getAttribute("current-item");
+                                if(tmpIcon !== null){
+                                    if(tmpItemName != tmpIcon){
+                                        tmpItemName = tmpIcon;
+                                        console.log(tmpItemName);
+                                        ZbiorPierscieni2[tmpItemName].isNotActive(true);
+                                        }    
+                                }
                         
+                        
+                                  
+                        
+                                console.log(this.stamp);
+                                if(this.stamp >= 1){
+                                    this.isNotActive(true);
+                        
+                                }
                                     if(this.active === true){
-                                        pierscien2Icon.style.backgroundImage = `url(${this.img})`;
+                                        this.stamp++;
+                                        pierscien1Icon.style.backgroundImage = `url(${this.img})`;
                                         console.log(this.img);
-                                        checkRemoveButton(pierscien2Icon, "pierscien2-icon", "pierscien2Icon");
                                         pierscien2Icon.setAttribute("current-item", this.name);
-                                        
+                                        checkRemoveButton(pierscien2Icon, "pierscien2-icon", "pierscien2Icon", "pierscien2");
+                            
+                                        console.log("MANA" + currentMana)
+                                        if(this.stamp <= 1){
+                                            currentPower += this.power;
+                                            currentKnowledge += this.knowledge;
+                                            currentStrength += this.strength;
+                                            currentAgility += this.agility;
+                                            currentHp += this.hp;
+                                            currentStamina += this.stamina;
+                                            currentMana += this.mana;
+                                            checkStatistics();
+                                        }
+                                           
                                     }
-                                    if(this.active === false){
-                                        pierscien2Icon.style.backgroundImage = "none";
+                            }
+                            isNotActive(notActivated){
+                                this.notActive = notActivated;
+                                    if(this.notActive === true){
+                                            this.stamp = 0;
+                            
+                                            currentPower -= this.power;
+                                            currentKnowledge -= this.knowledge;
+                                            currentStrength -= this.strength;
+                                            currentAgility -= this.agility;
+                                            currentHp -= this.hp;
+                                            currentStamina -= this.stamina;
+                                            currentMana -= this.mana;
+                                            checkStatistics();
                                     }
                             }
                             isShown(){
@@ -977,26 +1454,76 @@ const ZbiorZbroi = {
                             Zaglada_ludow: new Pierscien2("Zaglada_ludow","img/zaglada_ludow.png", false, false),
                                 }
                         class Buty{
-                            constructor(name, img, active, shown){
+                            constructor(name, img, active, notActive, shown, power, knowledge, strength, agility, hp, stamina, mana){
                                 this.name = name;
                                 this.img = img;
                                 this.active = active;
+                                this.notActive = notActive;
                                 this.shown = shown;
+                                this.power = power;
+                                this.knowledge = knowledge;
+                                this.strength = strength;
+                                this.agility = agility;
+                                this.hp = hp;
+                                this.stamina = stamina;
+                                this.mana = mana;
+                                this.stamp = 0;
                             }
                             isActive(activated){
                                 console.log(this.active, this.name)
                                 this.active = activated;
                                 console.log(this.active);
+                                tmpIcon = butyIcon.getAttribute("current-item");
+                                if(tmpIcon !== null){
+                                    if(tmpItemName != tmpIcon){
+                                        tmpItemName = tmpIcon;
+                                        console.log(tmpItemName);
+                                        ZbiorButow[tmpItemName].isNotActive(true);
+                                        }    
+                                }
                         
+                        
+                                  
+                        
+                                console.log(this.stamp);
+                                if(this.stamp >= 1){
+                                    this.isNotActive(true);
+                        
+                                }
                                     if(this.active === true){
+                                        this.stamp++;
                                         butyIcon.style.backgroundImage = `url(${this.img})`;
                                         console.log(this.img);
-                                        checkRemoveButton(butyIcon, "buty-icon", "butyIcon");
                                         butyIcon.setAttribute("current-item", this.name);
-                                        
+                                        checkRemoveButton(butyIcon, "buty-icon", "butyIcon", "buty");
+                            
+                                        console.log("MANA" + currentMana)
+                                        if(this.stamp <= 1){
+                                            currentPower += this.power;
+                                            currentKnowledge += this.knowledge;
+                                            currentStrength += this.strength;
+                                            currentAgility += this.agility;
+                                            currentHp += this.hp;
+                                            currentStamina += this.stamina;
+                                            currentMana += this.mana;
+                                            checkStatistics();
+                                        }
+                                           
                                     }
-                                    if(this.active === false){
-                                        butyIcon.style.backgroundImage = "none";
+                            }
+                            isNotActive(notActivated){
+                                this.notActive = notActivated;
+                                    if(this.notActive === true){
+                                            this.stamp = 0;
+                            
+                                            currentPower -= this.power;
+                                            currentKnowledge -= this.knowledge;
+                                            currentStrength -= this.strength;
+                                            currentAgility -= this.agility;
+                                            currentHp -= this.hp;
+                                            currentStamina -= this.stamina;
+                                            currentMana -= this.mana;
+                                            checkStatistics();
                                     }
                             }
                             isShown(){
