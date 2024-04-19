@@ -17,7 +17,7 @@ const Tiles = document.querySelectorAll(".item");
     })
     function checkIfItemIsVisible(itemName, itemContainer){
             itemContainer.setAttribute('data-tooltip', `${itemName}`);
-            console.log(itemName);
+            (itemName);
             
     }
     function checkIfItemIsNotVisible(itemContainer){
@@ -47,7 +47,7 @@ function checkStatistics(){
     document.querySelector(".hp").innerHTML = `Hp: ${baseHp} | ${currentHp + baseHp}`;
     document.querySelector(".stamina").innerHTML = `Kondycja: ${baseStamina} | ${currentStamina + baseStamina}`;
     document.querySelector(".mana").innerHTML = `Mana: ${baseMana} | ${currentMana + baseMana}`;
-    console.log(currentPower);
+    console.log("MOC:", currentPower, "SILA", currentStrength, "HP", currentHp);
 }
 
 
@@ -116,8 +116,8 @@ function checkRemoveButton(icon, iconName, iconImage, item){
         removeButton.innerHTML = "Zdejmij";
         Dialog_container.appendChild(removeButton);
         removeButtonCounter++;
-        console.log(removeButtonCounter);
-        console.log(removeButton.className);
+        (removeButtonCounter);
+        (removeButton.className);
         
         if(removeButton.classList.contains("remove-helm-icon")){
             rmBtnTmp = "helm";
@@ -132,7 +132,7 @@ function checkRemoveButton(icon, iconName, iconImage, item){
 
 
 
-console.log(rmBtnTmp, tmpIcon);
+(rmBtnTmp, tmpIcon);
 
 
 if(tmpItem != rmBtnTmp && tmpItemName == tmpIcon){
@@ -152,7 +152,7 @@ switch (tmpItem){
     case "helm":
         tmpItem = "helm";
         tmpItemName = helmIcon.getAttribute("current-item");
-        console.log(tmpItemName);
+        (tmpItemName);
         ZbiorHelmow[tmpItemName].isNotActive(true);
         break;
     case "zbroja":
@@ -220,14 +220,14 @@ class Helm{
         this.stamp = 0;
     }
     isActive(activated){
-        console.log(this.active, this.name)
+
         this.active = activated;
-        console.log(this.active);
+        (this.active);
         tmpIcon = helmIcon.getAttribute("current-item");
         if(tmpIcon !== null){
             if(tmpItemName != tmpIcon){
                 tmpItemName = tmpIcon;
-                console.log(tmpItemName);
+                (tmpItemName);
                 ZbiorHelmow[tmpItemName].isNotActive(true);
                 }    
         }
@@ -235,7 +235,7 @@ class Helm{
 
           
 
-        console.log(this.stamp);
+        (this.stamp);
         if(this.stamp >= 1){
             this.isNotActive(true);
 
@@ -243,11 +243,11 @@ class Helm{
             if(this.active === true){
                 this.stamp++;
                 helmIcon.style.backgroundImage = `url(${this.img})`;
-                console.log(this.img);
+                (this.img);
                 helmIcon.setAttribute("current-item", this.name);
                 checkRemoveButton(helmIcon, "helm-icon", "helmIcon", "helm");
     
-                console.log("MANA" + currentMana)
+                ("MANA" + currentMana)
                 if(this.stamp <= 1){
                     currentPower += this.power;
                     currentKnowledge += this.knowledge;
@@ -291,7 +291,7 @@ class Helm{
     isHovered(){
         if(this.shown === true){
             Dialog_container.querySelector(`.${this.name}`).setAttribute('data-tooltip', `${this.name}`);
-            console.log(this.name);
+            (this.name);
         }
         
     }
@@ -335,28 +335,23 @@ class Zbroja{
         this.stamp = 0;
     }
     isActive(activated){
-        console.log(this.active, this.name)
         this.active = activated;
-        console.log(this.active);
-        tmpIcon = zbrojaIcon.getAttribute("current-item");
-        if(tmpIcon !== null){
-            if(tmpItemName != tmpIcon){
-                tmpItemName = tmpIcon;
-                console.log(tmpItemName);
-                ZbiorZbroi[tmpItemName].isNotActive(true);
-                }    
-        }
-        if(this.stamp >= 1){
+        console.log(this.stamp, "STAMp");
+        if(this.stamp > 1){
             this.isNotActive(true);
 
         }
             if(this.active === true){
+                console.log(this.stamp, "STAMp ISACIVE1");
                 this.stamp++;
                 zbrojaIcon.style.backgroundImage = `url(${this.img})`;
-                console.log(this.img);
+                (this.img);
+                tmpIcon = zbrojaIcon.getAttribute("current-item");
                 zbrojaIcon.setAttribute("current-item", this.name);
+                tmpItemName = zbrojaIcon.getAttribute("current-item");
                 checkRemoveButton(zbrojaIcon, "zbroja-icon", "zbrojaIcon", "zbroja");
                 if(this.stamp <= 1){
+                    console.log(this.stamp, "STAMp ISACTIVE");
                     currentPower += this.power;
                     currentKnowledge += this.knowledge;
                     currentStrength += this.strength;
@@ -367,11 +362,21 @@ class Zbroja{
                     checkStatistics();
                 }
             }
+            
+            console.log(tmpIcon);
+        if(tmpIcon !== null){
+            if(tmpItemName != tmpIcon){
+                tmpItemName = tmpIcon;
+                (tmpItemName);
+                ZbiorZbroi[tmpItemName].isNotActive(true);
+                }    
+        }
            
     }
     isNotActive(notActivated){
         this.notActive = notActivated;
             if(this.notActive === true){
+                console.log(this.stamp, "STAMp ISNOTACVIE");
                 this.stamp = 0;
     
                     currentPower -= this.power;
@@ -398,7 +403,7 @@ class Zbroja{
     isHovered(){
         if(this.shown === true){
             Dialog_container.querySelector(`.${this.name}`).setAttribute('data-tooltip', `${this.name}`);
-            console.log(this.name);
+            (this.name);
         }
         
     }
@@ -441,14 +446,14 @@ const ZbiorZbroi = {
             this.stamp = 0;
         }
         isActive(activated){
-            console.log(this.active, this.name)
+            (this.active, this.name)
             this.active = activated;
-            console.log(this.active);
+            (this.active);
             tmpIcon =naszyjnikIcon.getAttribute("current-item");
             if(tmpIcon !== null){
                 if(tmpItemName != tmpIcon){
                     tmpItemName = tmpIcon;
-                    console.log(tmpItemName);
+                    (tmpItemName);
                     ZbiorNaszyjnikow[tmpItemName].isNotActive(true);
                     }    
             }
@@ -456,7 +461,7 @@ const ZbiorZbroi = {
     
               
     
-            console.log(this.stamp);
+            (this.stamp);
             if(this.stamp >= 1){
                 this.isNotActive(true);
     
@@ -464,11 +469,11 @@ const ZbiorZbroi = {
                 if(this.active === true){
                     this.stamp++;
                     naszyjnikIcon.style.backgroundImage = `url(${this.img})`;
-                    console.log(this.img);
+                    (this.img);
                     naszyjnikIcon.setAttribute("current-item", this.name);
                     checkRemoveButton(naszyjnikIcon, "naszyjnik-icon", "naszyjnikIcon", "naszyjnik");
         
-                    console.log("MANA" + currentMana)
+                    ("MANA" + currentMana)
                     if(this.stamp <= 1){
                         currentPower += this.power;
                         currentKnowledge += this.knowledge;
@@ -511,7 +516,7 @@ const ZbiorZbroi = {
         isHovered(){
             if(this.shown === true){
                 Dialog_container.querySelector(`.${this.name}`).setAttribute('data-tooltip', `${this.name}`);
-                console.log(this.name);
+                (this.name);
             }
             
         }
@@ -558,14 +563,14 @@ const ZbiorZbroi = {
                 this.stamp = 0;
             }
             isActive(activated){
-                console.log(this.active, this.name)
+                (this.active, this.name)
                 this.active = activated;
-                console.log(this.active);
+                (this.active);
                 tmpIcon = rekawiceIcon.getAttribute("current-item");
                 if(tmpIcon !== null){
                     if(tmpItemName != tmpIcon){
                         tmpItemName = tmpIcon;
-                        console.log(tmpItemName);
+                        (tmpItemName);
                         ZbiorRekawic[tmpItemName].isNotActive(true);
                         }    
                 }
@@ -573,7 +578,7 @@ const ZbiorZbroi = {
         
                   
         
-                console.log(this.stamp);
+                (this.stamp);
                 if(this.stamp >= 1){
                     this.isNotActive(true);
         
@@ -581,11 +586,11 @@ const ZbiorZbroi = {
                     if(this.active === true){
                         this.stamp++;
                         rekawiceIcon.style.backgroundImage = `url(${this.img})`;
-                        console.log(this.img);
+                        (this.img);
                         rekawiceIcon.setAttribute("current-item", this.name);
                         checkRemoveButton(rekawiceIcon, "rekawice-icon", "rekawiceIcon", "rekawice");
             
-                        console.log("MANA" + currentMana)
+                        ("MANA" + currentMana)
                         if(this.stamp <= 1){
                             currentPower += this.power;
                             currentKnowledge += this.knowledge;
@@ -628,7 +633,7 @@ const ZbiorZbroi = {
             isHovered(){
                 if(this.shown === true){
                     Dialog_container.querySelector(`.${this.name}`).setAttribute('data-tooltip', `${this.name}`);
-                    console.log(this.name);
+                    (this.name);
                 }
                 
             }
@@ -671,14 +676,14 @@ const ZbiorZbroi = {
                     this.stamp = 0;
                 }
                 isActive(activated){
-                    console.log(this.active, this.name)
+                    (this.active, this.name)
                     this.active = activated;
-                    console.log(this.active);
+                    (this.active);
                     tmpIcon = pelerynaIcon.getAttribute("current-item");
                     if(tmpIcon !== null){
                         if(tmpItemName != tmpIcon){
                             tmpItemName = tmpIcon;
-                            console.log(tmpItemName);
+                            (tmpItemName);
                             ZbiorPeleryn[tmpItemName].isNotActive(true);
                             }    
                     }
@@ -686,7 +691,7 @@ const ZbiorZbroi = {
             
                       
             
-                    console.log(this.stamp);
+                    (this.stamp);
                     if(this.stamp >= 1){
                         this.isNotActive(true);
             
@@ -694,11 +699,11 @@ const ZbiorZbroi = {
                         if(this.active === true){
                             this.stamp++;
                             pelerynaIcon.style.backgroundImage = `url(${this.img})`;
-                            console.log(this.img);
+                            (this.img);
                             pelerynaIcon.setAttribute("current-item", this.name);
                             checkRemoveButton(pelerynaIcon, "peleryna-icon", "pelerynaIcon", "peleryna");
                 
-                            console.log("MANA" + currentMana)
+                            ("MANA" + currentMana)
                             if(this.stamp <= 1){
                                 currentPower += this.power;
                                 currentKnowledge += this.knowledge;
@@ -741,7 +746,7 @@ const ZbiorZbroi = {
                 isHovered(){
                     if(this.shown === true){
                         Dialog_container.querySelector(`.${this.name}`).setAttribute('data-tooltip', `${this.name}`);
-                        console.log(this.name);
+                        (this.name);
                     }
                     
                 }
@@ -784,14 +789,14 @@ const ZbiorZbroi = {
                         this.stamp = 0;
                     }
                     isActive(activated){
-                        console.log(this.active, this.name)
+                        (this.active, this.name)
                         this.active = activated;
-                        console.log(this.active);
+                        (this.active);
                         tmpIcon = bronIcon.getAttribute("current-item");
                         if(tmpIcon !== null){
                             if(tmpItemName != tmpIcon){
                                 tmpItemName = tmpIcon;
-                                console.log(tmpItemName);
+                                (tmpItemName);
                                 ZbiorBroni[tmpItemName].isNotActive(true);
                                 }    
                         }
@@ -799,7 +804,7 @@ const ZbiorZbroi = {
                 
                           
                 
-                        console.log(this.stamp);
+                        (this.stamp);
                         if(this.stamp >= 1){
                             this.isNotActive(true);
                 
@@ -807,11 +812,11 @@ const ZbiorZbroi = {
                             if(this.active === true){
                                 this.stamp++;
                                 bronIcon.style.backgroundImage = `url(${this.img})`;
-                                console.log(this.img);
+                                (this.img);
                                 bronIcon.setAttribute("current-item", this.name);
                                 checkRemoveButton(bronIcon, "bron-icon", "bronIcon", "bron");
                     
-                                console.log("MANA" + currentMana)
+                                ("MANA" + currentMana)
                                 if(this.stamp <= 1){
                                     currentPower += this.power;
                                     currentKnowledge += this.knowledge;
@@ -854,7 +859,7 @@ const ZbiorZbroi = {
                     isHovered(){
                         if(this.shown === true){
                             Dialog_container.querySelector(`.${this.name}`).setAttribute('data-tooltip', `${this.name}`);
-                            console.log(this.name);
+                            (this.name);
                         }
                         
                     }
@@ -912,14 +917,14 @@ const ZbiorZbroi = {
                         this.stamp = 0;
                     }
                     isActive(activated){
-                        console.log(this.active, this.name)
+                        (this.active, this.name)
                         this.active = activated;
-                        console.log(this.active);
+                        (this.active);
                         tmpIcon = karwaszeIcon.getAttribute("current-item");
                         if(tmpIcon !== null){
                             if(tmpItemName != tmpIcon){
                                 tmpItemName = tmpIcon;
-                                console.log(tmpItemName);
+                                (tmpItemName);
                                 ZbiorKarwaszy[tmpItemName].isNotActive(true);
                                 }    
                         }
@@ -927,7 +932,7 @@ const ZbiorZbroi = {
                 
                           
                 
-                        console.log(this.stamp);
+                        (this.stamp);
                         if(this.stamp >= 1){
                             this.isNotActive(true);
                 
@@ -935,11 +940,11 @@ const ZbiorZbroi = {
                             if(this.active === true){
                                 this.stamp++;
                                 karwaszeIcon.style.backgroundImage = `url(${this.img})`;
-                                console.log(this.img);
+                                (this.img);
                                 karwaszeIcon.setAttribute("current-item", this.name);
                                 checkRemoveButton(karwaszeIcon, "karwasze-icon", "karwaszeIcon", "karwasze");
                     
-                                console.log("MANA" + currentMana)
+                                ("MANA" + currentMana)
                                 if(this.stamp <= 1){
                                     currentPower += this.power;
                                     currentKnowledge += this.knowledge;
@@ -982,7 +987,7 @@ const ZbiorZbroi = {
                     isHovered(){
                         if(this.shown === true){
                             Dialog_container.querySelector(`.${this.name}`).setAttribute('data-tooltip', `${this.name}`);
-                            console.log(this.name);
+                            (this.name);
                         }
                         
                     }
@@ -1018,14 +1023,14 @@ const ZbiorZbroi = {
                                 this.stamp = 0;
                             }
                             isActive(activated){
-                                console.log(this.active, this.name)
+                                (this.active, this.name)
                                 this.active = activated;
-                                console.log(this.active);
+                                (this.active);
                                 tmpIcon = helmIcon.getAttribute("current-item");
                                 if(tmpIcon !== null){
                                     if(tmpItemName != tmpIcon){
                                         tmpItemName = tmpIcon;
-                                        console.log(tmpItemName);
+                                        (tmpItemName);
                                         ZbiorSpodni[tmpItemName].isNotActive(true);
                                         }    
                                 }
@@ -1033,7 +1038,7 @@ const ZbiorZbroi = {
                         
                                   
                         
-                                console.log(this.stamp);
+                                (this.stamp);
                                 if(this.stamp >= 1){
                                     this.isNotActive(true);
                         
@@ -1041,11 +1046,11 @@ const ZbiorZbroi = {
                                     if(this.active === true){
                                         this.stamp++;
                                         spodnieIcon.style.backgroundImage = `url(${this.img})`;
-                                        console.log(this.img);
+                                        (this.img);
                                         spodnieIcon.setAttribute("current-item", this.name);
                                         checkRemoveButton(spodnieIcon, "spodnie-icon", "spodnieIcon", "spodnie");
                             
-                                        console.log("MANA" + currentMana)
+                                        ("MANA" + currentMana)
                                         if(this.stamp <= 1){
                                             currentPower += this.power;
                                             currentKnowledge += this.knowledge;
@@ -1088,7 +1093,7 @@ const ZbiorZbroi = {
                             isHovered(){
                                 if(this.shown === true){
                                     Dialog_container.querySelector(`.${this.name}`).setAttribute('data-tooltip', `${this.name}`);
-                                    console.log(this.name);
+                                    (this.name);
                                 }
                                 
                             }
@@ -1129,14 +1134,14 @@ const ZbiorZbroi = {
                                 this.stamp = 0;
                             }
                             isActive(activated){
-                                console.log(this.active, this.name)
+                                (this.active, this.name)
                                 this.active = activated;
-                                console.log(this.active);
+                                (this.active);
                                 tmpIcon = pasIcon.getAttribute("current-item");
                                 if(tmpIcon !== null){
                                     if(tmpItemName != tmpIcon){
                                         tmpItemName = tmpIcon;
-                                        console.log(tmpItemName);
+                                        (tmpItemName);
                                         ZbiorPasow[tmpItemName].isNotActive(true);
                                         }    
                                 }
@@ -1144,7 +1149,7 @@ const ZbiorZbroi = {
                         
                                   
                         
-                                console.log(this.stamp);
+                                (this.stamp);
                                 if(this.stamp >= 1){
                                     this.isNotActive(true);
                         
@@ -1152,11 +1157,11 @@ const ZbiorZbroi = {
                                     if(this.active === true){
                                         this.stamp++;
                                         pasIcon.style.backgroundImage = `url(${this.img})`;
-                                        console.log(this.img);
+                                        (this.img);
                                         pasIcon.setAttribute("current-item", this.name);
                                         checkRemoveButton(pasIcon, "pas-icon", "pasIcon", "pas");
                             
-                                        console.log("MANA" + currentMana)
+                                        ("MANA" + currentMana)
                                         if(this.stamp <= 1){
                                             currentPower += this.power;
                                             currentKnowledge += this.knowledge;
@@ -1199,7 +1204,7 @@ const ZbiorZbroi = {
                             isHovered(){
                                 if(this.shown === true){
                                     Dialog_container.querySelector(`.${this.name}`).setAttribute('data-tooltip', `${this.name}`);
-                                    console.log(this.name);
+                                    (this.name);
                                 }
                                 
                             }
@@ -1240,14 +1245,14 @@ const ZbiorZbroi = {
                                 this.stamp = 0;
                             }
                             isActive(activated){
-                                console.log(this.active, this.name)
+                                (this.active, this.name)
                                 this.active = activated;
-                                console.log(this.active);
+                                (this.active);
                                 tmpIcon = pierscien1Icon.getAttribute("current-item");
                                 if(tmpIcon !== null){
                                     if(tmpItemName != tmpIcon){
                                         tmpItemName = tmpIcon;
-                                        console.log(tmpItemName);
+                                        (tmpItemName);
                                         ZbiorPierscieni1[tmpItemName].isNotActive(true);
                                         }    
                                 }
@@ -1255,7 +1260,7 @@ const ZbiorZbroi = {
                         
                                   
                         
-                                console.log(this.stamp);
+                                (this.stamp);
                                 if(this.stamp >= 1){
                                     this.isNotActive(true);
                         
@@ -1263,11 +1268,11 @@ const ZbiorZbroi = {
                                     if(this.active === true){
                                         this.stamp++;
                                         pierscien1Icon.style.backgroundImage = `url(${this.img})`;
-                                        console.log(this.img);
+                                        (this.img);
                                         pierscien1Icon.setAttribute("current-item", this.name);
                                         checkRemoveButton(pierscien1Icon, "pierscien1-icon", "pierscien1Icon", "pierscien1");
                             
-                                        console.log("MANA" + currentMana)
+                                        ("MANA" + currentMana)
                                         if(this.stamp <= 1){
                                             currentPower += this.power;
                                             currentKnowledge += this.knowledge;
@@ -1310,7 +1315,7 @@ const ZbiorZbroi = {
                             isHovered(){
                                 if(this.shown === true){
                                     Dialog_container.querySelector(`.${this.name}`).setAttribute('data-tooltip', `${this.name}`);
-                                    console.log(this.name);
+                                    (this.name);
                                 }
                                 
                             }
@@ -1355,14 +1360,14 @@ const ZbiorZbroi = {
                                 this.stamp = 0;
                             }
                             isActive(activated){
-                                console.log(this.active, this.name)
+                                (this.active, this.name)
                                 this.active = activated;
-                                console.log(this.active);
+                                (this.active);
                                 tmpIcon = pierscien2Icon.getAttribute("current-item");
                                 if(tmpIcon !== null){
                                     if(tmpItemName != tmpIcon){
                                         tmpItemName = tmpIcon;
-                                        console.log(tmpItemName);
+                                        (tmpItemName);
                                         ZbiorPierscieni2[tmpItemName].isNotActive(true);
                                         }    
                                 }
@@ -1370,7 +1375,7 @@ const ZbiorZbroi = {
                         
                                   
                         
-                                console.log(this.stamp);
+                                (this.stamp);
                                 if(this.stamp >= 1){
                                     this.isNotActive(true);
                         
@@ -1378,11 +1383,11 @@ const ZbiorZbroi = {
                                     if(this.active === true){
                                         this.stamp++;
                                         pierscien1Icon.style.backgroundImage = `url(${this.img})`;
-                                        console.log(this.img);
+                                        (this.img);
                                         pierscien2Icon.setAttribute("current-item", this.name);
                                         checkRemoveButton(pierscien2Icon, "pierscien2-icon", "pierscien2Icon", "pierscien2");
                             
-                                        console.log("MANA" + currentMana)
+                                        ("MANA" + currentMana)
                                         if(this.stamp <= 1){
                                             currentPower += this.power;
                                             currentKnowledge += this.knowledge;
@@ -1425,7 +1430,7 @@ const ZbiorZbroi = {
                             isHovered(){
                                 if(this.shown === true){
                                     Dialog_container.querySelector(`.${this.name}`).setAttribute('data-tooltip', `${this.name}`);
-                                    console.log(this.name);
+                                    (this.name);
                                 }
                                 
                             }
@@ -1470,14 +1475,14 @@ const ZbiorZbroi = {
                                 this.stamp = 0;
                             }
                             isActive(activated){
-                                console.log(this.active, this.name)
+                                (this.active, this.name)
                                 this.active = activated;
-                                console.log(this.active);
+                                (this.active);
                                 tmpIcon = butyIcon.getAttribute("current-item");
                                 if(tmpIcon !== null){
                                     if(tmpItemName != tmpIcon){
                                         tmpItemName = tmpIcon;
-                                        console.log(tmpItemName);
+                                        (tmpItemName);
                                         ZbiorButow[tmpItemName].isNotActive(true);
                                         }    
                                 }
@@ -1485,7 +1490,7 @@ const ZbiorZbroi = {
                         
                                   
                         
-                                console.log(this.stamp);
+                                (this.stamp);
                                 if(this.stamp >= 1){
                                     this.isNotActive(true);
                         
@@ -1493,11 +1498,11 @@ const ZbiorZbroi = {
                                     if(this.active === true){
                                         this.stamp++;
                                         butyIcon.style.backgroundImage = `url(${this.img})`;
-                                        console.log(this.img);
+                                        (this.img);
                                         butyIcon.setAttribute("current-item", this.name);
                                         checkRemoveButton(butyIcon, "buty-icon", "butyIcon", "buty");
                             
-                                        console.log("MANA" + currentMana)
+                                        ("MANA" + currentMana)
                                         if(this.stamp <= 1){
                                             currentPower += this.power;
                                             currentKnowledge += this.knowledge;
@@ -1540,7 +1545,7 @@ const ZbiorZbroi = {
                             isHovered(){
                                 if(this.shown === true){
                                     Dialog_container.querySelector(`.${this.name}`).setAttribute('data-tooltip', `${this.name}`);
-                                    console.log(this.name);
+                                    (this.name);
                                 }
                                 
                             }
@@ -1580,12 +1585,12 @@ const ZbiorZbroi = {
          /* ZBROJA */ 
         
         if($currentTile == Tiles[0]){
-            console.log($currentTile);
+            ($currentTile);
             Dialog_container.innerHTML = "<h1>Zbroja: </h1>";
             ZbiorZbroi.Bartaur.isShown();
 
                 if(activeZbrojaItems[0]){
-                    console.log(activeZbrojaItems[0]);
+                    (activeZbrojaItems[0]);
                     activeZbrojaItems[0].addEventListener("click", () => {
                         ZbiorZbroi.Bartaur.isActive(true);
                     })
@@ -1600,7 +1605,7 @@ const ZbiorZbroi = {
                 }
             ZbiorZbroi.Brunnle.isShown();
             if(activeZbrojaItems[1]){
-                console.log(activeZbrojaItems[1]);
+                (activeZbrojaItems[1]);
                 activeZbrojaItems[1].addEventListener("click", () => {
                     ZbiorZbroi.Brunnle.isActive(true);
                 })
@@ -1614,7 +1619,7 @@ const ZbiorZbroi = {
             }
             ZbiorZbroi.Diabolo.isShown();
                 if(activeZbrojaItems[2]){
-                    console.log(activeZbrojaItems[2]);
+                    (activeZbrojaItems[2]);
                     activeZbrojaItems[2].addEventListener("click", () => {
                         ZbiorZbroi.Diabolo.isActive(true);
                 })
@@ -1627,7 +1632,7 @@ const ZbiorZbroi = {
             }
             ZbiorZbroi.Dmorlung.isShown();
                 if(activeZbrojaItems[3]){
-                    console.log(activeZbrojaItems[3]);
+                    (activeZbrojaItems[3]);
                     activeZbrojaItems[3].addEventListener("click", () => {
                         ZbiorZbroi.Dmorlung.isActive(true);
                 })
@@ -1640,7 +1645,7 @@ const ZbiorZbroi = {
         }
             ZbiorZbroi.Harttraum.isShown();
                 if(activeZbrojaItems[4]){
-                    console.log(activeZbrojaItems[4]);
+                    (activeZbrojaItems[4]);
                     activeZbrojaItems[4].addEventListener("click", () => {
                         ZbiorZbroi.Harttraum.isActive(true);
                 })
@@ -1653,7 +1658,7 @@ const ZbiorZbroi = {
         }
             ZbiorZbroi.Nadzieja_pokolen.isShown();
                 if(activeZbrojaItems[5]){
-                    console.log(activeZbrojaItems[5]);
+                    (activeZbrojaItems[5]);
                     activeZbrojaItems[5].addEventListener("click", () => {
                         ZbiorZbroi.Nadzieja_pokolen.isActive(true);
                 })
@@ -1666,7 +1671,7 @@ const ZbiorZbroi = {
         }
             ZbiorZbroi.Opoka_bogow.isShown();
                 if(activeZbrojaItems[6]){
-                    console.log(activeZbrojaItems[6]);
+                    (activeZbrojaItems[6]);
                     activeZbrojaItems[6].addEventListener("click", () => {
                         ZbiorZbroi.Opoka_bogow.isActive(true);
                 })
@@ -1679,7 +1684,7 @@ const ZbiorZbroi = {
         }
             ZbiorZbroi.Pancerz_komandorski.isShown();
                 if(activeZbrojaItems[7]){
-                    console.log(activeZbrojaItems[7]);
+                    (activeZbrojaItems[7]);
                     activeZbrojaItems[7].addEventListener("click", () => {
                         ZbiorZbroi.Pancerz_komandorski.isActive(true);
                 })
@@ -1692,7 +1697,7 @@ const ZbiorZbroi = {
         }
             ZbiorZbroi.Salmurn.isShown();
                 if(activeZbrojaItems[8]){
-                    console.log(activeZbrojaItems[8]);
+                    (activeZbrojaItems[8]);
                     activeZbrojaItems[8].addEventListener("click", () => {
                         ZbiorZbroi.Salmurn.isActive(true);
                 })
@@ -1705,7 +1710,7 @@ const ZbiorZbroi = {
         }
             ZbiorZbroi.Virthil.isShown();
                 if(activeZbrojaItems[9]){
-                    console.log(activeZbrojaItems[9]);
+                    (activeZbrojaItems[9]);
                     activeZbrojaItems[9].addEventListener("click", () => {
                         ZbiorZbroi.Virthil.isActive(true);
                 })
@@ -1718,7 +1723,7 @@ const ZbiorZbroi = {
         }
             ZbiorZbroi.Zalla.isShown();
                 if(activeZbrojaItems[10]){
-                    console.log(activeZbrojaItems[10]);
+                    (activeZbrojaItems[10]);
                     activeZbrojaItems[10].addEventListener("click", () => {
                         ZbiorZbroi.Zalla.isActive(true);
                 })
@@ -1739,7 +1744,7 @@ const ZbiorZbroi = {
 
         ZbiorHelmow.Martumal.isShown();
             if(activeHelmItems[0]){
-                console.log(activeHelmItems[0]);
+                (activeHelmItems[0]);
                 
                 activeHelmItems[0].addEventListener("click", () => {
                     ZbiorHelmow.Martumal.isActive(true);
@@ -1755,7 +1760,7 @@ const ZbiorZbroi = {
             }
         ZbiorHelmow.Grzebien.isShown();
         if(activeHelmItems[1]){
-            console.log(activeHelmItems[1]);
+            (activeHelmItems[1]);
             activeHelmItems[1].addEventListener("click", () => {
                 ZbiorHelmow.Grzebien.isActive(true);
 
@@ -1770,7 +1775,7 @@ const ZbiorZbroi = {
         }
         ZbiorHelmow.Ishelm.isShown();
             if(activeHelmItems[2]){
-                console.log(activeHelmItems[2]);
+                (activeHelmItems[2]);
                 activeHelmItems[2].addEventListener("click", () => {
                     ZbiorHelmow.Ishelm.isActive(true);
 
@@ -1784,7 +1789,7 @@ const ZbiorZbroi = {
         }
         ZbiorHelmow.Khalam.isShown();
             if(activeHelmItems[3]){
-                console.log(activeHelmItems[3]);
+                (activeHelmItems[3]);
                 activeHelmItems[3].addEventListener("click", () => {
                     ZbiorHelmow.Khalam.isActive(true);
 
@@ -1798,7 +1803,7 @@ const ZbiorZbroi = {
     }
         ZbiorHelmow.Czacha.isShown();
             if(activeHelmItems[4]){
-                console.log(activeHelmItems[4]);
+                (activeHelmItems[4]);
                 activeHelmItems[4].addEventListener("click", () => {
                     ZbiorHelmow.Czacha.isActive(true);
 
@@ -1812,7 +1817,7 @@ const ZbiorZbroi = {
     }
         ZbiorHelmow.Gathril.isShown();
             if(activeHelmItems[5]){
-                console.log(activeHelmItems[5]);
+                (activeHelmItems[5]);
                 activeHelmItems[5].addEventListener("click", () => {
                     ZbiorHelmow.Gathril.isActive(true);
 
@@ -1826,7 +1831,7 @@ const ZbiorZbroi = {
     }
         ZbiorHelmow.Ghaitarog.isShown();
             if(activeHelmItems[6]){
-                console.log(activeHelmItems[6]);
+                (activeHelmItems[6]);
                 activeHelmItems[6].addEventListener("click", () => {
                     ZbiorHelmow.Ghaitarog.isActive(true);
 
@@ -1840,7 +1845,7 @@ const ZbiorZbroi = {
     }
         ZbiorHelmow.Htagan.isShown();
             if(activeHelmItems[7]){
-                console.log(activeHelmItems[7]);
+                (activeHelmItems[7]);
                 activeHelmItems[7].addEventListener("click", () => {
                     ZbiorHelmow.Htagan.isActive(true);
 
@@ -1854,7 +1859,7 @@ const ZbiorZbroi = {
     }
         ZbiorHelmow.Milosc_morany.isShown();
             if(activeHelmItems[8]){
-                console.log(activeHelmItems[8]);
+                (activeHelmItems[8]);
                 activeHelmItems[8].addEventListener("click", () => {
                     ZbiorHelmow.Milosc_morany.isActive(true);
 
@@ -1868,7 +1873,7 @@ const ZbiorZbroi = {
     }
         ZbiorHelmow.Pamiec_morany.isShown();
             if(activeHelmItems[9]){
-                console.log(activeHelmItems[9]);
+                (activeHelmItems[9]);
                 activeHelmItems[9].addEventListener("click", () => {
                     ZbiorHelmow.Pamiec_morany.isActive(true);
 
@@ -1882,7 +1887,7 @@ const ZbiorZbroi = {
     }
         ZbiorHelmow.Pysk.isShown();
             if(activeHelmItems[10]){
-                console.log(activeHelmItems[10]);
+                (activeHelmItems[10]);
                 activeHelmItems[10].addEventListener("click", () => {
                     ZbiorHelmow.Pysk.isActive(true);
 
@@ -1896,7 +1901,7 @@ const ZbiorZbroi = {
     }
         ZbiorHelmow.Sigil.isShown();
             if(activeHelmItems[11]){
-                console.log(activeHelmItems[11]);
+                (activeHelmItems[11]);
                 activeHelmItems[11].addEventListener("click", () => {
                     ZbiorHelmow.Sigil.isActive(true);
 
@@ -1915,12 +1920,12 @@ const ZbiorZbroi = {
         /* NASZYJNIK */
 
         else if($currentTile == Tiles[2]){
-            console.log($currentTile);
+            ($currentTile);
             Dialog_container.innerHTML = "<h1>Naszyjnik: </h1>";
             ZbiorNaszyjnikow.Caratris.isShown();
 
                 if(activeNaszyjnikItems[0]){
-                    console.log(activeNaszyjnikItems[0]);
+                    (activeNaszyjnikItems[0]);
                     activeNaszyjnikItems[0].addEventListener("click", () => {
                         ZbiorNaszyjnikow.Caratris.isActive(true);
                     })
@@ -1934,7 +1939,7 @@ const ZbiorZbroi = {
                 }
             ZbiorNaszyjnikow.Danthum.isShown();
             if(activeNaszyjnikItems[1]){
-                console.log(activeNaszyjnikItems[1]);
+                (activeNaszyjnikItems[1]);
                 activeNaszyjnikItems[1].addEventListener("click", () => {
                     ZbiorNaszyjnikow.Danthum.isActive(true);
                 })
@@ -1948,7 +1953,7 @@ const ZbiorZbroi = {
             }
             ZbiorNaszyjnikow.Dorbis.isShown();
                 if(activeNaszyjnikItems[2]){
-                    console.log(activeNaszyjnikItems[2]);
+                    (activeNaszyjnikItems[2]);
                     activeNaszyjnikItems[2].addEventListener("click", () => {
                         ZbiorNaszyjnikow.Dorbis.isActive(true);
                 })
@@ -1961,7 +1966,7 @@ const ZbiorZbroi = {
             }
             ZbiorNaszyjnikow.Maiarot.isShown();
                 if(activeNaszyjnikItems[3]){
-                    console.log(activeNaszyjnikItems[3]);
+                    (activeNaszyjnikItems[3]);
                     activeNaszyjnikItems[3].addEventListener("click", () => {
                         ZbiorNaszyjnikow.Maiarot.isActive(true);
                 })
@@ -1974,7 +1979,7 @@ const ZbiorZbroi = {
         }
             ZbiorNaszyjnikow.Markahn.isShown();
                 if(activeNaszyjnikItems[4]){
-                    console.log(activeNaszyjnikItems[4]);
+                    (activeNaszyjnikItems[4]);
                     activeNaszyjnikItems[4].addEventListener("click", () => {
                         ZbiorNaszyjnikow.Markahn.isActive(true);
                 })
@@ -1987,7 +1992,7 @@ const ZbiorZbroi = {
         }
             ZbiorNaszyjnikow.Obroza_wladcy.isShown();
                 if(activeNaszyjnikItems[5]){
-                    console.log(activeNaszyjnikItems[5]);
+                    (activeNaszyjnikItems[5]);
                     activeNaszyjnikItems[5].addEventListener("click", () => {
                         ZbiorNaszyjnikow.Obroza_wladcy.isActive(true);
                 })
@@ -2000,7 +2005,7 @@ const ZbiorZbroi = {
         }
             ZbiorNaszyjnikow.Ortasis.isShown();
                 if(activeNaszyjnikItems[6]){
-                    console.log(activeNaszyjnikItems[6]);
+                    (activeNaszyjnikItems[6]);
                     activeNaszyjnikItems[6].addEventListener("click", () => {
                         ZbiorNaszyjnikow.Ortasis.isActive(true);
                 })
@@ -2013,7 +2018,7 @@ const ZbiorZbroi = {
         }
             ZbiorNaszyjnikow.Ostolbin.isShown();
                 if(activeNaszyjnikItems[7]){
-                    console.log(activeNaszyjnikItems[7]);
+                    (activeNaszyjnikItems[7]);
                     activeNaszyjnikItems[7].addEventListener("click", () => {
                         ZbiorNaszyjnikow.Ostolbin.isActive(true);
                 })
@@ -2026,7 +2031,7 @@ const ZbiorZbroi = {
         }
             ZbiorNaszyjnikow.Serce_seleny.isShown();
                 if(activeNaszyjnikItems[8]){
-                    console.log(activeNaszyjnikItems[8]);
+                    (activeNaszyjnikItems[8]);
                     activeNaszyjnikItems[8].addEventListener("click", () => {
                         ZbiorNaszyjnikow.Serce_seleny.isActive(true);
                 })
@@ -2039,7 +2044,7 @@ const ZbiorZbroi = {
         }
             ZbiorNaszyjnikow.Sphaera.isShown();
                 if(activeNaszyjnikItems[9]){
-                    console.log(activeNaszyjnikItems[9]);
+                    (activeNaszyjnikItems[9]);
                     activeNaszyjnikItems[9].addEventListener("click", () => {
                         ZbiorNaszyjnikow.Sphaera.isActive(true);
                 })
@@ -2052,7 +2057,7 @@ const ZbiorZbroi = {
         }
             ZbiorNaszyjnikow.Valazan.isShown();
                 if(activeNaszyjnikItems[10]){
-                    console.log(activeNaszyjnikItems[10]);
+                    (activeNaszyjnikItems[10]);
                     activeNaszyjnikItems[10].addEventListener("click", () => {
                         ZbiorNaszyjnikow.Valazan.isActive(true);
                 })
@@ -2065,7 +2070,7 @@ const ZbiorZbroi = {
         }
             ZbiorNaszyjnikow.Vogurun.isShown();
                 if(activeNaszyjnikItems[11]){
-                    console.log(activeNaszyjnikItems[11]);
+                    (activeNaszyjnikItems[11]);
                     activeNaszyjnikItems[11].addEventListener("click", () => {
                         ZbiorNaszyjnikow.Vogurun.isActive(true);
                 })
@@ -2078,7 +2083,7 @@ const ZbiorZbroi = {
         }
             ZbiorNaszyjnikow.Zemsta_ivravula.isShown();
                 if(activeNaszyjnikItems[12]){
-                    console.log(activeNaszyjnikItems[12]);
+                    (activeNaszyjnikItems[12]);
                     activeNaszyjnikItems[12].addEventListener("click", () => {
                         ZbiorNaszyjnikow.Zemsta_ivravula.isActive(true);
                 })
@@ -2099,13 +2104,13 @@ const ZbiorZbroi = {
         /* RĘKAWICE */
     
     else if($currentTile == Tiles[3]){
-            console.log($currentTile);
+            ($currentTile);
             Dialog_container.innerHTML = "<h1>Rękawice: </h1>";
 
             ZbiorRekawic.Aeterus_passio.isShown();
 
                 if(activeRekawiceItems[0]){
-                    console.log(activeRekawiceItems[0]);
+                    (activeRekawiceItems[0]);
                     activeRekawiceItems[0].addEventListener("click", () => {
                         ZbiorRekawic.Aeterus_passio.isActive(true);
                     })
@@ -2121,7 +2126,7 @@ const ZbiorZbroi = {
             ZbiorRekawic.Biltabandury.isShown();
 
             if(activeRekawiceItems[1]){
-                console.log(activeRekawiceItems[1]);
+                (activeRekawiceItems[1]);
                 activeRekawiceItems[1].addEventListener("click", () => {
                     ZbiorRekawic.Biltabandury.isActive(true);
                 })
@@ -2137,7 +2142,7 @@ const ZbiorZbroi = {
             ZbiorRekawic.Brassary.isShown();
 
                 if(activeRekawiceItems[2]){
-                    console.log(activeRekawiceItems[2]);
+                    (activeRekawiceItems[2]);
                     activeRekawiceItems[2].addEventListener("click", () => {
                         ZbiorRekawic.Brassary.isActive(true);
                 })
@@ -2152,7 +2157,7 @@ const ZbiorZbroi = {
             ZbiorRekawic.Fraxy.isShown();
             
                 if(activeRekawiceItems[3]){
-                    console.log(activeRekawiceItems[3]);
+                    (activeRekawiceItems[3]);
                     activeRekawiceItems[3].addEventListener("click", () => {
                         ZbiorRekawic.Fraxy.isActive(true);
                 })
@@ -2166,7 +2171,7 @@ const ZbiorZbroi = {
             ZbiorRekawic.Gest_wladcy.isShown();
 
                 if(activeRekawiceItems[4]){
-                    console.log(activeRekawiceItems[4]);
+                    (activeRekawiceItems[4]);
                     activeRekawiceItems[4].addEventListener("click", () => {
                         ZbiorRekawic.Gest_wladcy.isActive(true);
                 })
@@ -2180,7 +2185,7 @@ const ZbiorZbroi = {
             ZbiorRekawic.Skry_utoru.isShown();
 
                 if(activeRekawiceItems[5]){
-                    console.log(activeRekawiceItems[5]);
+                    (activeRekawiceItems[5]);
                     activeRekawiceItems[5].addEventListener("click", () => {
                         ZbiorRekawic.Skry_utoru.isActive(true);
                 })
@@ -2194,7 +2199,7 @@ const ZbiorZbroi = {
             ZbiorRekawic.Szpony_seimhi.isShown();
 
                 if(activeRekawiceItems[6]){
-                    console.log(activeRekawiceItems[6]);
+                    (activeRekawiceItems[6]);
                     activeRekawiceItems[6].addEventListener("click", () => {
                         ZbiorRekawic.Szpony_seimhi.isActive(true);
                 })
@@ -2208,7 +2213,7 @@ const ZbiorZbroi = {
             ZbiorRekawic.Vaekany.isShown();
 
                 if(activeRekawiceItems[7]){
-                    console.log(activeRekawiceItems[7]);
+                    (activeRekawiceItems[7]);
                     activeRekawiceItems[7].addEventListener("click", () => {
                         ZbiorRekawic.Vaekany.isActive(true);
                 })
@@ -2222,7 +2227,7 @@ const ZbiorZbroi = {
             ZbiorRekawic.Zadry.isShown();
 
                 if(activeRekawiceItems[8]){
-                    console.log(activeRekawiceItems[8]);
+                    (activeRekawiceItems[8]);
                     activeRekawiceItems[8].addEventListener("click", () => {
                         ZbiorRekawic.Zadry.isActive(true);
                 })
@@ -2236,7 +2241,7 @@ const ZbiorZbroi = {
             ZbiorRekawic.Pazury.isShown();
 
                 if(activeRekawiceItems[9]){
-                    console.log(activeRekawiceItems[9]);
+                    (activeRekawiceItems[9]);
                     activeRekawiceItems[9].addEventListener("click", () => {
                         ZbiorRekawic.Pazury.isActive(true);
                 })
@@ -2254,13 +2259,13 @@ const ZbiorZbroi = {
       /* PELERYNA */
 
         else if($currentTile == Tiles[4]){
-            console.log($currentTile);
+            ($currentTile);
             Dialog_container.innerHTML = "<h1>Peleryna: </h1>";
 
             ZbiorPeleryn.Admiralski_gronostaj.isShown();
 
                 if(activePelerynaItems[0]){
-                    console.log(activePelerynaItems[0]);
+                    (activePelerynaItems[0]);
                     activePelerynaItems[0].addEventListener("click", () => {
                         ZbiorPeleryn.Admiralski_gronostaj.isActive(true);
                     })
@@ -2276,7 +2281,7 @@ const ZbiorZbroi = {
             ZbiorPeleryn.Angvallion.isShown();
             
             if(activePelerynaItems[1]){
-                console.log(activePelerynaItems[1]);
+                (activePelerynaItems[1]);
                 activePelerynaItems[1].addEventListener("click", () => {
                     ZbiorPeleryn.Angvallion.isActive(true);
                 })
@@ -2292,7 +2297,7 @@ const ZbiorZbroi = {
             ZbiorPeleryn.Bryza.isShown();
 
                 if(activePelerynaItems[2]){
-                    console.log(activePelerynaItems[2]);
+                    (activePelerynaItems[2]);
                     activePelerynaItems[2].addEventListener("click", () => {
                         ZbiorPeleryn.Bryza.isActive(true);
                 })
@@ -2307,7 +2312,7 @@ const ZbiorZbroi = {
             ZbiorPeleryn.Cien_tarula.isShown();
 
                 if(activePelerynaItems[3]){
-                    console.log(activePelerynaItems[3]);
+                    (activePelerynaItems[3]);
                     activePelerynaItems[3].addEventListener("click", () => {
                         ZbiorPeleryn.Cien_tarula.isActive(true);
                 })
@@ -2322,7 +2327,7 @@ const ZbiorZbroi = {
             ZbiorPeleryn.Debba.isShown();
             
                 if(activePelerynaItems[4]){
-                    console.log(activePelerynaItems[4]);
+                    (activePelerynaItems[4]);
                     activePelerynaItems[4].addEventListener("click", () => {
                         ZbiorPeleryn.Debba.isActive(true);
                 })
@@ -2336,7 +2341,7 @@ const ZbiorZbroi = {
             ZbiorPeleryn.Dracorporis.isShown();
 
                 if(activePelerynaItems[5]){
-                    console.log(activePelerynaItems[5]);
+                    (activePelerynaItems[5]);
                     activePelerynaItems[5].addEventListener("click", () => {
                         ZbiorPeleryn.Dracorporis.isActive(true);
                 })
@@ -2350,7 +2355,7 @@ const ZbiorZbroi = {
             ZbiorPeleryn.Nurthil.isShown();
 
                 if(activePelerynaItems[6]){
-                    console.log(activePelerynaItems[6]);
+                    (activePelerynaItems[6]);
                     activePelerynaItems[6].addEventListener("click", () => {
                         ZbiorPeleryn.Nurthil.isActive(true);
                 })
@@ -2364,7 +2369,7 @@ const ZbiorZbroi = {
             ZbiorPeleryn.Hanba_seleny.isShown();
 
                 if(activePelerynaItems[7]){
-                    console.log(activePelerynaItems[7]);
+                    (activePelerynaItems[7]);
                     activePelerynaItems[7].addEventListener("click", () => {
                         ZbiorPeleryn.Hanba_seleny.isActive(true);
                 })
@@ -2378,7 +2383,7 @@ const ZbiorZbroi = {
             ZbiorPeleryn.Powrot_ivravula.isShown();
 
                 if(activePelerynaItems[8]){
-                    console.log(activePelerynaItems[8]);
+                    (activePelerynaItems[8]);
                     activePelerynaItems[8].addEventListener("click", () => {
                         ZbiorPeleryn.Powrot_ivravula.isActive(true);
                 })
@@ -2392,7 +2397,7 @@ const ZbiorZbroi = {
             ZbiorPeleryn.Xenothor.isShown();
 
                 if(activePelerynaItems[9]){
-                    console.log(activePelerynaItems[9]);
+                    (activePelerynaItems[9]);
                     activePelerynaItems[9].addEventListener("click", () => {
                         ZbiorPeleryn.Xenothor.isActive(true);
                 })
@@ -2418,7 +2423,7 @@ const ZbiorZbroi = {
             ZbiorBroni.Ayol.isShown();
 
                 if(activeBronItems[0]){
-                    console.log(activeBronItems[0]);
+                    (activeBronItems[0]);
                     activeBronItems[0].addEventListener("click", () => {
                         ZbiorBroni.Ayol.isActive(true);
                     })
@@ -2434,7 +2439,7 @@ const ZbiorZbroi = {
             ZbiorBroni.Batagur.isShown();
             
             if(activeBronItems[1]){
-                console.log(activeBronItems[1]);
+                (activeBronItems[1]);
                 activeBronItems[1].addEventListener("click", () => {
                     ZbiorBroni.Batagur.isActive(true);
                 })
@@ -2450,7 +2455,7 @@ const ZbiorZbroi = {
             ZbiorBroni.Bol.isShown();
 
                 if(activeBronItems[2]){
-                    console.log(activeBronItems[2]);
+                    (activeBronItems[2]);
                     activeBronItems[2].addEventListener("click", () => {
                         ZbiorBroni.Bol.isActive(true);
                 })
@@ -2465,7 +2470,7 @@ const ZbiorZbroi = {
             ZbiorBroni.Buoriany.isShown();
 
                 if(activeBronItems[3]){
-                    console.log(activeBronItems[3]);
+                    (activeBronItems[3]);
                     activeBronItems[3].addEventListener("click", () => {
                         ZbiorBroni.Buoriany.isActive(true);
                 })
@@ -2480,7 +2485,7 @@ const ZbiorZbroi = {
             ZbiorBroni.Ciern.isShown();
             
                 if(activeBronItems[4]){
-                    console.log(activeBronItems[4]);
+                    (activeBronItems[4]);
                     activeBronItems[4].addEventListener("click", () => {
                         ZbiorBroni.Ciern.isActive(true);
                 })
@@ -2494,7 +2499,7 @@ const ZbiorZbroi = {
             ZbiorBroni.Davgretor.isShown();
 
                 if(activeBronItems[5]){
-                    console.log(activeBronItems[5]);
+                    (activeBronItems[5]);
                     activeBronItems[5].addEventListener("click", () => {
                         ZbiorBroni.Davgretor.isActive(true);
                 })
@@ -2508,7 +2513,7 @@ const ZbiorZbroi = {
             ZbiorBroni.Derengil.isShown();
 
                 if(activeBronItems[6]){
-                    console.log(activeBronItems[6]);
+                    (activeBronItems[6]);
                     activeBronItems[6].addEventListener("click", () => {
                         ZbiorBroni.Derengil.isActive(true);
                 })
@@ -2522,7 +2527,7 @@ const ZbiorZbroi = {
             ZbiorBroni.Geomorph_core.isShown();
 
                 if(activeBronItems[7]){
-                    console.log(activeBronItems[7]);
+                    (activeBronItems[7]);
                     activeBronItems[7].addEventListener("click", () => {
                         ZbiorBroni.Geomorph_core.isActive(true);
                 })
@@ -2536,7 +2541,7 @@ const ZbiorZbroi = {
             ZbiorBroni.Gjolmar.isShown();
 
                 if(activeBronItems[8]){
-                    console.log(activeBronItems[8]);
+                    (activeBronItems[8]);
                     activeBronItems[8].addEventListener("click", () => {
                         ZbiorBroni.Gjolmar.isActive(true);
                 })
@@ -2550,7 +2555,7 @@ const ZbiorZbroi = {
             ZbiorBroni.Istav.isShown();
 
                 if(activeBronItems[9]){
-                    console.log(activeBronItems[9]);
+                    (activeBronItems[9]);
                     activeBronItems[9].addEventListener("click", () => {
                         ZbiorBroni.Istav.isActive(true);
                 })
@@ -2583,7 +2588,7 @@ const ZbiorZbroi = {
         
                 ZbiorKarwaszy.Ariachy.isShown();
                     if(activeKarwaszeItems[0]){
-                        console.log(activeKarwaszeItems[0]);
+                        (activeKarwaszeItems[0]);
                         
                         activeKarwaszeItems[0].addEventListener("click", () => {
                             ZbiorKarwaszy.Ariachy.isActive(true);
@@ -2599,7 +2604,7 @@ const ZbiorZbroi = {
                     }
                 ZbiorKarwaszy.Berglisy.isShown();
                 if(activeKarwaszeItems[1]){
-                    console.log(activeKarwaszeItems[1]);
+                    (activeKarwaszeItems[1]);
                     activeKarwaszeItems[1].addEventListener("click", () => {
                         ZbiorKarwaszy.Berglisy.isActive(true);
         
@@ -2614,7 +2619,7 @@ const ZbiorZbroi = {
                 }
                 ZbiorKarwaszy.Geury.isShown();
                     if(activeKarwaszeItems[2]){
-                        console.log(activeKarwaszeItems[2]);
+                        (activeKarwaszeItems[2]);
                         activeKarwaszeItems[2].addEventListener("click", () => {
                             ZbiorKarwaszy.Geury.isActive(true);
         
@@ -2628,7 +2633,7 @@ const ZbiorZbroi = {
                 }
                 ZbiorKarwaszy.Inavoxy.isShown();
                     if(activeKarwaszeItems[3]){
-                        console.log(activeKarwaszeItems[3]);
+                        (activeKarwaszeItems[3]);
                         activeKarwaszeItems[3].addEventListener("click", () => {
                             ZbiorKarwaszy.Inavoxy.isActive(true);
         
@@ -2658,7 +2663,7 @@ const ZbiorZbroi = {
         
             ZbiorSpodni.Aquariusy.isShown();
                 if(activeSpodnieItems[0]){
-                    console.log(activeSpodnieItems[0]);
+                    (activeSpodnieItems[0]);
                     
                     activeSpodnieItems[0].addEventListener("click", () => {
                         ZbiorSpodni.Aquariusy.isActive(true);
@@ -2674,7 +2679,7 @@ const ZbiorZbroi = {
                 }
             ZbiorSpodni.Erbaile.isShown();
             if(activeSpodnieItems[1]){
-                console.log(activeSpodnieItems[1]);
+                (activeSpodnieItems[1]);
                 activeSpodnieItems[1].addEventListener("click", () => {
                     ZbiorSpodni.Erbaile.isActive(true);
     
@@ -2689,7 +2694,7 @@ const ZbiorZbroi = {
             }
             ZbiorSpodni.Obdartusy.isShown();
                 if(activeSpodnieItems[2]){
-                    console.log(activeSpodnieItems[2]);
+                    (activeSpodnieItems[2]);
                     activeSpodnieItems[2].addEventListener("click", () => {
                         ZbiorSpodni.Obdartusy.isActive(true);
     
@@ -2703,7 +2708,7 @@ const ZbiorZbroi = {
             }
             ZbiorSpodni.Skiilfy.isShown();
                 if(activeSpodnieItems[3]){
-                    console.log(activeSpodnieItems[3]);
+                    (activeSpodnieItems[3]);
                     activeSpodnieItems[3].addEventListener("click", () => {
                         ZbiorSpodni.Skiilfy.isActive(true);
     
@@ -2717,7 +2722,7 @@ const ZbiorZbroi = {
         }
             ZbiorSpodni.Temary.isShown();
                 if(activeSpodnieItems[4]){
-                    console.log(activeSpodnieItems[4]);
+                    (activeSpodnieItems[4]);
                     activeSpodnieItems[4].addEventListener("click", () => {
                         ZbiorSpodni.Temary.isActive(true);
     
@@ -2731,7 +2736,7 @@ const ZbiorZbroi = {
         }
             ZbiorSpodni.Tirhel.isShown();
                 if(activeSpodnieItems[5]){
-                    console.log(activeSpodnieItems[5]);
+                    (activeSpodnieItems[5]);
                     activeSpodnieItems[5].addEventListener("click", () => {
                         ZbiorSpodni.Tirhel.isActive(true);
     
@@ -2745,7 +2750,7 @@ const ZbiorZbroi = {
         }
             ZbiorSpodni.Udreki.isShown();
                 if(activeSpodnieItems[6]){
-                    console.log(activeSpodnieItems[6]);
+                    (activeSpodnieItems[6]);
                     activeSpodnieItems[6].addEventListener("click", () => {
                         ZbiorSpodni.Udreki.isActive(true);
     
@@ -2759,7 +2764,7 @@ const ZbiorZbroi = {
         }
             ZbiorSpodni.Varrvy.isShown();
                 if(activeSpodnieItems[7]){
-                    console.log(activeSpodnieItems[7]);
+                    (activeSpodnieItems[7]);
                     activeSpodnieItems[7].addEventListener("click", () => {
                         ZbiorSpodni.Varrvy.isActive(true);
     
@@ -2773,7 +2778,7 @@ const ZbiorZbroi = {
         }
             ZbiorSpodni.Wzorek.isShown();
                 if(activeSpodnieItems[8]){
-                    console.log(activeSpodnieItems[8]);
+                    (activeSpodnieItems[8]);
                     activeSpodnieItems[8].addEventListener("click", () => {
                         ZbiorSpodni.Wzorek.isActive(true);
     
@@ -2787,7 +2792,7 @@ const ZbiorZbroi = {
         }
             ZbiorSpodni.Ziraki.isShown();
                 if(activeSpodnieItems[9]){
-                    console.log(activeSpodnieItems[9]);
+                    (activeSpodnieItems[9]);
                     activeSpodnieItems[9].addEventListener("click", () => {
                         ZbiorSpodni.Ziraki.isActive(true);
     
@@ -2818,7 +2823,7 @@ const ZbiorZbroi = {
         
             ZbiorPasow.Anabolik.isShown();
                 if(activePasItems[0]){
-                    console.log(activePasItems[0]);
+                    (activePasItems[0]);
                     
                     activePasItems[0].addEventListener("click", () => {
                         ZbiorPasow.Anabolik.isActive(true);
@@ -2834,7 +2839,7 @@ const ZbiorZbroi = {
                 }
             ZbiorPasow.Dagorilm.isShown();
             if(activePasItems[1]){
-                console.log(activePasItems[1]);
+                (activePasItems[1]);
                 activePasItems[1].addEventListener("click", () => {
                     ZbiorPasow.Dagorilm.isActive(true);
     
@@ -2849,7 +2854,7 @@ const ZbiorZbroi = {
             }
             ZbiorPasow.Exuvium.isShown();
                 if(activePasItems[2]){
-                    console.log(activePasItems[2]);
+                    (activePasItems[2]);
                     activePasItems[2].addEventListener("click", () => {
                         ZbiorPasow.Exuvium.isActive(true);
     
@@ -2863,7 +2868,7 @@ const ZbiorZbroi = {
             }
             ZbiorPasow.Koriatula.isShown();
                 if(activePasItems[3]){
-                    console.log(activePasItems[3]);
+                    (activePasItems[3]);
                     activePasItems[3].addEventListener("click", () => {
                         ZbiorPasow.Koriatula.isActive(true);
     
@@ -2877,7 +2882,7 @@ const ZbiorZbroi = {
         }
             ZbiorPasow.Nienawisc_draugula.isShown();
                 if(activePasItems[4]){
-                    console.log(activePasItems[4]);
+                    (activePasItems[4]);
                     activePasItems[4].addEventListener("click", () => {
                         ZbiorPasow.Nienawisc_draugula.isActive(true);
     
@@ -2891,7 +2896,7 @@ const ZbiorZbroi = {
         }
             ZbiorPasow.Nurt.isShown();
                 if(activePasItems[5]){
-                    console.log(activePasItems[5]);
+                    (activePasItems[5]);
                     activePasItems[5].addEventListener("click", () => {
                         ZbiorPasow.Nurt.isActive(true);
     
@@ -2905,7 +2910,7 @@ const ZbiorZbroi = {
         }
             ZbiorPasow.Promuris.isShown();
                 if(activePasItems[6]){
-                    console.log(activePasItems[6]);
+                    (activePasItems[6]);
                     activePasItems[6].addEventListener("click", () => {
                         ZbiorPasow.Promuris.isActive(true);
     
@@ -2919,7 +2924,7 @@ const ZbiorZbroi = {
         }
             ZbiorPasow.Radius_electricum.isShown();
                 if(activePasItems[7]){
-                    console.log(activePasItems[7]);
+                    (activePasItems[7]);
                     activePasItems[7].addEventListener("click", () => {
                         ZbiorPasow.Radius_electricum.isActive(true);
     
@@ -2933,7 +2938,7 @@ const ZbiorZbroi = {
         }
             ZbiorPasow.Sentrion.isShown();
                 if(activePasItems[8]){
-                    console.log(activePasItems[8]);
+                    (activePasItems[8]);
                     activePasItems[8].addEventListener("click", () => {
                         ZbiorPasow.Sentrion.isActive(true);
     
@@ -2958,7 +2963,7 @@ const ZbiorZbroi = {
         
             ZbiorPierscieni1.Arcanscape.isShown();
                 if(activePierscien1Items[0]){
-                    console.log(activePierscien1Items[0]);
+                    (activePierscien1Items[0]);
                     
                     activePierscien1Items[0].addEventListener("click", () => {
                         ZbiorPierscieni1.Arcanscape.isActive(true);
@@ -2974,7 +2979,7 @@ const ZbiorZbroi = {
                 }
             ZbiorPierscieni1.Balast.isShown();
             if(activePierscien1Items[1]){
-                console.log(activePierscien1Items[1]);
+                (activePierscien1Items[1]);
                 activePierscien1Items[1].addEventListener("click", () => {
                     ZbiorPierscieni1.Balast.isActive(true);
     
@@ -2989,7 +2994,7 @@ const ZbiorZbroi = {
             }
             ZbiorPierscieni1.Basileus.isShown();
                 if(activePierscien1Items[2]){
-                    console.log(activePierscien1Items[2]);
+                    (activePierscien1Items[2]);
                     activePierscien1Items[2].addEventListener("click", () => {
                         ZbiorPierscieni1.Basileus.isActive(true);
     
@@ -3003,7 +3008,7 @@ const ZbiorZbroi = {
             }
             ZbiorPierscieni1.Fiskorl.isShown();
                 if(activePierscien1Items[3]){
-                    console.log(activePierscien1Items[3]);
+                    (activePierscien1Items[3]);
                     activePierscien1Items[3].addEventListener("click", () => {
                         ZbiorPierscieni1.Fiskorl.isActive(true);
     
@@ -3017,7 +3022,7 @@ const ZbiorZbroi = {
         }
             ZbiorPierscieni1.Fulgur.isShown();
                 if(activePierscien1Items[4]){
-                    console.log(activePierscien1Items[4]);
+                    (activePierscien1Items[4]);
                     activePierscien1Items[4].addEventListener("click", () => {
                         ZbiorPierscieni1.Fulgur.isActive(true);
     
@@ -3031,7 +3036,7 @@ const ZbiorZbroi = {
         }
             ZbiorPierscieni1.Griv.isShown();
                 if(activePierscien1Items[5]){
-                    console.log(activePierscien1Items[5]);
+                    (activePierscien1Items[5]);
                     activePierscien1Items[5].addEventListener("click", () => {
                         ZbiorPierscieni1.Griv.isActive(true);
     
@@ -3045,7 +3050,7 @@ const ZbiorZbroi = {
         }
             ZbiorPierscieni1.Karlder.isShown();
                 if(activePierscien1Items[6]){
-                    console.log(activePierscien1Items[6]);
+                    (activePierscien1Items[6]);
                     activePierscien1Items[6].addEventListener("click", () => {
                         ZbiorPierscieni1.Karlder.isActive(true);
     
@@ -3059,7 +3064,7 @@ const ZbiorZbroi = {
         }
             ZbiorPierscieni1.Mauremys.isShown();
                 if(activePierscien1Items[7]){
-                    console.log(activePierscien1Items[7]);
+                    (activePierscien1Items[7]);
                     activePierscien1Items[7].addEventListener("click", () => {
                         ZbiorPierscieni1.Mauremys.isActive(true);
     
@@ -3073,7 +3078,7 @@ const ZbiorZbroi = {
         }
             ZbiorPierscieni1.Navigon.isShown();
                 if(activePierscien1Items[8]){
-                    console.log(activePierscien1Items[8]);
+                    (activePierscien1Items[8]);
                     activePierscien1Items[8].addEventListener("click", () => {
                         ZbiorPierscieni1.Navigon.isActive(true);
     
@@ -3087,7 +3092,7 @@ const ZbiorZbroi = {
         }
             ZbiorPierscieni1.Nit.isShown();
                 if(activePierscien1Items[9]){
-                    console.log(activePierscien1Items[9]);
+                    (activePierscien1Items[9]);
                     activePierscien1Items[9].addEventListener("click", () => {
                         ZbiorPierscieni1.Nit.isActive(true);
     
@@ -3101,7 +3106,7 @@ const ZbiorZbroi = {
         }
             ZbiorPierscieni1.Przysiega_draugula.isShown();
                 if(activePierscien1Items[10]){
-                    console.log(activePierscien1Items[10]);
+                    (activePierscien1Items[10]);
                     activePierscien1Items[10].addEventListener("click", () => {
                         ZbiorPierscieni1.Przysiega_draugula.isActive(true);
     
@@ -3115,7 +3120,7 @@ const ZbiorZbroi = {
         }
             ZbiorPierscieni1.Skogan.isShown();
                 if(activePierscien1Items[11]){
-                    console.log(activePierscien1Items[11]);
+                    (activePierscien1Items[11]);
                     activePierscien1Items[11].addEventListener("click", () => {
                         ZbiorPierscieni1.Skogan.isActive(true);
     
@@ -3129,7 +3134,7 @@ const ZbiorZbroi = {
         }
             ZbiorPierscieni1.Uguns.isShown();
                 if(activePierscien1Items[12]){
-                    console.log(activePierscien1Items[12]);
+                    (activePierscien1Items[12]);
                     activePierscien1Items[12].addEventListener("click", () => {
                         ZbiorPierscieni1.Uguns.isActive(true);
     
@@ -3143,7 +3148,7 @@ const ZbiorZbroi = {
         }
             ZbiorPierscieni1.Zaglada_ludow.isShown();
                 if(activePierscien1Items[13]){
-                    console.log(activePierscien1Items[13]);
+                    (activePierscien1Items[13]);
                     activePierscien1Items[13].addEventListener("click", () => {
                         ZbiorPierscieni1.Zaglada_ludow.isActive(true);
     
@@ -3167,7 +3172,7 @@ const ZbiorZbroi = {
         
             ZbiorPierscieni2.Arcanscape.isShown();
                 if(activePierscien2Items[0]){
-                    console.log(activePierscien2Items[0]);
+                    (activePierscien2Items[0]);
                     
                     activePierscien2Items[0].addEventListener("click", () => {
                         ZbiorPierscieni2.Arcanscape.isActive(true);
@@ -3183,7 +3188,7 @@ const ZbiorZbroi = {
                 }
             ZbiorPierscieni2.Balast.isShown();
             if(activePierscien2Items[1]){
-                console.log(activePierscien2Items[1]);
+                (activePierscien2Items[1]);
                 activePierscien2Items[1].addEventListener("click", () => {
                     ZbiorPierscieni2.Balast.isActive(true);
     
@@ -3198,7 +3203,7 @@ const ZbiorZbroi = {
             }
             ZbiorPierscieni2.Basileus.isShown();
                 if(activePierscien2Items[2]){
-                    console.log(activePierscien2Items[2]);
+                    (activePierscien2Items[2]);
                     activePierscien2Items[2].addEventListener("click", () => {
                         ZbiorPierscieni2.Basileus.isActive(true);
     
@@ -3212,7 +3217,7 @@ const ZbiorZbroi = {
             }
             ZbiorPierscieni2.Fiskorl.isShown();
                 if(activePierscien2Items[3]){
-                    console.log(activePierscien2Items[3]);
+                    (activePierscien2Items[3]);
                     activePierscien2Items[3].addEventListener("click", () => {
                         ZbiorPierscieni2.Fiskorl.isActive(true);
     
@@ -3226,7 +3231,7 @@ const ZbiorZbroi = {
         }
             ZbiorPierscieni2.Fulgur.isShown();
                 if(activePierscien2Items[4]){
-                    console.log(activePierscien2Items[4]);
+                    (activePierscien2Items[4]);
                     activePierscien2Items[4].addEventListener("click", () => {
                         ZbiorPierscieni2.Fulgur.isActive(true);
     
@@ -3240,7 +3245,7 @@ const ZbiorZbroi = {
         }
             ZbiorPierscieni2.Griv.isShown();
                 if(activePierscien2Items[5]){
-                    console.log(activePierscien2Items[5]);
+                    (activePierscien2Items[5]);
                     activePierscien2Items[5].addEventListener("click", () => {
                         ZbiorPierscieni2.Griv.isActive(true);
     
@@ -3254,7 +3259,7 @@ const ZbiorZbroi = {
         }
             ZbiorPierscieni2.Karlder.isShown();
                 if(activePierscien2Items[6]){
-                    console.log(activePierscien2Items[6]);
+                    (activePierscien2Items[6]);
                     activePierscien2Items[6].addEventListener("click", () => {
                         ZbiorPierscieni2.Karlder.isActive(true);
     
@@ -3268,7 +3273,7 @@ const ZbiorZbroi = {
         }
             ZbiorPierscieni2.Mauremys.isShown();
                 if(activePierscien2Items[7]){
-                    console.log(activePierscien2Items[7]);
+                    (activePierscien2Items[7]);
                     activePierscien2Items[7].addEventListener("click", () => {
                         ZbiorPierscieni2.Mauremys.isActive(true);
     
@@ -3282,7 +3287,7 @@ const ZbiorZbroi = {
         }
             ZbiorPierscieni2.Navigon.isShown();
                 if(activePierscien2Items[8]){
-                    console.log(activePierscien2Items[8]);
+                    (activePierscien2Items[8]);
                     activePierscien2Items[8].addEventListener("click", () => {
                         ZbiorPierscieni2.Navigon.isActive(true);
     
@@ -3296,7 +3301,7 @@ const ZbiorZbroi = {
         }
             ZbiorPierscieni2.Nit.isShown();
                 if(activePierscien2Items[9]){
-                    console.log(activePierscien2Items[9]);
+                    (activePierscien2Items[9]);
                     activePierscien2Items[9].addEventListener("click", () => {
                         ZbiorPierscieni2.Nit.isActive(true);
     
@@ -3310,7 +3315,7 @@ const ZbiorZbroi = {
         }
             ZbiorPierscieni2.Przysiega_draugula.isShown();
                 if(activePierscien2Items[10]){
-                    console.log(activePierscien2Items[10]);
+                    (activePierscien2Items[10]);
                     activePierscien2Items[10].addEventListener("click", () => {
                         ZbiorPierscieni2.Przysiega_draugula.isActive(true);
     
@@ -3324,7 +3329,7 @@ const ZbiorZbroi = {
         }
             ZbiorPierscieni2.Skogan.isShown();
                 if(activePierscien2Items[11]){
-                    console.log(activePierscien2Items[11]);
+                    (activePierscien2Items[11]);
                     activePierscien2Items[11].addEventListener("click", () => {
                         ZbiorPierscieni2.Skogan.isActive(true);
     
@@ -3338,7 +3343,7 @@ const ZbiorZbroi = {
         }
             ZbiorPierscieni2.Uguns.isShown();
                 if(activePierscien2Items[12]){
-                    console.log(activePierscien2Items[12]);
+                    (activePierscien2Items[12]);
                     activePierscien2Items[12].addEventListener("click", () => {
                         ZbiorPierscieni2.Uguns.isActive(true);
     
@@ -3352,7 +3357,7 @@ const ZbiorZbroi = {
         }
             ZbiorPierscieni2.Zaglada_ludow.isShown();
                 if(activePierscien2Items[13]){
-                    console.log(activePierscien2Items[13]);
+                    (activePierscien2Items[13]);
                     activePierscien2Items[13].addEventListener("click", () => {
                         ZbiorPierscieni2.Zaglada_ludow.isActive(true);
     
@@ -3379,7 +3384,7 @@ const ZbiorZbroi = {
         
             ZbiorButow.Alendry.isShown();
                 if(activeButyItems[0]){
-                    console.log(activeButyItems[0]);
+                    (activeButyItems[0]);
                     
                     activeButyItems[0].addEventListener("click", () => {
                         ZbiorButow.Alendry.isActive(true);
@@ -3395,7 +3400,7 @@ const ZbiorZbroi = {
                 }
             ZbiorButow.Aqueniry.isShown();
             if(activeButyItems[1]){
-                console.log(activeButyItems[1]);
+                (activeButyItems[1]);
                 activeButyItems[1].addEventListener("click", () => {
                     ZbiorButow.Aqueniry.isActive(true);
     
@@ -3410,7 +3415,7 @@ const ZbiorZbroi = {
             }
             ZbiorButow.Arhauty.isShown();
                 if(activeButyItems[2]){
-                    console.log(activeButyItems[2]);
+                    (activeButyItems[2]);
                     activeButyItems[2].addEventListener("click", () => {
                         ZbiorButow.Arhauty.isActive(true);
     
@@ -3424,7 +3429,7 @@ const ZbiorZbroi = {
             }
             ZbiorButow.Cierpietniki.isShown();
                 if(activeButyItems[3]){
-                    console.log(activeButyItems[3]);
+                    (activeButyItems[3]);
                     activeButyItems[3].addEventListener("click", () => {
                         ZbiorButow.Cierpietniki.isActive(true);
     
@@ -3438,7 +3443,7 @@ const ZbiorZbroi = {
         }
             ZbiorButow.Czengsvesy.isShown();
                 if(activeButyItems[4]){
-                    console.log(activeButyItems[4]);
+                    (activeButyItems[4]);
                     activeButyItems[4].addEventListener("click", () => {
                         ZbiorButow.Czengsvesy.isActive(true);
     
@@ -3452,7 +3457,7 @@ const ZbiorZbroi = {
         }
             ZbiorButow.Jeroszki.isShown();
                 if(activeButyItems[5]){
-                    console.log(activeButyItems[5]);
+                    (activeButyItems[5]);
                     activeButyItems[5].addEventListener("click", () => {
                         ZbiorButow.Jeroszki.isActive(true);
     
@@ -3466,7 +3471,7 @@ const ZbiorZbroi = {
         }
             ZbiorButow.Envile.isShown();
                 if(activeButyItems[6]){
-                    console.log(activeButyItems[6]);
+                    (activeButyItems[6]);
                     activeButyItems[6].addEventListener("click", () => {
                         ZbiorButow.Envile.isActive(true);
     
@@ -3480,7 +3485,7 @@ const ZbiorZbroi = {
         }
             ZbiorButow.Lysmary.isShown();
                 if(activeButyItems[7]){
-                    console.log(activeButyItems[7]);
+                    (activeButyItems[7]);
                     activeButyItems[7].addEventListener("click", () => {
                         ZbiorButow.Lysmary.isActive(true);
     
@@ -3494,7 +3499,7 @@ const ZbiorZbroi = {
         }
             ZbiorButow.Moczary.isShown();
                 if(activeButyItems[8]){
-                    console.log(activeButyItems[8]);
+                    (activeButyItems[8]);
                     activeButyItems[8].addEventListener("click", () => {
                         ZbiorButow.Moczary.isActive(true);
     
@@ -3508,7 +3513,7 @@ const ZbiorZbroi = {
         }
             ZbiorButow.Tangnary.isShown();
                 if(activeButyItems[9]){
-                    console.log(activeButyItems[9]);
+                    (activeButyItems[9]);
                     activeButyItems[9].addEventListener("click", () => {
                         ZbiorButow.Tangnary.isActive(true);
     
@@ -3522,7 +3527,7 @@ const ZbiorZbroi = {
         }
             ZbiorButow.Thorimmy.isShown();
                 if(activeButyItems[10]){
-                    console.log(activeButyItems[10]);
+                    (activeButyItems[10]);
                     activeButyItems[10].addEventListener("click", () => {
                         ZbiorButow.Thorimmy.isActive(true);
     
@@ -3536,7 +3541,7 @@ const ZbiorZbroi = {
         }
             ZbiorButow.Virveny.isShown();
                 if(activeButyItems[11]){
-                    console.log(activeButyItems[11]);
+                    (activeButyItems[11]);
                     activeButyItems[11].addEventListener("click", () => {
                         ZbiorButow.Virveny.isActive(true);
     
