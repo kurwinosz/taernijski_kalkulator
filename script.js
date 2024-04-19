@@ -127,6 +127,18 @@ function checkRemoveButton(icon, iconName, iconImage, item){
             rmBtnTmp = "zbroja";
             tmpIcon = zbrojaIcon.getAttribute("current-item");
         }
+        if(removeButton.classList.contains("remove-naszyjnik-icon")){
+            rmBtnTmp = "naszyjnik";
+            tmpIcon = naszyjnikIcon.getAttribute("current-item");
+        }
+        if(removeButton.classList.contains("remove-rekawice-icon")){
+            rmBtnTmp = "rekawice";
+            tmpIcon = rekawiceIcon.getAttribute("current-item");
+        }
+        if(removeButton.classList.contains("remove-peleryna-icon")){
+            rmBtnTmp = "peleryna";
+            tmpIcon = pelerynaIcon.getAttribute("current-item");
+        }
         removeButton.addEventListener("click", () =>{
             icon.style.backgroundImage = `url("img/icons/${iconImage}.png")`;
 
@@ -160,16 +172,23 @@ switch (tmpItem){
         tmpItemName = zbrojaIcon.getAttribute("current-item");
         ZbiorZbroi[tmpItemName].isNotActive(true);
         break;
+    case "naszyjnik":
+        tmpItem = "naszyjnik";
+        tmpItemName = naszyjnikIcon.getAttribute("current-item");
+        ZbiorNaszyjnikow[tmpItemName].isNotActive(true);
+        break;
+    case "rekawice":
+        tmpItem = "rekawice";
+        tmpItemName = rekawiceIcon.getAttribute("current-item");
+        ZbiorRekawic[tmpItemName].isNotActive(true);
+        break;
+    case "peleryna":
+        tmpItem = "peleryna";
+        tmpItemName = pelerynaIcon.getAttribute("current-item");
+        ZbiorPeleryn[tmpItemName].isNotActive(true);
+        break;
 }                     
-
-
             Dialog.close()
-
-    
-
-
-
-
             //e.firstElementChild can be used. 
             let child = Dialog_container.firstElementChild;
             while (child) {
@@ -222,32 +241,18 @@ class Helm{
     isActive(activated){
 
         this.active = activated;
-        (this.active);
-        tmpIcon = helmIcon.getAttribute("current-item");
-        if(tmpIcon !== null){
-            if(tmpItemName != tmpIcon){
-                tmpItemName = tmpIcon;
-                (tmpItemName);
-                ZbiorHelmow[tmpItemName].isNotActive(true);
-                }    
-        }
-
-
-          
-
-        (this.stamp);
-        if(this.stamp >= 1){
+        (this.active);("current-item");
+        if(this.stamp > 1){
             this.isNotActive(true);
 
         }
             if(this.active === true){
                 this.stamp++;
                 helmIcon.style.backgroundImage = `url(${this.img})`;
-                (this.img);
+                tmpIcon = helmIcon.getAttribute("current-item");
                 helmIcon.setAttribute("current-item", this.name);
+                tmpItemName = helmIcon.getAttribute("current-item");
                 checkRemoveButton(helmIcon, "helm-icon", "helmIcon", "helm");
-    
-                ("MANA" + currentMana)
                 if(this.stamp <= 1){
                     currentPower += this.power;
                     currentKnowledge += this.knowledge;
@@ -259,6 +264,12 @@ class Helm{
                     checkStatistics();
                 }
                    
+            }
+    if(tmpIcon !== null){
+        if(tmpItemName != tmpIcon){
+            tmpItemName = tmpIcon;
+            ZbiorHelmow[tmpItemName].isNotActive(true);
+        }    
             }
     }
     isNotActive(notActivated){
@@ -345,7 +356,6 @@ class Zbroja{
                 console.log(this.stamp, "STAMp ISACIVE1");
                 this.stamp++;
                 zbrojaIcon.style.backgroundImage = `url(${this.img})`;
-                (this.img);
                 tmpIcon = zbrojaIcon.getAttribute("current-item");
                 zbrojaIcon.setAttribute("current-item", this.name);
                 tmpItemName = zbrojaIcon.getAttribute("current-item");
@@ -367,7 +377,6 @@ class Zbroja{
         if(tmpIcon !== null){
             if(tmpItemName != tmpIcon){
                 tmpItemName = tmpIcon;
-                (tmpItemName);
                 ZbiorZbroi[tmpItemName].isNotActive(true);
                 }    
         }
@@ -446,34 +455,20 @@ const ZbiorZbroi = {
             this.stamp = 0;
         }
         isActive(activated){
-            (this.active, this.name)
+
             this.active = activated;
-            (this.active);
-            tmpIcon =naszyjnikIcon.getAttribute("current-item");
-            if(tmpIcon !== null){
-                if(tmpItemName != tmpIcon){
-                    tmpItemName = tmpIcon;
-                    (tmpItemName);
-                    ZbiorNaszyjnikow[tmpItemName].isNotActive(true);
-                    }    
-            }
-    
-    
-              
-    
-            (this.stamp);
-            if(this.stamp >= 1){
+            (this.active);("current-item");
+            if(this.stamp > 1){
                 this.isNotActive(true);
     
             }
                 if(this.active === true){
                     this.stamp++;
                     naszyjnikIcon.style.backgroundImage = `url(${this.img})`;
-                    (this.img);
+                    tmpIcon = naszyjnikIcon.getAttribute("current-item");
                     naszyjnikIcon.setAttribute("current-item", this.name);
+                    tmpItemName = naszyjnikIcon.getAttribute("current-item");
                     checkRemoveButton(naszyjnikIcon, "naszyjnik-icon", "naszyjnikIcon", "naszyjnik");
-        
-                    ("MANA" + currentMana)
                     if(this.stamp <= 1){
                         currentPower += this.power;
                         currentKnowledge += this.knowledge;
@@ -485,6 +480,12 @@ const ZbiorZbroi = {
                         checkStatistics();
                     }
                        
+                }
+        if(tmpIcon !== null){
+            if(tmpItemName != tmpIcon){
+                tmpItemName = tmpIcon;
+                ZbiorNaszyjnikow[tmpItemName].isNotActive(true);
+            }    
                 }
         }
         isNotActive(notActivated){
@@ -536,13 +537,13 @@ const ZbiorZbroi = {
         Markahn: new Naszyjnik("Markahn","img/markahn.png", false, false, false, 0, 3, 0, 3, 100, 0, 0),
         Obroza_wladcy: new Naszyjnik("Obroza_wladcy","img/obroza_wladcy.png", false, false, false, 7, 0, 0, 0, 80, 0, 0),
         /* DALEJ DOKONCZYC */
-        Ortasis: new Naszyjnik("Ortasis","img/ortasis.png", false, false, false, 0, 0, 8, 8, 80, 0, 0),
-        Ostolbin: new Naszyjnik("Ostolbin","img/ostolbin.png", false, false, false, 0, 0, 8, 8, 80, 0, 0),
-        Serce_seleny: new Naszyjnik("Serce_seleny","img/serce_seleny.png", false, false, false, 0, 0, 8, 8, 80, 0, 0),
-        Sphaera: new Naszyjnik("Sphaera","img/sphaera.png", false, false, false, 0, 0, 8, 8, 80, 0, 0),
-        Valazan: new Naszyjnik("Valazan","img/valazan.png", false, false, false, 0, 0, 8, 8, 80, 0, 0),
-        Vogurun: new Naszyjnik("Vogurun","img/vogurun.png", false, false, false, 0, 0, 8, 8, 80, 0, 0),
-        Zemsta_ivravula: new Naszyjnik("Zemsta_ivravula","img/zemsta_ivravula.png", false, false, false, 0, 0, 8, 8, 80, 0, 0),
+        Ortasis: new Naszyjnik("Ortasis","img/ortasis.png", false, false, false, 20, 20, 0, 0, 100, 30, 70),
+        Ostolbin: new Naszyjnik("Ostolbin","img/ostolbin.png", false, false, false, 6, 6,0,0, 60, 0, 100),
+        Serce_seleny: new Naszyjnik("Serce_seleny","img/serce_seleny.png", false, false, false, 0, 0, 0, 0, 200, 50, 50),
+        Sphaera: new Naszyjnik("Sphaera","img/sphaera.png", false, false, false, 0, 0, 8, 8, 0, 80, 0),
+        Valazan: new Naszyjnik("Valazan","img/valazan.png", false, false, false, 9, 9, 0, 0, 50, 0, 40),
+        Vogurun: new Naszyjnik("Vogurun","img/vogurun.png", false, false, false, 10, 10, 0, 0, 0, 0, 0),
+        Zemsta_ivravula: new Naszyjnik("Zemsta_ivravula","img/zemsta_ivravula.png", false, false, false, 0, 0, 0, 0, 400, 0, 0),
         
         }
 
@@ -563,34 +564,20 @@ const ZbiorZbroi = {
                 this.stamp = 0;
             }
             isActive(activated){
-                (this.active, this.name)
+
                 this.active = activated;
-                (this.active);
-                tmpIcon = rekawiceIcon.getAttribute("current-item");
-                if(tmpIcon !== null){
-                    if(tmpItemName != tmpIcon){
-                        tmpItemName = tmpIcon;
-                        (tmpItemName);
-                        ZbiorRekawic[tmpItemName].isNotActive(true);
-                        }    
-                }
-        
-        
-                  
-        
-                (this.stamp);
-                if(this.stamp >= 1){
+                (this.active);("current-item");
+                if(this.stamp > 1){
                     this.isNotActive(true);
         
                 }
                     if(this.active === true){
                         this.stamp++;
                         rekawiceIcon.style.backgroundImage = `url(${this.img})`;
-                        (this.img);
+                        tmpIcon = rekawiceIcon.getAttribute("current-item");
                         rekawiceIcon.setAttribute("current-item", this.name);
+                        tmpItemName = rekawiceIcon.getAttribute("current-item");
                         checkRemoveButton(rekawiceIcon, "rekawice-icon", "rekawiceIcon", "rekawice");
-            
-                        ("MANA" + currentMana)
                         if(this.stamp <= 1){
                             currentPower += this.power;
                             currentKnowledge += this.knowledge;
@@ -602,6 +589,12 @@ const ZbiorZbroi = {
                             checkStatistics();
                         }
                            
+                    }
+            if(tmpIcon !== null){
+                if(tmpItemName != tmpIcon){
+                    tmpItemName = tmpIcon;
+                    ZbiorRekawic[tmpItemName].isNotActive(true);
+                }    
                     }
             }
             isNotActive(notActivated){
@@ -646,16 +639,16 @@ const ZbiorZbroi = {
         }
 
         const ZbiorRekawic = {
-            Aeterus_passio: new Rekawice("Aeterus_passio", "img/aeterus_passio.png", false, false),
-            Biltabandury: new Rekawice("Biltabandury", "img/biltabandury.png", false, false),
-            Brassary: new Rekawice("Brassary", "img/brassary.png", false, false),
-            Fraxy: new Rekawice("Fraxy","img/fraxy.png", false, false),
-            Gest_wladcy: new Rekawice("Gest_wladcy","img/gest_wladcy.png", false, false),
-            Pazury: new Rekawice("Pazury","img/pazury.png", false, false),
-            Skry_utoru: new Rekawice("Skry_utoru","img/skry_utoru.png", false, false),
-            Szpony_seimhi: new Rekawice("Szpony_seimhi","img/szpony_seimhi.png", false, false),
-            Vaekany: new Rekawice("Vaekany","img/vaekany.png", false, false),
-            Zadry: new Rekawice("Zadry","img/zadry.png", false, false),
+            Aeterus_passio: new Rekawice("Aeterus_passio", "img/aeterus_passio.png", false, false, false, 0, 0, 30, 30, 250, 50, 0),
+            Biltabandury: new Rekawice("Biltabandury", "img/biltabandury.png", false, false, false, 0, 0, 2, 12, 100, 100, 0),
+            Brassary: new Rekawice("Brassary", "img/brassary.png", false, false, false, 10, 5, 0, 0, 0, 0, 60),
+            Fraxy: new Rekawice("Fraxy","img/fraxy.png", false, false, false, 3, 2, 0, 0, 40, 0, 10),
+            Gest_wladcy: new Rekawice("Gest_wladcy","img/gest_wladcy.png", false, false, false, 0, 0, 12, 5, 40, 20, 0),
+            Pazury: new Rekawice("Pazury","img/pazury.png", false, false, false, 15, 10, 0, 0, 120, 0, 180),
+            Skry_utoru: new Rekawice("Skry_utoru","img/skry_utoru.png", false, false, false, 23, 27, 0, 0, 190, 0, 160),
+            Szpony_seimhi: new Rekawice("Szpony_seimhi","img/szpony_seimhi.png", false, false, false, 23, 27, 0, 0, 190, 0, 160),
+            Vaekany: new Rekawice("Vaekany","img/vaekany.png", false, false, false, 10, 7, 0, 0, 20, 0, 180),
+            Zadry: new Rekawice("Zadry","img/zadry.png", false, false, false, 15, 18, 0, 0, 180, 40, 0),
             
             }
 
@@ -676,34 +669,20 @@ const ZbiorZbroi = {
                     this.stamp = 0;
                 }
                 isActive(activated){
-                    (this.active, this.name)
+
                     this.active = activated;
-                    (this.active);
-                    tmpIcon = pelerynaIcon.getAttribute("current-item");
-                    if(tmpIcon !== null){
-                        if(tmpItemName != tmpIcon){
-                            tmpItemName = tmpIcon;
-                            (tmpItemName);
-                            ZbiorPeleryn[tmpItemName].isNotActive(true);
-                            }    
-                    }
-            
-            
-                      
-            
-                    (this.stamp);
-                    if(this.stamp >= 1){
+                    (this.active);("current-item");
+                    if(this.stamp > 1){
                         this.isNotActive(true);
             
                     }
                         if(this.active === true){
                             this.stamp++;
                             pelerynaIcon.style.backgroundImage = `url(${this.img})`;
-                            (this.img);
+                            tmpIcon = pelerynaIcon.getAttribute("current-item");
                             pelerynaIcon.setAttribute("current-item", this.name);
+                            tmpItemName = pelerynaIcon.getAttribute("current-item");
                             checkRemoveButton(pelerynaIcon, "peleryna-icon", "pelerynaIcon", "peleryna");
-                
-                            ("MANA" + currentMana)
                             if(this.stamp <= 1){
                                 currentPower += this.power;
                                 currentKnowledge += this.knowledge;
@@ -715,6 +694,12 @@ const ZbiorZbroi = {
                                 checkStatistics();
                             }
                                
+                        }
+                if(tmpIcon !== null){
+                    if(tmpItemName != tmpIcon){
+                        tmpItemName = tmpIcon;
+                        ZbiorPeleryn[tmpItemName].isNotActive(true);
+                    }    
                         }
                 }
                 isNotActive(notActivated){
@@ -758,17 +743,17 @@ const ZbiorZbroi = {
         
             }
         const ZbiorPeleryn = {
-            Admiralski_gronostaj: new Peleryna("Admiralski_gronostaj", "img/admiralski_gronostaj.png", false, false),
-            Angvallion: new Peleryna("Angvallion", "img/angvallion.png", false, false),
-            Bryza: new Peleryna("Bryza", "img/bryza.png", false, false),
-            Cien_tarula: new Peleryna("Cien_tarula","img/cien_tarula.png", false, false),
-            Debba: new Peleryna("Debba","img/debba.png", false, false),
-            Dracorporis: new Peleryna("Dracorporis","img/dracorporis.png", false, false),
-            Hanba_seleny: new Peleryna("Hanba_seleny","img/hanba_seleny.png", false, false),
-            Powrot_ivravula: new Peleryna("Powrot_ivravula","img/powrot_ivravula.png", false, false),
-            Tsunami: new Peleryna("Tsunami","img/tsunami.png", false, false),
-            Xenothor: new Peleryna("Xenothor","img/xenothor.png", false, false),
-            Nurthil: new Peleryna("Nurthil","img/nurthil.png", false, false),
+            Admiralski_gronostaj: new Peleryna("Admiralski_gronostaj", "img/admiralski_gronostaj.png", false, false, false, 0, 0, 15, 32, 170, 130, 80),
+            Angvallion: new Peleryna("Angvallion", "img/angvallion.png", false, false,  false, 0, 0, 0, 30, 100, 100, 100),
+            Bryza: new Peleryna("Bryza", "img/bryza.png", false, false, false, 0, 0, 7, 9, 90, 30, 0),
+            Cien_tarula: new Peleryna("Cien_tarula","img/cien_tarula.png", false, false,  false, 26, 34, 0, 0, 300, 20, 80),
+            Debba: new Peleryna("Debba","img/debba.png", false, false,  false, 0, 0, 20, 0, 100, 0, 60),
+            Dracorporis: new Peleryna("Dracorporis","img/dracorporis.png", false, false,  false, 20, 20, 0, 0, 100, 0, 50),
+            Hanba_seleny: new Peleryna("Hanba_seleny","img/hanba_seleny.png", false, false,  false, 12, 20, 0, 0, 250, 0, 180),
+            Powrot_ivravula: new Peleryna("Powrot_ivravula","img/powrot_ivravula.png", false, false,  false, 0, 0, 14, 23, 50, 0, 20),
+            Tsunami: new Peleryna("Tsunami","img/tsunami.png", false, false,  false, 8, 16, 0, 0, 100, 0, 0),
+            Xenothor: new Peleryna("Xenothor","img/xenothor.png", false, false,  false, 0, 0, 10, 18, 80, -30, 0),
+            Nurthil: new Peleryna("Nurthil","img/nurthil.png", false, false,  false, 19, 14, 0, 0, -50, 0, 0),
                 
                 }
 
@@ -872,32 +857,32 @@ const ZbiorZbroi = {
                 }
         
                 const ZbiorBroni = {
-                    Ayol: new Bron("Ayol", "img/ayol.png", false, false),
-                    Batagur: new Bron("Batagur", "img/batagur.png", false, false),
-                    Bol: new Bron("Bol", "img/bol.png", false, false),
-                    Buoriany: new Bron("Buoriany","img/buoriany.png", false, false),
-                    Ciern: new Bron("Ciern","img/ciern.png", false, false),
-                    Davgretor: new Bron("Davgretor","img/davgretor.png", false, false),
-                    Derengil: new Bron("Derengil","img/derengil.png", false, false),
-                    Geomorph_core: new Bron("Geomorph_core","img/geomorph_core.png", false, false),
-                    Gjolmar: new Bron("Gjolmar","img/gjolmar.png", false, false),
-                    Istav: new Bron("Istav","img/istav.png", false, false),
-                    Isverd: new Bron("Isverd","img/isverd.png", false, false),
-                    Lawina: new Bron("Lawina","img/lawina.png", false, false),
-                    Mallus_selenorum: new Bron("Mallus_selenorum","img/mallus_selenorum.png", false, false),
-                    Ognisty_mlot: new Bron("Ognisty_mlot","img/ognisty_mlot.png", false, false),
-                    Piroklast: new Bron("Piroklast","img/piroklast.png", false, false),
-                    Rolrak: new Bron("Rolrak","img/rolrak.png", false, false),
-                    Sidun: new Bron("Sidun","img/sidun.png", false, false),
-                    Smoczy_gnat: new Bron("Smoczy_gnat","img/smoczy_gnat.png", false, false),
-                    Sturprang: new Bron("Sturprang","img/sturprang.png", false, false),
-                    Taehal: new Bron("Taehal","img/taehal.png", false, false),
-                    Tasak: new Bron("Tasak","img/tasak.png", false, false),
-                    Tezec: new Bron("Tezec","img/tezec.png", false, false),
-                    Trojzab_admiralski: new Bron("Trojzab_admiralski","img/trojzab_admiralski.png", false, false),
-                    Urntsul: new Bron("Urntsul","img/urntsul.png", false, false),
-                    Virral: new Bron("Virral","img/virral.png", false, false),
-                    Wladca_losu: new Bron("Wladca_losu","img/wladca_losu.png", false, false),
+                    Ayol: new Bron("Ayol", "img/ayol.png", false, false,  false, 0, 0, 0, 0, 0, 0, 0),
+                    Batagur: new Bron("Batagur", "img/batagur.png", false, false,  false, 0, 0, 0, 0, 0, 0, 0),
+                    Bol: new Bron("Bol", "img/bol.png", false, false,  false, 0, 0, 0, 0, 0, 0, 0),
+                    Buoriany: new Bron("Buoriany","img/buoriany.png", false, false,  false, 0, 0, 0, 0, 0, 0, 0),
+                    Ciern: new Bron("Ciern","img/ciern.png", false, false,  false, 0, 0, 0, 0, 0, 0, 0),
+                    Davgretor: new Bron("Davgretor","img/davgretor.png", false, false,  false, 0, 0, 0, 0, 0, 0, 0),
+                    Derengil: new Bron("Derengil","img/derengil.png", false, false,  false, 0, 0, 0, 0, 0, 0, 0),
+                    Geomorph_core: new Bron("Geomorph_core","img/geomorph_core.png", false, false,  false, 0, 0, 0, 0, 0, 0, 0),
+                    Gjolmar: new Bron("Gjolmar","img/gjolmar.png", false, false,  false, 0, 0, 0, 0, 0, 0, 0),
+                    Istav: new Bron("Istav","img/istav.png", false, false,  false, 0, 0, 0, 0, 0, 0, 0),
+                    Isverd: new Bron("Isverd","img/isverd.png", false, false,  false, 0, 0, 0, 0, 0, 0, 0),
+                    Lawina: new Bron("Lawina","img/lawina.png", false, false,  false, 0, 0, 0, 0, 0, 0, 0),
+                    Mallus_selenorum: new Bron("Mallus_selenorum","img/mallus_selenorum.png", false, false,  false, 0, 0, 0, 0, 0, 0, 0),
+                    Ognisty_mlot: new Bron("Ognisty_mlot","img/ognisty_mlot.png", false, false,  false, 0, 0, 0, 0, 0, 0, 0),
+                    Piroklast: new Bron("Piroklast","img/piroklast.png", false, false,  false, 0, 0, 0, 0, 0, 0, 0),
+                    Rolrak: new Bron("Rolrak","img/rolrak.png", false, false,  false, 0, 0, 0, 0, 0, 0, 0),
+                    Sidun: new Bron("Sidun","img/sidun.png", false, false,  false, 0, 0, 0, 0, 0, 0, 0),
+                    Smoczy_gnat: new Bron("Smoczy_gnat","img/smoczy_gnat.png", false, false,  false, 0, 0, 0, 0, 0, 0, 0),
+                    Sturprang: new Bron("Sturprang","img/sturprang.png", false, false,  false, 0, 0, 0, 0, 0, 0, 0),
+                    Taehal: new Bron("Taehal","img/taehal.png", false, false,  false, 0, 0, 0, 0, 0, 0, 0),
+                    Tasak: new Bron("Tasak","img/tasak.png", false, false,  false, 0, 0, 0, 0, 0, 0, 0),
+                    Tezec: new Bron("Tezec","img/tezec.png", false, false,  false, 0, 0, 0, 0, 0, 0, 0),
+                    Trojzab_admiralski: new Bron("Trojzab_admiralski","img/trojzab_admiralski.png", false, false,  false, 0, 0, 0, 0, 0, 0, 0),
+                    Urntsul: new Bron("Urntsul","img/urntsul.png", false, false,  false, 0, 0, 0, 0, 0, 0, 0),
+                    Virral: new Bron("Virral","img/virral.png", false, false,  false, 0, 0, 0, 0, 0, 0, 0),
+                    Wladca_losu: new Bron("Wladca_losu","img/wladca_losu.png", false, false,  false, 0, 0, 0, 0, 0, 0, 0),
                         
                         }
                 class Karwasze{
@@ -1000,10 +985,10 @@ const ZbiorZbroi = {
                 }
         
                 const ZbiorKarwaszy = {
-                    Ariachy: new Karwasze("Ariachy", "img/ariachy.png", false, false),
-                    Berglisy: new Karwasze("Berglisy", "img/berglisy.png", false, false),
-                    Geury: new Karwasze("Geury", "img/geury.png", false, false),
-                    Inavoxy: new Karwasze("Inavoxy","img/inavoxy.png", false, false),
+                    Ariachy: new Karwasze("Ariachy", "img/ariachy.png", false, false,  false, 0, 0, 0, 0, 0, 0, 0),
+                    Berglisy: new Karwasze("Berglisy", "img/berglisy.png", false, false,  false, 0, 0, 0, 0, 0, 0, 0),
+                    Geury: new Karwasze("Geury", "img/geury.png", false, false,  false, 0, 0, 0, 0, 0, 0, 0),
+                    Inavoxy: new Karwasze("Inavoxy","img/inavoxy.png", false, false,  false, 0, 0, 0, 0, 0, 0, 0),
                         }
 
                         class Spodnie{
@@ -1106,16 +1091,16 @@ const ZbiorZbroi = {
                         }
                 
                         const ZbiorSpodni = {
-                            Aquariusy: new Spodnie("Aquariusy", "img/aquariusy.png", false, false),
-                            Erbaile: new Spodnie("Erbaile", "img/erbaile.png", false, false),
-                            Obdartusy: new Spodnie("Obdartusy", "img/obdartusy.png", false, false),
-                            Skiilfy: new Spodnie("Skiilfy","img/skiilfy.png", false, false),
-                            Temary: new Spodnie("Temary","img/temary.png", false, false),
-                            Tirhel: new Spodnie("Tirhel","img/tirhel.png", false, false),
-                            Udreki: new Spodnie("Udreki","img/udreki.png", false, false),
-                            Varrvy: new Spodnie("Varrvy","img/varrvy.png", false, false),
-                            Wzorek: new Spodnie("Wzorek","img/wzorek.png", false, false),
-                            Ziraki: new Spodnie("Ziraki","img/ziraki.png", false, false),
+                            Aquariusy: new Spodnie("Aquariusy", "img/aquariusy.png", false, false,  false, 0, 0, 0, 0, 0, 0, 0),
+                            Erbaile: new Spodnie("Erbaile", "img/erbaile.png", false, false,  false, 0, 0, 0, 0, 0, 0, 0),
+                            Obdartusy: new Spodnie("Obdartusy", "img/obdartusy.png", false, false,  false, 0, 0, 0, 0, 0, 0, 0),
+                            Skiilfy: new Spodnie("Skiilfy","img/skiilfy.png", false, false,  false, 0, 0, 0, 0, 0, 0, 0),
+                            Temary: new Spodnie("Temary","img/temary.png", false, false,  false, 0, 0, 0, 0, 0, 0, 0),
+                            Tirhel: new Spodnie("Tirhel","img/tirhel.png", false, false,  false, 0, 0, 0, 0, 0, 0, 0),
+                            Udreki: new Spodnie("Udreki","img/udreki.png", false, false,  false, 0, 0, 0, 0, 0, 0, 0),
+                            Varrvy: new Spodnie("Varrvy","img/varrvy.png", false, false,  false, 0, 0, 0, 0, 0, 0, 0),
+                            Wzorek: new Spodnie("Wzorek","img/wzorek.png", false, false,  false, 0, 0, 0, 0, 0, 0, 0),
+                            Ziraki: new Spodnie("Ziraki","img/ziraki.png", false, false,  false, 0, 0, 0, 0, 0, 0, 0),
                                 }
                         class Pas{
                             constructor(name, img, active, notActive, shown, power, knowledge, strength, agility, hp, stamina, mana){
@@ -1217,16 +1202,16 @@ const ZbiorZbroi = {
                         }
                 
                         const ZbiorPasow = {
-                            Anabolik: new Pas("Anabolik", "img/anabolik.png", false, false),
-                            Dagorilm: new Pas("Dagorilm", "img/dagorilm.png", false, false),
-                            Exuvium: new Pas("Exuvium", "img/exuvium.png", false, false),
-                            Groza_seleny: new Pas("Groza_seleny","img/groza_seleny.png", false, false),
-                            Koriatula: new Pas("Koriatula","img/koriatula.png", false, false),
-                            Nienawisc_draugula: new Pas("Nienawisc_draugula","img/nienawisc_draugula.png", false, false),
-                            Nurt: new Pas("Nurt","img/nurt.png", false, false),
-                            Promuris: new Pas("Promuris","img/promuris.png", false, false),
-                            Radius_electricum: new Pas("Radius_electricum","img/radius_electricum.png", false, false),
-                            Sentrion: new Pas("Sentrion","img/sentrion.png", false, false),
+                            Anabolik: new Pas("Anabolik", "img/anabolik.png", false, false,  false, 0, 0, 0, 0, 0, 0, 0),
+                            Dagorilm: new Pas("Dagorilm", "img/dagorilm.png", false, false,  false, 0, 0, 0, 0, 0, 0, 0),
+                            Exuvium: new Pas("Exuvium", "img/exuvium.png", false, false,  false, 0, 0, 0, 0, 0, 0, 0),
+                            Groza_seleny: new Pas("Groza_seleny","img/groza_seleny.png", false, false,  false, 0, 0, 0, 0, 0, 0, 0),
+                            Koriatula: new Pas("Koriatula","img/koriatula.png", false, false,  false, 0, 0, 0, 0, 0, 0, 0),
+                            Nienawisc_draugula: new Pas("Nienawisc_draugula","img/nienawisc_draugula.png", false, false,  false, 0, 0, 0, 0, 0, 0, 0),
+                            Nurt: new Pas("Nurt","img/nurt.png", false, false,  false, 0, 0, 0, 0, 0, 0, 0),
+                            Promuris: new Pas("Promuris","img/promuris.png", false, false,  false, 0, 0, 0, 0, 0, 0, 0),
+                            Radius_electricum: new Pas("Radius_electricum","img/radius_electricum.png", false, false,  false, 0, 0, 0, 0, 0, 0, 0),
+                            Sentrion: new Pas("Sentrion","img/sentrion.png", false, false,  false, 0, 0, 0, 0, 0, 0, 0),
                                 }
                         class Pierscien1{
                             constructor(name, img, active, notActive, shown, power, knowledge, strength, agility, hp, stamina, mana){
@@ -1328,20 +1313,20 @@ const ZbiorZbroi = {
                         }
                 
                         const ZbiorPierscieni1 = {
-                            Arcanscape: new Pierscien1("Arcanscape", "img/arcanscape.png", false, false),
-                            Balast: new Pierscien1("Balast", "img/balast.png", false, false),
-                            Basileus: new Pierscien1("Basileus", "img/basileus.png", false, false),
-                            Fiskorl: new Pierscien1("Fiskorl","img/fiskorl.png", false, false),
-                            Fulgur: new Pierscien1("Fulgur","img/fulgur.png", false, false),
-                            Griv: new Pierscien1("Griv","img/griv.png", false, false),
-                            Karlder: new Pierscien1("Karlder","img/karlder.png", false, false),
-                            Mauremys: new Pierscien1("Mauremys","img/Mauremys.png", false, false),
-                            Navigon: new Pierscien1("Navigon","img/Navigon.png", false, false),
-                            Nit: new Pierscien1("Nit","img/Nit.png", false, false),
-                            Przysiega_draugula: new Pierscien1("Przysiega_draugula","img/przysiega_draugula.png", false, false),
-                            Skogan: new Pierscien1("Skogan","img/skogan.png", false, false),
-                            Uguns: new Pierscien1("Uguns","img/uguns.png", false, false),
-                            Zaglada_ludow: new Pierscien1("Zaglada_ludow","img/zaglada_ludow.png", false, false),
+                            Arcanscape: new Pierscien1("Arcanscape", "img/arcanscape.png", false, false,  false, 0, 0, 0, 0, 0, 0, 0),
+                            Balast: new Pierscien1("Balast", "img/balast.png", false, false,  false, 0, 0, 0, 0, 0, 0, 0),
+                            Basileus: new Pierscien1("Basileus", "img/basileus.png", false, false,  false, 0, 0, 0, 0, 0, 0, 0),
+                            Fiskorl: new Pierscien1("Fiskorl","img/fiskorl.png", false, false,  false, 0, 0, 0, 0, 0, 0, 0),
+                            Fulgur: new Pierscien1("Fulgur","img/fulgur.png", false, false,  false, 0, 0, 0, 0, 0, 0, 0),
+                            Griv: new Pierscien1("Griv","img/griv.png", false, false,  false, 0, 0, 0, 0, 0, 0, 0),
+                            Karlder: new Pierscien1("Karlder","img/karlder.png", false, false,  false, 0, 0, 0, 0, 0, 0, 0),
+                            Mauremys: new Pierscien1("Mauremys","img/Mauremys.png", false, false,  false, 0, 0, 0, 0, 0, 0, 0),
+                            Navigon: new Pierscien1("Navigon","img/Navigon.png", false, false,  false, 0, 0, 0, 0, 0, 0, 0),
+                            Nit: new Pierscien1("Nit","img/Nit.png", false, false,  false, 0, 0, 0, 0, 0, 0, 0),
+                            Przysiega_draugula: new Pierscien1("Przysiega_draugula","img/przysiega_draugula.png", false, false,  false, 0, 0, 0, 0, 0, 0, 0),
+                            Skogan: new Pierscien1("Skogan","img/skogan.png", false, false,  false, 0, 0, 0, 0, 0, 0, 0),
+                            Uguns: new Pierscien1("Uguns","img/uguns.png", false, false,  false, 0, 0, 0, 0, 0, 0, 0),
+                            Zaglada_ludow: new Pierscien1("Zaglada_ludow","img/zaglada_ludow.png", false, false,  false, 0, 0, 0, 0, 0, 0, 0),
                                 }
                         class Pierscien2{
                             constructor(name, img, active, notActive, shown, power, knowledge, strength, agility, hp, stamina, mana){
@@ -1558,18 +1543,18 @@ const ZbiorZbroi = {
                         }
                 
                         const ZbiorButow = {
-                            Alendry: new Buty("Alendry", "img/alendry.png", false, false),
-                            Aqueniry: new Buty("Aqueniry", "img/aqueniry.png", false, false),
-                            Arhauty: new Buty("Arhauty", "img/arhauty.png", false, false),
-                            Cierpietniki: new Buty("Cierpietniki","img/cierpietniki.png", false, false),
-                            Czengsvesy: new Buty("Czengsvesy","img/czengsvesy.png", false, false),
-                            Envile: new Buty("Envile","img/envile.png", false, false),
-                            Jeroszki: new Buty("Jeroszki","img/jeroszki.png", false, false),
-                            Lysmary: new Buty("Lysmary","img/Lysmary.png", false, false),
-                            Moczary: new Buty("Moczary","img/moczary.png", false, false),
-                            Tangnary: new Buty("Tangnary","img/tangnary.png", false, false),
-                            Virveny: new Buty("Virveny","img/virveny.png", false, false),
-                            Thorimmy: new Buty("Thorimmy","img/thorimmy.png", false, false),
+                            Alendry: new Buty("Alendry", "img/alendry.png", false, false,  false, 0, 0, 0, 0, 0, 0, 0),
+                            Aqueniry: new Buty("Aqueniry", "img/aqueniry.png", false, false,  false, 0, 0, 0, 0, 0, 0, 0),
+                            Arhauty: new Buty("Arhauty", "img/arhauty.png", false, false,  false, 0, 0, 0, 0, 0, 0, 0),
+                            Cierpietniki: new Buty("Cierpietniki","img/cierpietniki.png", false, false,  false, 0, 0, 0, 0, 0, 0, 0),
+                            Czengsvesy: new Buty("Czengsvesy","img/czengsvesy.png", false, false,  false, 0, 0, 0, 0, 0, 0, 0),
+                            Envile: new Buty("Envile","img/envile.png", false, false,  false, 0, 0, 0, 0, 0, 0, 0),
+                            Jeroszki: new Buty("Jeroszki","img/jeroszki.png", false, false,  false, 0, 0, 0, 0, 0, 0, 0),
+                            Lysmary: new Buty("Lysmary","img/Lysmary.png", false, false,  false, 0, 0, 0, 0, 0, 0, 0),
+                            Moczary: new Buty("Moczary","img/moczary.png", false, false,  false, 0, 0, 0, 0, 0, 0, 0),
+                            Tangnary: new Buty("Tangnary","img/tangnary.png", false, false,  false, 0, 0, 0, 0, 0, 0, 0),
+                            Virveny: new Buty("Virveny","img/virveny.png", false, false,  false, 0, 0, 0, 0, 0, 0, 0),
+                            Thorimmy: new Buty("Thorimmy","img/thorimmy.png", false, false,  false, 0, 0, 0, 0, 0, 0, 0),
                                 }
 
 
